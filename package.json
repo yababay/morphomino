@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "rm -rf dist && npm run build && mv dist docs && git add . && git commit -am 'deploy' && git push origin main"
+    "deploy": "rm -rf dist && npm run build && sed 's/.static/static/' -i ./dist/index.html && mv dist docs && git add . && git commit -am 'deploy' && git push origin main"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.2",
