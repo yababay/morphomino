@@ -1,6 +1,21 @@
 <script>
 
     export let item
+    
+    function getLeftPadding(word){
+      switch(word.length){
+        case 1: return 70;
+        case 2: return 60;
+        case 3: return 60;
+        case 4: return 50;
+        case 5: return 40;
+        case 6: return 35;
+        case 7: return 30;
+        case 8: return 30;
+        case 9: return 20;
+        default: return 5
+      }
+    }
 
 </script>
 
@@ -55,7 +70,7 @@
         transform="matrix(0.26458333,0,0,0.26458333,0,4.924935)"
         id="text78730"
         style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;white-space:pre;shape-inside:url(#rect78732);fill:#000000;fill-opacity:1;stroke:none"><tspan
-          x="29.581055"
+          x={getLeftPadding(item.value)}
           y="44.519531"
           id="title">{item.value}</tspan></text>
       <path
