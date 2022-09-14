@@ -3,7 +3,7 @@
     import MorphominoCard from "./MorphominoCard.svelte"
     import { words } from './store'
 
-    let toggle = false
+    let toggle = true
 
     function updateCard(){
         words.set(
@@ -27,6 +27,8 @@
 
 <style>
     .morphomino-set {
+        max-width: 1200px;
+        margin: 3rem auto;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;

@@ -6,21 +6,26 @@
 
 <style>
   :root {
-    --morphomino-card-width: 300px;
+    --morphomino-card-width: 250px;
   }
+
+  @media (max-width: 850px) {
+    :root {
+      --morphomino-card-width: 180px;
+    }
+  } 
+  @media (max-width: 400px) {
+    :root {
+      --morphomino-card-width: 80px;
+    }
+  } 
 
   .morphomino-item {
     width: var(--morphomino-card-width);
     height: calc(var(--morphomino-card-width) / 1.618);
     border: 1px dotted grey;
-    margin: .5rem;
+    margin: .1rem;
   }
-
-  @media (max-width: 400px) {
-    :root {
-      --morphomino-card-width: 100px;
-    }
-  } 
 
   .morphomino-item svg {
     width: 100%;
