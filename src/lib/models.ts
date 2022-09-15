@@ -35,7 +35,6 @@ class MorphominoItem {
     #longPosName: string
 
     constructor(value: Posable = {word: '', pos: PartsOfSpeech.UNDEFINED}, pos: PartsOfSpeech = getRandomPos()){
-        console.log(value)
         this.#value = value
         this.#pos = value.pos === PartsOfSpeech.UNDEFINED ? PartsOfSpeech.UNDEFINED : pos
         const descr =  descriptions[this.#pos]

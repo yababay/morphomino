@@ -1,8 +1,18 @@
 <script>
 
-  import { replaceForFirst } from './store'
+  import { replaceForFirst, gameFlow } from './store'
   
   export let item, index
+
+  function makeMove(e){
+    const fromFlow = $gameFlow.at(-1)
+    if(!item.isCongeneric(fromFlow)) {
+      alert(`Слово "${item.value}" - не ${fromFlow.longPosName}!`)
+      return
+    }
+    gameFlow.set([...$gameFlow, item])
+    replaceForFirst(index)
+  }
   
   function getLeftPadding(word){
     switch(word.length){
@@ -51,7 +61,7 @@
   }
 </style>
 
-<div class="morphomino-item" on:click={() => replaceForFirst(index)}>
+<div class="morphomino-item" on:click={makeMove}>
   <svg
       class="domino-item-svg"
       viewBox="0 0 50 31"
