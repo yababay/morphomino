@@ -7,8 +7,40 @@ enum PartsOfSpeech {
     PREPOSITION,
     CONJUNCTION,
     INTERJECTION,
+    NUMERAL,
+    PARTICLE,
     UNDEFINED
 }
+
+/*
+Глаголов 37319;
+Существительных 56332
+Прилагательных 24786
+Местоимений 93
+Наречий 1916 	Числительных 117
+Междометий 341
+Союзов 110
+Предлогов 141
+Частиц 149
+*/
+
+const posStatistics = {
+    [PartsOfSpeech.NOUN]: 56332,
+    [PartsOfSpeech.PRONOUN]: 93,
+    [PartsOfSpeech.VERB]: 37319,
+    [PartsOfSpeech.ADJECTIVE]: 24786,
+    [PartsOfSpeech.ADVERB]: 1916,
+    [PartsOfSpeech.PREPOSITION]: 141,
+    [PartsOfSpeech.CONJUNCTION]: 110,
+    [PartsOfSpeech.INTERJECTION]: 341,
+    [PartsOfSpeech.NUMERAL]: 117,
+    [PartsOfSpeech.PARTICLE]: 149
+}
+
+const posRepresentation = Object.entries(posStatistics)
+    .map(entry => new Array(entry[1]).fill(entry[0]))
+    .reduce((acc, curr) => [...acc, ...curr])
+    .sort(el => Math.random() > .5 && 1 || -1)
 
 interface Posable {
     word: string,
@@ -24,6 +56,8 @@ const descriptions: object = {
     [PartsOfSpeech.PREPOSITION]: "предлог",
     [PartsOfSpeech.CONJUNCTION]: "союз",
     [PartsOfSpeech.INTERJECTION]: ["междометие", "междом."],
+    [PartsOfSpeech.NUMERAL]: ["числительное", "числит."],
+    [PartsOfSpeech.PARTICLE]: "частица",
     [PartsOfSpeech.UNDEFINED]: ""
 }
 
@@ -48,7 +82,7 @@ class MorphominoItem {
     }
 
     isCongeneric(another: MorphominoItem) {
-        return this.nextPos === another.selfPos 
+        return this.selfPos === another.nextPos 
     }
 
     get value(): string{
@@ -56,11 +90,11 @@ class MorphominoItem {
     }
 
     get selfPos(): PartsOfSpeech {
-        return this.#value.pos
+        return assureNumber(this.#value.pos)
     }
 
     get nextPos(): PartsOfSpeech {
-        return this.#pos
+        return assureNumber(this.#pos)
     }
 
     get longPosName() {
@@ -72,13 +106,24 @@ class MorphominoItem {
     }
 }
 
+function assureNumber(val){
+    return typeof val === 'number' && val || parseInt(val)
+}
+
 function getKeyNames(): string[] {
     return Object.keys(PartsOfSpeech)
         .filter(v => isNaN(Number(v)))
         .filter(v => v !== 'UNDEFINED')
 }
 
-function getRandomPos(): PartsOfSpeech {
+function getRandomPos() : PartsOfSpeech{
+    const {length} = posRepresentation
+    const rand = Math.random() * length
+    const floor = Math.floor(rand)
+    return posRepresentation[floor]
+}
+
+function getRandomPosPrev(): PartsOfSpeech {
     const {length} = getKeyNames()
     const rand = Math.random() * length
     const floor = Math.floor(rand)

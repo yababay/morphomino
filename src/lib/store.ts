@@ -4,8 +4,18 @@ import { PartsOfSpeech, getKeyNames, MorphominoItem } from './models'
 const firstPlayer = writable([])
 const secondPlayer = writable([])
 const gameFlow = writable([new MorphominoItem, new MorphominoItem])
+const alertMessage = writable('')
+
+function showAlert(msg){
+    alertMessage.set(msg)
+    setTimeout(() => alertMessage.set(''), 4000)
+}
 
 let dictionary = null
+
+function resetForFirst() {
+    firstPlayer.set(getRandomItems())
+}
 
 Promise.all(getKeyNames().map(key => 
         fetch(`./assets/${key.toLowerCase()}s.txt`)
@@ -47,4 +57,4 @@ function replaceForSecond(n) {
     firstPlayer.set(replaceItem(get(secondPlayer), n))
 }
 
-export { firstPlayer, secondPlayer, replaceForFirst, replaceForSecond, gameFlow }
+export { firstPlayer, secondPlayer, replaceForFirst, replaceForSecond, gameFlow, alertMessage, showAlert, resetForFirst }

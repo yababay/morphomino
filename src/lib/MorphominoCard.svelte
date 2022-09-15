@@ -1,13 +1,14 @@
 <script>
 
-  import { replaceForFirst, gameFlow } from './store'
-  
+  import { replaceForFirst, gameFlow, showAlert } from './store'
+
   export let item, index
 
   function makeMove(e){
     const fromFlow = $gameFlow.at(-1)
     if(!item.isCongeneric(fromFlow)) {
-      alert(`Слово "${item.value}" - не ${fromFlow.longPosName}!`)
+      showAlert(`Слово "${item.value}" - не ${fromFlow.longPosName}!`)
+      console.log(item.value, typeof item.selfPos, typeof item.nextPos, typeof fromFlow.selfPos, typeof fromFlow.nextPos)
       return
     }
     gameFlow.set([...$gameFlow, item])
