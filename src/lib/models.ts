@@ -116,14 +116,14 @@ function getKeyNames(): string[] {
         .filter(v => v !== 'UNDEFINED')
 }
 
-function getRandomPos() : PartsOfSpeech{
+function getRandomPosRepresentable() : PartsOfSpeech{
     const {length} = posRepresentation
     const rand = Math.random() * length
     const floor = Math.floor(rand)
     return posRepresentation[floor]
 }
 
-function getRandomPosPrev(): PartsOfSpeech {
+function getRandomPos(): PartsOfSpeech {
     const {length} = getKeyNames()
     const rand = Math.random() * length
     const floor = Math.floor(rand)
@@ -136,6 +136,8 @@ function getRandomPosPrev(): PartsOfSpeech {
         case 5: return PartsOfSpeech.PREPOSITION
         case 6: return PartsOfSpeech.CONJUNCTION
         case 7: return PartsOfSpeech.INTERJECTION
+        case 8: return PartsOfSpeech.NUMERAL
+        case 9: return PartsOfSpeech.PARTICLE
         default: return PartsOfSpeech.UNDEFINED
     }
 }
