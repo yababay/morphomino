@@ -1,4 +1,4 @@
-import { PartsOfSpeech, MorphominoItem, getRandomPos } from '../src/lib/parts-of-speech';
+import { PartsOfSpeech, MorphominoItem, getRandomPos } from '../src/lib/models';
 import {describe, expect, test } from '@jest/globals'
 
 describe('testing import', () => {
@@ -9,22 +9,36 @@ describe('testing import', () => {
  
 describe('testing items behavior', () => {
   const word = 'барабулька'
-  const item = new MorphominoItem(word, PartsOfSpeech.NOUN)
+  const pos = PartsOfSpeech.NOUN
+  const item = new MorphominoItem({word, pos}, PartsOfSpeech.NOUN)
   test('value is correct', () => {
     expect(item.value).toBe(word)
   })
-  test('pos is correct', () => {
-    expect(item.pos).toBe(PartsOfSpeech.NOUN)
+  test('next pos is correct', () => {
+    expect(item.nextPos).toBe(PartsOfSpeech.NOUN)
+  })
+  test('self pos is correct', () => {
+    expect(item.selfPos).toBe(PartsOfSpeech.NOUN)
   })
 })
  
 describe('testing comparation', () => {
-  const word1 = 'барабулька'
-  const item1 = new MorphominoItem(word1, PartsOfSpeech.NOUN)
-  const word2 = 'карась'
-  const item2 = new MorphominoItem(word2, PartsOfSpeech.NOUN)
+  let word = 'барабулька'
+  let pos = PartsOfSpeech.NOUN
+  const item1 = new MorphominoItem({word, pos}, PartsOfSpeech.NOUN)
+  word = 'карась'
+  const item2 = new MorphominoItem({word, pos}, PartsOfSpeech.NOUN)
   test('poses are equal', () => {
     expect(item1.isCongeneric(item2)).toBe(true)
+  })
+})
+ 
+describe('testing keys by name', () => {
+  test('keys are equal by string', () => {
+    expect(PartsOfSpeech.NOUN === PartsOfSpeech['NOUN']).toBe(true)
+  })
+  test('keys are equal by number', () => {
+    expect(PartsOfSpeech.NOUN === 0).toBe(true)
   })
 })
 

@@ -10,6 +10,11 @@ enum PartsOfSpeech {
     UNDEFINED
 }
 
+interface Posable {
+    word: string,
+    pos: PartsOfSpeech
+}
+
 const descriptions: object = {
     [PartsOfSpeech.NOUN]: ["существительное", "существ."],
     [PartsOfSpeech.PRONOUN]: ["местоимение", "местоим."],
@@ -18,20 +23,22 @@ const descriptions: object = {
     [PartsOfSpeech.ADVERB]: "наречие",
     [PartsOfSpeech.PREPOSITION]: "предлог",
     [PartsOfSpeech.CONJUNCTION]: "союз",
-    [PartsOfSpeech.INTERJECTION]: ["междометие", "междом."]
+    [PartsOfSpeech.INTERJECTION]: ["междометие", "междом."],
+    [PartsOfSpeech.UNDEFINED]: ""
 }
 
 class MorphominoItem {
 
-    #value: string
+    #value: Posable
     #pos: PartsOfSpeech
     #shortPosName: string
     #longPosName: string
 
-    constructor(value: string, pos: PartsOfSpeech = getRandomPos()){
+    constructor(value: Posable = {word: '', pos: PartsOfSpeech.UNDEFINED}, pos: PartsOfSpeech = getRandomPos()){
+        console.log(value)
         this.#value = value
-        this.#pos = pos
-        const descr =  descriptions[pos]
+        this.#pos = value.pos === PartsOfSpeech.UNDEFINED ? PartsOfSpeech.UNDEFINED : pos
+        const descr =  descriptions[this.#pos]
         if(typeof descr === 'string'){
             this.#shortPosName = descr
             this.#longPosName = descr
@@ -42,14 +49,18 @@ class MorphominoItem {
     }
 
     isCongeneric(another: MorphominoItem) {
-        return this.#pos === another.pos 
+        return this.nextPos === another.selfPos 
     }
 
-    get value(){
-        return this.#value
+    get value(): string{
+        return this.#value.word
     }
 
-    get pos() {
+    get selfPos(): PartsOfSpeech {
+        return this.#value.pos
+    }
+
+    get nextPos(): PartsOfSpeech {
         return this.#pos
     }
 
@@ -62,9 +73,15 @@ class MorphominoItem {
     }
 }
 
+function getKeyNames(): string[] {
+    return Object.keys(PartsOfSpeech)
+        .filter(v => isNaN(Number(v)))
+        .filter(v => v !== 'UNDEFINED')
+}
+
 function getRandomPos(): PartsOfSpeech {
-    const {length} = Object.keys(PartsOfSpeech).filter(v => isNaN(Number(v)))
-    const rand = Math.random() * (length - 1)
+    const {length} = getKeyNames()
+    const rand = Math.random() * length
     const floor = Math.floor(rand)
     switch(floor){
         case 0: return PartsOfSpeech.NOUN
@@ -79,4 +96,5 @@ function getRandomPos(): PartsOfSpeech {
     }
 }
 
-export { PartsOfSpeech, MorphominoItem, getRandomPos }
+export { PartsOfSpeech, MorphominoItem, getRandomPos, getKeyNames }
+export type { Posable }

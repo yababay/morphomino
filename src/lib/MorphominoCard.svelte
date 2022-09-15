@@ -1,21 +1,23 @@
 <script>
 
-    export let item
-    
-    function getLeftPadding(word){
-      switch(word.length){
-        case 1: return 70;
-        case 2: return 60;
-        case 3: return 60;
-        case 4: return 50;
-        case 5: return 40;
-        case 6: return 35;
-        case 7: return 30;
-        case 8: return 30;
-        case 9: return 20;
-        default: return 5
-      }
+  import { replaceForFirst } from './store'
+  
+  export let item, index
+  
+  function getLeftPadding(word){
+    switch(word.length){
+      case 1: return 70;
+      case 2: return 60;
+      case 3: return 60;
+      case 4: return 50;
+      case 5: return 40;
+      case 6: return 35;
+      case 7: return 30;
+      case 8: return 30;
+      case 9: return 20;
+      default: return 5
     }
+  }
 
 </script>
 
@@ -40,6 +42,7 @@
     height: calc(var(--morphomino-card-width) / 1.618);
     border: 1px dotted grey;
     margin: .1rem;
+    cursor: pointer;
   }
 
   .morphomino-item svg {
@@ -48,7 +51,7 @@
   }
 </style>
 
-<div class="morphomino-item">
+<div class="morphomino-item" on:click={() => replaceForFirst(index)}>
   <svg
       class="domino-item-svg"
       viewBox="0 0 50 31"
@@ -70,7 +73,7 @@
         transform="matrix(0.26458333,0,0,0.26458333,0,4.924935)"
         id="text78730"
         style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;white-space:pre;shape-inside:url(#rect78732);fill:#000000;fill-opacity:1;stroke:none"><tspan
-          x={getLeftPadding(item.value)}
+          x={getLeftPadding(item.value || "")}
           y="44.519531"
           id="title">{item.value}</tspan></text>
       <path

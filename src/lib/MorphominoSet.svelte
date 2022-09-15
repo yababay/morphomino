@@ -1,27 +1,11 @@
 <script>
-    import { MorphominoItem } from './parts-of-speech'
     import MorphominoCard from "./MorphominoCard.svelte"
-    import { words } from './store'
-
-    let toggle = true
-
-    function updateCard(){
-        words.set(
-            toggle ?
-            'Я из лесу вышел был сильный мороз брр'.split(' ')
-            :
-            'Однажды в студеную зимнюю пору вах интернационал синхрофазотрон'.split(' ')
-        )
-        toggle = !toggle
-    }
+    import { firstPlayer } from './store'
 </script>
 
-<div>
-    <button on:click={updateCard}>Обновить</button>
-</div>
 <section class="morphomino-set">
-    {#each $words as word}
-        <MorphominoCard item={ new MorphominoItem(word)} />
+    {#each $firstPlayer as item, index}
+        <MorphominoCard {item} {index} />
     {/each}
 </section>
 
