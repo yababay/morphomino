@@ -35,6 +35,7 @@ const robotsGame = Promise.all(new Array(100).fill(0).map(el => moveCount++).map
     }, 5000 * i)
 })))
 
+
 function makeMove(item, index, val){
     const fromFlow = get(gameFlow).at(-1)
     const isCongeneric = item.isCongeneric(fromFlow)
@@ -86,15 +87,16 @@ Promise.all(getKeyNames().map(key =>
     firstPlayer.set(getRandomItems())
     secondPlayer.set(getRandomItems())
     gameFlow.set([...get(gameFlow), getRandomItem()])
+    return Promise.resolve()
 })
-.then(() => {
+/*.then(() => {
     gameTimeCounter = setInterval(() => {
         const seconds = get(gameTime)
         gameTime.set(seconds + 1)
     }, 1000)
-    return robotsGame
-})
-.then(() => Promise.reject())
+    return Promise.resolve() //robotsGame
+})*/
+//.then(() => Promise.reject())
 .catch(err => {
     //clearInterval(gameTimeCounter)
 })
