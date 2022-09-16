@@ -9,14 +9,14 @@
     <script src="bootstrap.bundle.min.js"></script>
     
     <title>Мормино: морфологическое домино</title>
-    <script type="module" crossorigin src="assets/index.5358a1c4.js"></script>
+    <script type="module" crossorigin src="assets/index.f9a344e3.js"></script>
     <link rel="stylesheet" href="assets/index.8fd26032.css">
   </head>
   <body>
     <header>
         <nav class="navbar navbar-dark bg-dark">
           <div class="container-fluid">
-            <a class="navbar-brand">
+            <a class="navbar-brand" href="#">
               <img src="logo.svg" alt="Мормино" height="24">
               <span>Мормино</span>
             </a>
@@ -25,7 +25,19 @@
         </nav>
     </header>
     <main>
-      <div id="app"></div>
+      <section class="container" id="intro">
+        <h1>Правила игры</h1>
+        <p>Lorem ipsum</p>
+      </section>
+      <section class="container d-none" id="settings">
+        <h1>Настройки</h1>
+        <p>Lorem ipsum</p>
+      </section>
+      <section class="container d-none" id="statistics">
+        <h1>Статистика</h1>
+        <p>Lorem ipsum</p>
+      </section>
+      <section id="game" class="d-none"></section>
     </main>
     <footer class="footer text-center">(C) 2022</footer>
   </body>
