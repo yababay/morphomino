@@ -4,6 +4,7 @@ import { PartsOfSpeech, getKeyNames, MorphominoItem } from './models'
 const gameTime = writable(0)
 const scores = writable(new Array(100).fill(0))
 
+const hashHolder = writable('')
 const firstPlayer = writable([])
 const secondPlayer = writable([])
 const gameFlow = writable([new MorphominoItem, new MorphominoItem])
@@ -13,28 +14,34 @@ const gameOver = writable(false)
 let moveCount = 0
 let gameTimeCounter = null
 
-const robotsGame = Promise.all(new Array(100).fill(0).map(el => moveCount++).map(i => new Promise((yep, nop) => {
-    if(typeof get(scores)[i] === 'boolean'){
-        yep(null)
-        return
-    } 
-    setTimeout(() => {
-        if(get(gameOver)) {
-            nop()
+function startGame() {
+    if(gameTimeCounter) clearInterval(gameTimeCounter)
+    gameTimeCounter = setInterval(() => {
+        const seconds = get(gameTime)
+        gameTime.set(seconds + 1)
+    }, 1000)
+    return Promise.all(new Array(100).fill(0).map(el => moveCount++).map(i => new Promise((yep, nop) => {
+        if(typeof get(scores)[i] === 'boolean'){
+            yep(null)
             return
-        }
-        const arrScores = Array.from(get(scores))
-        if(arrScores[i] === 0) arrScores[i] = false
-        scores.set(arrScores)
-        const lastCard = get(gameFlow).at(-1)
-        let pos = lastCard.nextPos
-        if(pos === PartsOfSpeech.UNDEFINED) pos = PartsOfSpeech.NOUN
-        const item = new MorphominoItem(findNextPos(pos))
-        gameFlow.set([...get(gameFlow), item])
-        yep(i)
-    }, 5000 * i)
-})))
-
+        } 
+        setTimeout(() => {
+            if(get(gameOver)) {
+                nop()
+                return
+            }
+            const arrScores = Array.from(get(scores))
+            if(arrScores[i] === 0) arrScores[i] = false
+            scores.set(arrScores)
+            const lastCard = get(gameFlow).at(-1)
+            let pos = lastCard.nextPos
+            if(pos === PartsOfSpeech.UNDEFINED) pos = PartsOfSpeech.NOUN
+            const item = new MorphominoItem(findNextPos(pos))
+            gameFlow.set([...get(gameFlow), item])
+            yep(i)
+        }, 5000 * i)
+    })))
+}
 
 function makeMove(item, index, val){
     const fromFlow = get(gameFlow).at(-1)
@@ -133,10 +140,12 @@ export {
     gameTime,
     gameOver,
     gameTimeCounter,
+    hashHolder,
     replaceForFirst, 
     replaceForSecond, 
     showAlert, 
     resetForFirst,
     makeMove,
-    findNextPos 
+    findNextPos,
+    startGame 
 }

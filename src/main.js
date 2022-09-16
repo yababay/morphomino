@@ -1,17 +1,18 @@
 import App from './App.svelte'
-import Scores from './lib/Scores.svelte'
+import Navigation from './lib/Navigation.svelte'
+import { startGame, gameOver, hashHolder } from './lib/store'
 
 const app = new App({
   target: document.getElementById('game'),
 })
 
-const scores = new Scores({
+const scores = new Navigation({
   target: document.getElementById('scores'),
 })
 
 let lastURL
 
-const sectionIds = ['intro', 'settings', 'game']
+const sectionIds = ['intro', 'settings', 'statistics', 'game']
 const sections = sectionIds.map(id => document.getElementById(id))
 
 window.addEventListener('hashchange', function (event) {
@@ -26,13 +27,28 @@ window.addEventListener('hashchange', function (event) {
     value: document.URL,
   });
   lastURL = document.URL
-  let {hash} = window.location 
-  if(!hash || !hash.length) return
-  hash = hash.substring(1)
-  if(!sectionIds.includes(hash)) return
-  for(const id of sectionIds) {
-
-  }
+  processHash()
 })
+
+function processHash(){
+  let {hash} = window.location 
+  if(!hash || !hash.trim().length) hash = '#intro'
+  hash = hash.substring(1).trim()
+  if(!sectionIds.includes(hash)) return
+  for(const section of sections) {
+    if(section.getAttribute('id') === hash) section.classList.remove('d-none')
+    else section.classList.add('d-none')
+  }
+  hashHolder.set(hash)
+  if(hash === 'game') (async function(){
+    gameOver.set(false)
+    await startGame()
+  })()
+  else {
+    gameOver.set(true)
+  }
+}
+
+processHash()
 
 export default app
