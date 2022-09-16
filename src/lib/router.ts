@@ -1,10 +1,22 @@
 import { get } from 'svelte/store'
-import { loader } from './lib/dictionary'
+import { loader } from './dictionary'
 
 let lastURL
 
-const sectionIds = ['intro', 'settings', 'statistics', 'game']
+const sectionIds = ['intro', 'settings', 'statistics', 'game', 'loader']
 const sections = sectionIds.map(id => document.getElementById(id))
+
+function findSection(id){
+  return sections.find(el => el.id === id)
+}
+
+function showSection(id){
+  findSection(id).classList.remove('d-none')
+}
+
+function hideSection(id){
+  findSection(id).classList.add('d-none')
+}
 
 window.addEventListener('hashchange', function (event) {
     Object.defineProperty(event, 'oldURL', {
@@ -41,5 +53,5 @@ function processHash(){
     }*/
   }
   
-export { processHash }
+export { processHash, showSection, hideSection }
   

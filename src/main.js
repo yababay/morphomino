@@ -1,7 +1,7 @@
 import App from './App.svelte'
 import Navigation from './lib/Navigation.svelte'
 import Loader from './lib/Loader.svelte'
-import { processHash } from './router'
+import { processHash } from './lib/router'
 
 /*import { startGame, gameOver, hashHolder } from './lib/store'*/
 
