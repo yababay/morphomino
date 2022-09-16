@@ -25,7 +25,7 @@ enum PartsOfSpeech {
 */
 
 const posStatistics = {
-    [PartsOfSpeech.NOUN]: 56332,
+    /*[PartsOfSpeech.NOUN]: 56332,
     [PartsOfSpeech.PRONOUN]: 93,
     [PartsOfSpeech.VERB]: 37319,
     [PartsOfSpeech.ADJECTIVE]: 24786,
@@ -34,13 +34,17 @@ const posStatistics = {
     [PartsOfSpeech.CONJUNCTION]: 110,
     [PartsOfSpeech.INTERJECTION]: 341,
     [PartsOfSpeech.NUMERAL]: 117,
-    [PartsOfSpeech.PARTICLE]: 149
+    [PartsOfSpeech.PARTICLE]: 149*/
 }
 
-const posRepresentation = Object.entries(posStatistics)
+function setStatistics(pos: PartsOfSpeech, amount: number){
+    posStatistics[pos] = amount
+}
+
+/*const posRepresentation = Object.entries(posStatistics)
     .map(entry => new Array(entry[1]).fill(entry[0]))
     .reduce((acc, curr) => [...acc, ...curr])
-    .sort(el => Math.random() > .5 && 1 || -1)
+    .sort(el => Math.random() > .5 && 1 || -1)*/
 
 interface Posable {
     word: string,
@@ -67,6 +71,7 @@ class MorphominoItem {
     #pos: PartsOfSpeech
     #shortPosName: string
     #longPosName: string
+    #isWon: boolean = false
 
     constructor(value: Posable = {word: '', pos: PartsOfSpeech.UNDEFINED}, pos: PartsOfSpeech = getRandomPos()){
         this.#value = value
@@ -83,6 +88,14 @@ class MorphominoItem {
 
     isCongeneric(another: MorphominoItem) {
         return this.selfPos === another.nextPos 
+    }
+
+    addScore(){
+        this.#isWon = true
+    }
+
+    get isWon(){
+        return this.#isWon
     }
 
     get value(): string{
@@ -104,6 +117,10 @@ class MorphominoItem {
     get shortPosName() {
         return  this.#longPosName
     }
+
+    isEmpty(): boolean{
+        return this.#value.pos === PartsOfSpeech.UNDEFINED
+    }
 }
 
 function assureNumber(val){
@@ -116,12 +133,12 @@ function getKeyNames(): string[] {
         .filter(v => v !== 'UNDEFINED')
 }
 
-function getRandomPosRepresentable() : PartsOfSpeech{
+/*function getRandomPosRepresentable() : PartsOfSpeech{
     const {length} = posRepresentation
     const rand = Math.random() * length
     const floor = Math.floor(rand)
     return posRepresentation[floor]
-}
+}*/
 
 function getRandomPos(): PartsOfSpeech {
     const {length} = getKeyNames()
@@ -142,5 +159,5 @@ function getRandomPos(): PartsOfSpeech {
     }
 }
 
-export { PartsOfSpeech, MorphominoItem, getRandomPos, getKeyNames }
+export { PartsOfSpeech, MorphominoItem, getRandomPos, getKeyNames, setStatistics }
 export type { Posable }
