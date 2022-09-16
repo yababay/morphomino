@@ -1,35 +1,24 @@
 <script>
-    import { scores } from './store'
+    import { gameTime, gameOver, scores, gameTimeCounter } from './store'
+
+    function stopGame(){
+        clearInterval(gameTimeCounter)
+        alert('Game over')
+        gameOver.set(true)
+    }
 </script>
-<section class="scores">
-    {#each $scores as score }
-        <div class="score" class:neutral={score === 0} class:success={score === true} class:failure={score === false}></div>
-    {/each}
-</section>
 
-<style>
-    .scores {
-        display: flex;
-        flex-wrap: wrap;
-        max-width: 1200px;
-        margin: 1rem auto;
-    }
+<ul class="navbar-nav">
+    <li class="nav-item text-light">
+        <strong>Время игры:</strong>
+        <span>{$gameTime}</span>
+    </li>
+</ul>
+<ul class="navbar-nav">
+    <li class="nav-item  text-light">
+        <strong>Отгадано:</strong>
+        <span>{$scores.filter(el => el === true).length}/{$scores.filter(el => typeof el === 'boolean').length}</span>
+    </li>
+</ul>
+<button class="btn btn-secondary" on:click={stopGame}>Прервать</button>
 
-    .score {
-        width: 1.2rem;
-        height: 1rem;
-        margin: .3rem 0 0 .3rem;
-    }
-
-    .neutral {
-        background-color: lightgray;
-    }
-
-    .success {
-        background-color: green;
-    }
-
-    .failure {
-        background-color: red;
-    }        
-</style>

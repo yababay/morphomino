@@ -3,13 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <link rel="stylesheet" href="bootstrap.min.css" />
+    <link rel="stylesheet" href="hmf.css" />
     <script src="bootstrap.bundle.min.js"></script>
     <script type="module" src="/src/main.js" defer></script>
-    <title>Morphomino</title>
+    <title>Мормино: морфологическое домино</title>
   </head>
   <body>
-    <div id="app"></div>
+    <header>
+        <nav class="navbar navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand">
+              <img src="logo.svg" alt="Мормино" height="24">
+              <span>Мормино</span>
+            </a>
+            <div class="d-flex align-items-center w-25 justify-content-between" id="scores"></div>
+          </div>
+        </nav>
+    </header>
+    <main>
+      <div id="app"></div>
+    </main>
+    <footer class="footer text-center">(C) 2022</footer>
   </body>
 </html>

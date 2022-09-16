@@ -1,29 +1,39 @@
 import { writable, get } from 'svelte/store'
 import { PartsOfSpeech, getKeyNames, MorphominoItem } from './models'
 
+const gameTime = writable(0)
 const scores = writable(new Array(100).fill(0))
 
 const firstPlayer = writable([])
 const secondPlayer = writable([])
 const gameFlow = writable([new MorphominoItem, new MorphominoItem])
 const alertMessage = writable('')
+const gameOver = writable(false)
 
 let moveCount = 0
+let gameTimeCounter = null
 
 const robotsGame = Promise.all(new Array(100).fill(0).map(el => moveCount++).map(i => new Promise((yep, nop) => {
-        if(typeof get(scores)[i] === 'boolean') return Promise.resolve()
-        setTimeout(() => {
-            const arrScores = Array.from(get(scores))
-            if(arrScores[i] === 0) arrScores[i] = false
-            scores.set(arrScores)
-            const lastCard = get(gameFlow).at(-1)
-            let pos = lastCard.nextPos
-            if(pos === PartsOfSpeech.UNDEFINED) pos = PartsOfSpeech.NOUN
-            const item = new MorphominoItem(findNextPos(pos))
-            gameFlow.set([...get(gameFlow), item])
-            yep(i)
-        }, 5000 * i)
-    })))
+    if(typeof get(scores)[i] === 'boolean'){
+        yep(null)
+        return
+    } 
+    setTimeout(() => {
+        if(get(gameOver)) {
+            nop()
+            return
+        }
+        const arrScores = Array.from(get(scores))
+        if(arrScores[i] === 0) arrScores[i] = false
+        scores.set(arrScores)
+        const lastCard = get(gameFlow).at(-1)
+        let pos = lastCard.nextPos
+        if(pos === PartsOfSpeech.UNDEFINED) pos = PartsOfSpeech.NOUN
+        const item = new MorphominoItem(findNextPos(pos))
+        gameFlow.set([...get(gameFlow), item])
+        yep(i)
+    }, 5000 * i)
+})))
 
 function makeMove(item, index, val){
     const fromFlow = get(gameFlow).at(-1)
@@ -54,7 +64,7 @@ function findNextPos(pos: PartsOfSpeech){
 }
 
 function shuffleDictionary(){
-    dictionary.sort(el => Math.random() > .5 ? 1 : -1) 
+    if(dictionary) dictionary.sort(el => Math.random() > .5 ? 1 : -1) 
 }
 
 function resetForFirst() {
@@ -77,7 +87,17 @@ Promise.all(getKeyNames().map(key =>
     secondPlayer.set(getRandomItems())
     gameFlow.set([...get(gameFlow), getRandomItem()])
 })
-.then(() => robotsGame)
+.then(() => {
+    gameTimeCounter = setInterval(() => {
+        const seconds = get(gameTime)
+        gameTime.set(seconds + 1)
+    }, 1000)
+    return robotsGame
+})
+.then(() => Promise.reject())
+.catch(err => {
+    //clearInterval(gameTimeCounter)
+})
 
 function getRandomItem(){
     const r = Math.floor(Math.random() * dictionary.length)
@@ -108,6 +128,9 @@ export {
     gameFlow, 
     alertMessage, 
     scores,
+    gameTime,
+    gameOver,
+    gameTimeCounter,
     replaceForFirst, 
     replaceForSecond, 
     showAlert, 

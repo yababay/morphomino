@@ -2,16 +2,21 @@
   import MorphominoSet from './lib/MorphominoSet.svelte'
   import GameFlow from './lib/GameFlow.svelte'
     import Alert from './lib/Alert.svelte';
-    import Scores from './lib/Scores.svelte';
+    import GameProgress from './lib/GameProgress.svelte';
 </script>
 
-<main>
+<div class="game-holder">
   <MorphominoSet />
   <GameFlow />
-  <Scores />
+  <GameProgress />
   <Alert />
-</main>
+</div>
 
 <style>
-
+  .game-holder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
 </style>
