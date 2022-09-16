@@ -2,9 +2,10 @@
     import { gameTime, gameOver, scores, gameTimeCounter } from './store'
 
     function stopGame(){
+        gameOver.set(true)
         clearInterval(gameTimeCounter)
         alert('Game over')
-        gameOver.set(true)
+        window.location.hash = '#statistics'
     }
 </script>
 
