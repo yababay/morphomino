@@ -1,11 +1,10 @@
 <script>
     import { loader } from '../lib/dictionary'
-    import { showSection, hideSection } from '../lib/router'
+    import { processHash } from '../lib/router'
     loader.subscribe(val => {
         if(val < 100) return
         setTimeout(() => {
-            hideSection('loader')
-            showSection('intro')
+            processHash()
         }, 1000)
     })
 </script>

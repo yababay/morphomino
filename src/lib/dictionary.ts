@@ -1,5 +1,5 @@
 import { readable, writable } from 'svelte/store'
-import { PartsOfSpeech, getKeyNames, MorphominoItem, Posable } from './models'
+import { PartsOfSpeech, getKeyNames, MorphominoItem, WordWithPos } from './models'
 
 const loader = writable(0)
 let statistics = null
@@ -25,17 +25,21 @@ function getRandomPos(): PartsOfSpeech {
     return statistics[getRandomIndex(statistics)]
 }
 
-function getRandomPosable(): Posable {
+function getRandomWordWithPos(): WordWithPos {
     return statistics[getRandomIndex(dictionary)]
 }
 
-function getRandomItem(): MorphominoItem {
-    const posable = getRandomPosable()
-    const pos = getRandomPos()
-    return new MorphominoItem(posable, pos)
+function getStatisticsByPos(pos): number {
+    return statistics.filter(el => el === pos).length
 }
 
-Promise.all(getKeyNames().map((key, i) => 
+function getRandomItem(): MorphominoItem {
+    const WordWithPos = getRandomWordWithPos()
+    const pos = getRandomPos()
+    return new MorphominoItem(WordWithPos, pos)
+}
+
+Promise.all(getKeyNames().filter(el => el !== 'UNDEFINED').map((key, i) => 
     fetch(`./assets/${key.toLowerCase()}s.txt`)
         .then(res => setLoader(res, i, getKeyNames().length))
         .then(txt => txt.split('\n')
@@ -50,4 +54,4 @@ Promise.all(getKeyNames().map((key, i) =>
             setTimeout(() => loader.set(100), 1000)
         }).catch(err => console.log(err))
 
-export { loader, getRandomItem}
+export { loader, getRandomItem, getStatisticsByPos }

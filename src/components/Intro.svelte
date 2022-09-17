@@ -1,5 +1,7 @@
 <script>
     import Showdown from 'showdown'
+    import PartsOfSpeech from './PartsOfSpeech.svelte'
+
     const converter = new Showdown.Converter()
 
     async function content(link) {
@@ -19,3 +21,4 @@
         {error}
     </div>
 {/await}
+<PartsOfSpeech />

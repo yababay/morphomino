@@ -79,7 +79,7 @@ function resetForFirst() {
     firstPlayer.set(getRandomItems())
 }
 
-Promise.all(getKeyNames().map(key => 
+/*Promise.all(getKeyNames().map(key => 
         fetch(`./assets/${key.toLowerCase()}s.txt`)
         .then(res => res.text())
         .then(txt => txt.split('\n')
@@ -96,6 +96,7 @@ Promise.all(getKeyNames().map(key =>
     gameFlow.set([...get(gameFlow), getRandomItem()])
     return Promise.resolve()
 })
+*/
 /*.then(() => {
     gameTimeCounter = setInterval(() => {
         const seconds = get(gameTime)
@@ -104,9 +105,9 @@ Promise.all(getKeyNames().map(key =>
     return Promise.resolve() //robotsGame
 })*/
 //.then(() => Promise.reject())
-.catch(err => {
+//.catch(err => {
     //clearInterval(gameTimeCounter)
-})
+//})
 
 function getRandomItem(){
     const r = Math.floor(Math.random() * dictionary.length)

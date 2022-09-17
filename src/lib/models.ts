@@ -12,6 +12,46 @@ enum PartsOfSpeech {
     UNDEFINED
 }
 
+interface WordWithPos {
+    word: string
+    pos: PartsOfSpeech
+}
+
+interface PosDescription {
+    pos: PartsOfSpeech
+    nominative: string
+    genetive: string
+    shortName: string
+    shortestName: string
+}
+
+const descriptions: object = {
+    [PartsOfSpeech.NOUN]:         ["существительное", "существительных", "существ.", "сущ."],
+    [PartsOfSpeech.PRONOUN]:      ["местоимение", "местоимений", "местоим.", "мест"],
+    [PartsOfSpeech.VERB]:         ["глагол", "глаголов", "глагол", "глаг."],
+    [PartsOfSpeech.ADJECTIVE]:    ["прилагательное", "прилагательных", "прилаг.", "прил."],
+    [PartsOfSpeech.ADVERB]:       ["наречие", "наречий", "наречие", "нар."],
+    [PartsOfSpeech.PREPOSITION]:  ["предлог", "предлогов", "предлог", "предл."],
+    [PartsOfSpeech.CONJUNCTION]:  ["союз", "союзов", "союз", "союз"],
+    [PartsOfSpeech.INTERJECTION]: ["междометие", "междометий", "междом.", "межд."],
+    [PartsOfSpeech.NUMERAL]:      ["числительное", "числительных", "числит.", "числ."],
+    [PartsOfSpeech.PARTICLE]:     ["частица", "частиц", "частица", "част."],
+    [PartsOfSpeech.UNDEFINED]:    ["", "", "", ""]
+}
+
+function getPosDescription(_pos: PartsOfSpeech | string): PosDescription{
+    let pos: PartsOfSpeech = typeof _pos !== 'string' && _pos || PartsOfSpeech[_pos]
+    const descr = descriptions[pos]
+    if(!descr) throw 'Не удалось определить характеристики части речи.'
+    const [nominative, genetive, shortName, shortestName] = descr
+    return {pos, nominative, genetive, shortName, shortestName}
+}
+
+function getKeyNames(): string[] {
+    return Object.keys(PartsOfSpeech)
+        .filter(v => isNaN(Number(v)))
+}
+
 /*
 Глаголов 37319;
 Существительных 56332
@@ -23,6 +63,10 @@ enum PartsOfSpeech {
 Предлогов 141
 Частиц 149
 */
+
+function setStatistics(pos: PartsOfSpeech, amount: number){
+    posStatistics[pos] = amount
+}
 
 const posStatistics = {
     /*[PartsOfSpeech.NOUN]: 56332,
@@ -37,43 +81,20 @@ const posStatistics = {
     [PartsOfSpeech.PARTICLE]: 149*/
 }
 
-function setStatistics(pos: PartsOfSpeech, amount: number){
-    posStatistics[pos] = amount
-}
-
 /*const posRepresentation = Object.entries(posStatistics)
     .map(entry => new Array(entry[1]).fill(entry[0]))
     .reduce((acc, curr) => [...acc, ...curr])
     .sort(el => Math.random() > .5 && 1 || -1)*/
 
-interface Posable {
-    word: string,
-    pos: PartsOfSpeech
-}
-
-const descriptions: object = {
-    [PartsOfSpeech.NOUN]: ["существительное", "существ."],
-    [PartsOfSpeech.PRONOUN]: ["местоимение", "местоим."],
-    [PartsOfSpeech.VERB]: "глагол",
-    [PartsOfSpeech.ADJECTIVE]: ["прилагательное", "прилаг."],
-    [PartsOfSpeech.ADVERB]: "наречие",
-    [PartsOfSpeech.PREPOSITION]: "предлог",
-    [PartsOfSpeech.CONJUNCTION]: "союз",
-    [PartsOfSpeech.INTERJECTION]: ["междометие", "междом."],
-    [PartsOfSpeech.NUMERAL]: ["числительное", "числит."],
-    [PartsOfSpeech.PARTICLE]: "частица",
-    [PartsOfSpeech.UNDEFINED]: ""
-}
-
 class MorphominoItem {
 
-    #value: Posable
+    #value: WordWithPos
     #pos: PartsOfSpeech
     #shortPosName: string
     #longPosName: string
     #isWon: boolean = false
 
-    constructor(value: Posable = {word: '', pos: PartsOfSpeech.UNDEFINED}, pos: PartsOfSpeech = getRandomPos()){
+    constructor(value: WordWithPos = {word: '', pos: PartsOfSpeech.UNDEFINED}, pos: PartsOfSpeech = getRandomPos()){
         this.#value = value
         this.#pos = value.pos === PartsOfSpeech.UNDEFINED ? PartsOfSpeech.UNDEFINED : pos
         const descr =  descriptions[this.#pos]
@@ -127,11 +148,6 @@ function assureNumber(val){
     return typeof val === 'number' && val || parseInt(val)
 }
 
-function getKeyNames(): string[] {
-    return Object.keys(PartsOfSpeech)
-        .filter(v => isNaN(Number(v)))
-        .filter(v => v !== 'UNDEFINED')
-}
 
 /*function getRandomPosRepresentable() : PartsOfSpeech{
     const {length} = posRepresentation
@@ -159,5 +175,5 @@ function getRandomPos(): PartsOfSpeech {
     }
 }
 
-export { PartsOfSpeech, MorphominoItem, getRandomPos, getKeyNames, setStatistics }
-export type { Posable }
+export { PartsOfSpeech, MorphominoItem, getPosDescription, getRandomPos, getKeyNames, setStatistics }
+export type { WordWithPos }
