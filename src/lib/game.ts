@@ -1,4 +1,5 @@
 import { writable, get } from 'svelte/store'
+/*
 import { PartsOfSpeech, getKeyNames, MorphominoItem } from './models'
 
 const gameTime = writable(0)
@@ -78,7 +79,7 @@ function shuffleDictionary(){
 function resetForFirst() {
     firstPlayer.set(getRandomItems())
 }
-
+*/
 /*Promise.all(getKeyNames().map(key => 
         fetch(`./assets/${key.toLowerCase()}s.txt`)
         .then(res => res.text())
@@ -108,7 +109,7 @@ function resetForFirst() {
 //.catch(err => {
     //clearInterval(gameTimeCounter)
 //})
-
+/*
 function getRandomItem(){
     const r = Math.floor(Math.random() * dictionary.length)
     return new MorphominoItem(dictionary[r])
@@ -150,3 +151,4 @@ export {
     findNextPos,
     startGame 
 }
+*/

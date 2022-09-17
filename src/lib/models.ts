@@ -52,40 +52,6 @@ function getKeyNames(): string[] {
         .filter(v => isNaN(Number(v)))
 }
 
-/*
-Глаголов 37319;
-Существительных 56332
-Прилагательных 24786
-Местоимений 93
-Наречий 1916 	Числительных 117
-Междометий 341
-Союзов 110
-Предлогов 141
-Частиц 149
-*/
-
-function setStatistics(pos: PartsOfSpeech, amount: number){
-    posStatistics[pos] = amount
-}
-
-const posStatistics = {
-    /*[PartsOfSpeech.NOUN]: 56332,
-    [PartsOfSpeech.PRONOUN]: 93,
-    [PartsOfSpeech.VERB]: 37319,
-    [PartsOfSpeech.ADJECTIVE]: 24786,
-    [PartsOfSpeech.ADVERB]: 1916,
-    [PartsOfSpeech.PREPOSITION]: 141,
-    [PartsOfSpeech.CONJUNCTION]: 110,
-    [PartsOfSpeech.INTERJECTION]: 341,
-    [PartsOfSpeech.NUMERAL]: 117,
-    [PartsOfSpeech.PARTICLE]: 149*/
-}
-
-/*const posRepresentation = Object.entries(posStatistics)
-    .map(entry => new Array(entry[1]).fill(entry[0]))
-    .reduce((acc, curr) => [...acc, ...curr])
-    .sort(el => Math.random() > .5 && 1 || -1)*/
-
 class MorphominoItem {
 
     #value: WordWithPos

@@ -1,10 +1,10 @@
-import { readable, writable } from 'svelte/store'
+import { writable, get } from 'svelte/store'
 import { PartsOfSpeech, getKeyNames, MorphominoItem, WordWithPos } from './models'
 
 const loader = writable(0)
-let statistics = null
+let statistics: PartsOfSpeech[] = null
 
-function setLoader(res, i, length) {
+function setLoader(res:Response, i:number, length:number) {
     return res.text().then(txt => 
         new Promise((yep) => {
             setTimeout(() => {
@@ -17,7 +17,7 @@ function setLoader(res, i, length) {
 
 const dictionary = writable([])
 
-function getRandomIndex(arr){
+function getRandomIndex(arr: any[]){
     return Math.floor(Math.random() * arr.length)
 }
 
@@ -26,11 +26,25 @@ function getRandomPos(): PartsOfSpeech {
 }
 
 function getRandomWordWithPos(): WordWithPos {
-    return statistics[getRandomIndex(dictionary)]
+    const dict = get(dictionary)
+    return dict[getRandomIndex(dict)]
 }
 
-function getStatisticsByPos(pos): number {
-    return statistics.filter(el => el === pos).length
+/*
+Глаголов 37319;
+Существительных 56332
+Прилагательных 24786
+Местоимений 93
+Наречий 1916 	
+Числительных 117
+Междометий 341
+Союзов 110
+Предлогов 141
+Частиц 149
+*/
+
+function getStatisticsByPos(pos: PartsOfSpeech): number {
+    return statistics.filter((el:PartsOfSpeech) => el === pos).length
 }
 
 function getRandomItem(): MorphominoItem {
@@ -42,7 +56,7 @@ function getRandomItem(): MorphominoItem {
 Promise.all(getKeyNames().filter(el => el !== 'UNDEFINED').map((key, i) => 
     fetch(`./assets/${key.toLowerCase()}s.txt`)
         .then(res => setLoader(res, i, getKeyNames().length))
-        .then(txt => txt.split('\n')
+        .then((txt:string) => txt.split('\n')
             .map(word => ({pos: PartsOfSpeech[key], word: word && word.trim() || ''}))
             .filter(item => item.word && item.word.length < 13)
         )))

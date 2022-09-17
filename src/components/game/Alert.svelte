@@ -1,5 +1,5 @@
 <script>
-    import { alertMessage } from '.././lib/store'
+    import { alertMessage } from '../../lib/store'
 </script>
 
 <div style:display={$alertMessage ? 'block' : 'none'} class="alert-holder">

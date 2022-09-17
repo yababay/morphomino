@@ -1,6 +1,6 @@
 <script>
-    import { loader, getStatisticsByPos } from '../lib/dictionary'
-    import { PartsOfSpeech, getPosDescription, getKeyNames } from '../lib/models'
+    import { loader, getStatisticsByPos } from '../../lib/dictionary'
+    import { PartsOfSpeech, getPosDescription, getKeyNames } from '../../lib/models'
 
     function getRows() {
         return getKeyNames().filter(key => key !== 'UNDEFINED')
