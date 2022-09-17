@@ -3,9 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="icon" type="image/svg+xml" href="logo.svg" />
     <link rel="stylesheet" href="bootstrap.min.css" />
     <link rel="stylesheet" href="hmf.css" />
+    <style>
+       #intro, #settings, #statistics {max-width: 80ch}
+    </style>
     <script src="bootstrap.bundle.min.js"></script>
     <script type="module" src="/src/main.js" defer></script>
     <title>Мормино: морфологическое домино</title>
@@ -24,17 +27,11 @@
     </header>
 
     <main>
-      <section id="loader" class="container"></section>
-      <section id="intro" class="container d-none" style="max-width: 80ch"></section>
-      <section id="game" class="d-none"></section>
-      <section id="settings" class="container d-none">
-        <h1>Настройки</h1>
-        <p>Lorem ipsum</p>
-      </section>
-      <section id="statistics" class="container d-none">
-        <h1>Статистика</h1>
-        <p>Lorem ipsum</p>
-      </section>
+      <section id="loader"     class="container"></section>
+      <section id="intro"      class="container d-none"></section>
+      <section id="game"       class="container d-none"></section>
+      <section id="settings"   class="container d-none"></section>
+      <section id="statistics" class="container d-none"></section>
     </main>
 
     <footer class="footer text-center">(C) 2022</footer>

@@ -56,5 +56,5 @@ function processHash(){
     }*/
   }
   
-export { processHash, showSection, hideSection, hash }
+export { processHash, hash }
   
