@@ -1,6 +1,6 @@
 <script>
-    import { loader } from './dictionary'
-    import { showSection, hideSection } from './router'
+    import { loader } from '../lib/dictionary'
+    import { showSection, hideSection } from '../lib/router'
     loader.subscribe(val => {
         if(val < 100) return
         setTimeout(() => {

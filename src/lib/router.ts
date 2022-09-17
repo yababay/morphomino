@@ -1,21 +1,22 @@
-import { get } from 'svelte/store'
+import { writable, get } from 'svelte/store'
 import { loader } from './dictionary'
 
-let lastURL
+const hash = writable('')
+let lastURL: string
 
 const sectionIds = ['intro', 'settings', 'statistics', 'game', 'loader']
 const sections = sectionIds.map(id => document.getElementById(id))
 
-function findSection(id){
-  return sections.find(el => el.id === id)
+function assureElement(section: any){
+  return typeof section === 'string' && sections.find(el => el.id === section) || section
 }
 
-function showSection(id){
-  findSection(id).classList.remove('d-none')
+function showSection(section){
+  assureElement(section).classList.remove('d-none')
 }
 
-function hideSection(id){
-  findSection(id).classList.add('d-none')
+function hideSection(section){
+  assureElement(section).classList.add('d-none')
 }
 
 window.addEventListener('hashchange', function (event) {
@@ -35,15 +36,17 @@ window.addEventListener('hashchange', function (event) {
 
 function processHash(){
     if(get(loader) < 100) return
-    /*let {hash} = window.location 
-    if(!hash || !hash.trim().length) hash = '#intro'
-    hash = hash.substring(1).trim()
-    if(!sectionIds.includes(hash)) return
+    let _hash = window.location.hash 
+    if(!_hash || !_hash.trim().length) _hash = '#intro'
+    _hash = _hash.substring(1).trim()
+    if(!sectionIds.includes(_hash)) return
     for(const section of sections) {
-      if(section.getAttribute('id') === hash) section.classList.remove('d-none')
+      if(section.getAttribute('id') === _hash) section.classList.remove('d-none')
       else section.classList.add('d-none')
     }
-    hashHolder.set(hash)
+    hash.set(_hash)
+    /*
+    
     if(hash === 'game') (async function(){
       gameOver.set(false)
       await startGame()
@@ -53,5 +56,5 @@ function processHash(){
     }*/
   }
   
-export { processHash, showSection, hideSection }
+export { processHash, showSection, hideSection, hash }
   

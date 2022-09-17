@@ -1,5 +1,5 @@
 <script>
-    import { gameTime, gameOver, scores, gameTimeCounter } from './store'
+    import { gameTime, gameOver, scores, gameTimeCounter } from '../lib/store'
 
     function stopGame(){
         gameOver.set(true)

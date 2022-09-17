@@ -1,10 +1,10 @@
 <script>
-    import { hashHolder } from './store';
+    import { hash } from '../lib/router';
     import Scores from './Scores.svelte'
     import Links from './Links.svelte'
 </script>
 
-{#if $hashHolder === "game"}
+{#if $hash === "game"}
     <Scores />
 {:else}
     <Links />

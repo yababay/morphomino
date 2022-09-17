@@ -1,9 +1,8 @@
 import App from './App.svelte'
-import Navigation from './lib/Navigation.svelte'
-import Loader from './lib/Loader.svelte'
+import Navigation from './components/Navigation.svelte'
+import Loader from './components/Loader.svelte'
+import Intro from './components/Intro.svelte'
 import { processHash } from './lib/router'
-
-/*import { startGame, gameOver, hashHolder } from './lib/store'*/
 
 const app = new App({
   target: document.getElementById('game'),
@@ -15,6 +14,10 @@ const scores = new Navigation({
 
 const loader = new Loader({
   target: document.getElementById('loader'),
+})
+
+const intro = new Intro({
+  target: document.getElementById('intro'),
 })
 
 processHash()
