@@ -1,6 +1,6 @@
 import { writable, get } from 'svelte/store'
 import { loader } from './dictionary'
-import { startGame } from './game'
+import { startGame, stopGame } from './game'
 
 const hash = writable('')
 let lastURL: string
@@ -47,6 +47,7 @@ function processHash(){
     }
     hash.set(_hash)
     if(_hash === 'game') startGame()
+    else stopGame()
   }
   
 export { processHash, hash }

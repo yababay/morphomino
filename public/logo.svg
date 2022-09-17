@@ -23,8 +23,8 @@
      inkscape:pagecheckerboard="0"
      showgrid="false"
      inkscape:zoom="13.38"
-     inkscape:cx="40.695067"
-     inkscape:cy="27.428998"
+     inkscape:cx="39.723468"
+     inkscape:cy="27.35426"
      inkscape:window-width="1920"
      inkscape:window-height="1051"
      inkscape:window-x="0"
@@ -40,13 +40,21 @@
      transform="rotate(-90)"
      id="rect978" />
   <rect
-     style="fill:#aa4400;stroke:none;stroke-width:1.13459;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:0.567292, 0.567292;paint-order:markers stroke fill"
-     width="23.271696"
+     style="fill:#aa4400;stroke:none;stroke-width:1.35024;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:0.675118, 0.675118;paint-order:markers stroke fill"
+     width="32.958973"
      height="44.818985"
-     x="-36.635849"
+     x="-50"
      y="0"
      transform="rotate(-90)"
      id="rect980" />
+  <rect
+     style="fill:#a05a2c;stroke:none;stroke-width:1.09674;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:0.548366, 0.548366;paint-order:markers stroke fill"
+     width="21.74485"
+     height="44.818985"
+     x="-35.872425"
+     y="0"
+     transform="rotate(-90)"
+     id="rect910" />
   <rect
      style="fill:#d38d5f;stroke:none;stroke-width:1.03605;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:0.518022, 0.518022;paint-order:markers stroke fill"
      width="17.394127"

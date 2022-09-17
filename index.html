@@ -7,7 +7,14 @@
     <link rel="stylesheet" href="bootstrap.min.css" />
     <link rel="stylesheet" href="hmf.css" />
     <style>
-       #intro, #settings, #statistics {max-width: 80ch}
+      #intro, #settings, #statistics {max-width: 80ch}
+      #loader, #game {
+        height: var(--main-min-height); 
+        width: 100%; 
+        display: flex; 
+        justify-content: center; 
+        flex-direction: column;
+      }
     </style>
     <script src="bootstrap.bundle.min.js"></script>
     <script type="module" src="/src/main.js" defer></script>

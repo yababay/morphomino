@@ -1,19 +1,11 @@
 <script>
-    //import { gameTime, gameOver, scores, gameTimeCounter } from '../../lib/store'
-
-    function stopGame(){
-        //gameOver.set(true)
-        //clearInterval(gameTimeCounter)
-        //alert('Game over')
-        //window.location.hash = '#statistics'
-    }
-    
+    import { elapsedTime, stopGame } from '../../lib/game'
 </script>
 
 <ul class="navbar-nav">
     <li class="nav-item text-light">
         <strong>Время игры:</strong>
-        <span>{0}</span>
+        <span>{$elapsedTime}</span>
     </li>
 </ul>
 <ul class="navbar-nav">

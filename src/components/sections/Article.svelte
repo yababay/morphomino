@@ -2,7 +2,8 @@
     import Showdown from 'showdown'
     const converter = new Showdown.Converter()
 
-    export let id, afterFetch
+    export let id
+    export let afterFetch = h => h
 
     async function getHtml() {
         const url = `${`./assets/${id}.md`}?r=${Math.random()}`
@@ -10,7 +11,7 @@
         if(res.status > 299) throw "Не удалось загрузить запрашиваемый ресурс."
         const text = await res.text()
         const html = converter.makeHtml(text)
-        return typeof afterFetch === 'function' && afterFetch(html) || html
+        return afterFetch(html)
     }
 </script>
 

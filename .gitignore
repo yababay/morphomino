@@ -26,5 +26,6 @@ dist-ssr
 # Me
 TODO.md
 .tmp/
+tmp/
 .private/
 

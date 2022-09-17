@@ -25,7 +25,7 @@
     </div>
 </div>
 
-<style>
+<!-- style>
     .wrapper {
         height: var(--main-min-height); 
         width: 100%; 
@@ -33,4 +33,4 @@
         justify-content: center; 
         flex-direction: column;
     }
-</style>
+</style -->
