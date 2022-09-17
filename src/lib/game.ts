@@ -1,4 +1,20 @@
 import { writable, get } from 'svelte/store'
+
+enum GameStages {
+    INSTRUCTION,
+    BEGIN,
+    FLOW,
+    FINISH
+}
+
+const stage = writable(GameStages.INSTRUCTION)
+const delayedStage = (func, delay) => new Promise((yep, nop) => setTimeout(() => yep(func()), delay))
+
+async function startGame(){
+    await delayedStage(() => console.log('game starts'), 5000)
+}
+
+export { startGame }
 /*
 import { PartsOfSpeech, getKeyNames, MorphominoItem } from './models'
 
