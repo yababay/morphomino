@@ -1,5 +1,8 @@
+/*
 import { writable, get } from 'svelte/store'
-import { PartsOfSpeech, getKeyNames, MorphominoItem, WordWithPos } from './models'
+import { PartsOfSpeech, WordWithPos } from '../model/types'
+import { getKeyNames } from '../model/pos'
+import MorminoItem from '../model/mormino'
 
 const loader = writable(0)
 let statistics: PartsOfSpeech[] = null
@@ -29,7 +32,7 @@ function getRandomWordWithPos(): WordWithPos {
     const dict = get(dictionary)
     return dict[getRandomIndex(dict)]
 }
-
+*/
 /*
 Глаголов 37319;
 Существительных 56332
@@ -42,15 +45,15 @@ function getRandomWordWithPos(): WordWithPos {
 Предлогов 141
 Частиц 149
 */
-
+/*
 function getStatisticsByPos(pos: PartsOfSpeech): number {
     return statistics.filter((el:PartsOfSpeech) => el === pos).length
 }
 
-function getRandomItem(): MorphominoItem {
-    const WordWithPos = getRandomWordWithPos()
+function getRandomItem(): MorminoItem {
+    const word = getRandomWordWithPos()
     const pos = getRandomPos()
-    return new MorphominoItem(WordWithPos, pos)
+    return new MorminoItem(word, pos)
 }
 
 Promise.all(getKeyNames().filter(el => el !== 'UNDEFINED').map((key, i) => 
@@ -69,3 +72,5 @@ Promise.all(getKeyNames().filter(el => el !== 'UNDEFINED').map((key, i) =>
         }).catch(err => console.log(err))
 
 export { loader, getRandomItem, getStatisticsByPos }
+*/
+export default null

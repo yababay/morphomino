@@ -1,8 +1,11 @@
 import { writable, get } from 'svelte/store'
-import { loader } from './dictionary'
-import { startGame, stopGame } from './game'
+import { withLoader } from '../settings.json'
+
+//import { loader } from './dictionary'
+//import { startGame, stopGame } from './game'
 
 const hash = writable('')
+const loader = writable(0)
 let lastURL: string
 
 const sectionIds = ['intro', 'settings', 'statistics', 'game', 'loader']
@@ -36,7 +39,7 @@ window.addEventListener('hashchange', function (event) {
   })
 
 function processHash(){
-    if(get(loader) < 100) return
+    if(withLoader && get(loader) < 100) return
     let _hash = window.location.hash 
     if(!_hash || !_hash.trim().length) _hash = '#intro'
     _hash = _hash.substring(1).trim()
@@ -46,8 +49,8 @@ function processHash(){
       else section.classList.add('d-none')
     }
     hash.set(_hash)
-    if(_hash === 'game') startGame()
-    else stopGame()
+//    if(_hash === 'game') startGame()
+//    else stopGame()
   }
   
 export { processHash, hash }

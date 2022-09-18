@@ -1,19 +1,21 @@
 <script>
-    import { loader } from '../../../lib/dictionary'
-    import { processHash } from '../../../lib/router'
-    import Article from '../Article.svelte';
+    import Article from '../../util/Article.svelte';
 
     export let id
+
+    /*import { loader } from '../../../controller/dictionary'
+    import { processHash } from '../../../controller/router'
+
 
     loader.subscribe(val => {
         if(val < 100) return
         setTimeout(() => {
             processHash()
         }, 1000)
-    })
+    })*/
 </script>
-<div class="wrapper">
-    <Article {id} />
+<Article {id} />
+<!-- div>
     <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated" 
             role="progressbar" aria-label="Animated striped example" 
@@ -23,14 +25,4 @@
             style:width={$loader + '%'}
         ></div>
     </div>
-</div>
-
-<!-- style>
-    .wrapper {
-        height: var(--main-min-height); 
-        width: 100%; 
-        display: flex; 
-        justify-content: center; 
-        flex-direction: column;
-    }
-</style -->
+</div -->

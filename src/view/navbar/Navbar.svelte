@@ -1,5 +1,5 @@
 <script>
-    import { hash } from '../../lib/router';
+    import { hash } from '../../controller/router';
     import Scores from './Scores.svelte'
     import Links from './Links.svelte'
 </script>

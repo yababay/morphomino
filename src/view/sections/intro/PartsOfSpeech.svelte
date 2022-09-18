@@ -1,8 +1,7 @@
 <script>
-    import { loader, getStatisticsByPos } from '../../../lib/dictionary'
-    //import { PartsOfSpeech } from '../../../lib/model' //, getPosDescription, getKeyNames } from '../../../lib/model/models'
-    import { getPosDescription, getKeyNames } from '../../../lib/pos'
-    
+    import { loader, getStatisticsByPos } from '../../../controller/dictionary'
+    import { getPosDescription, getKeyNames } from '../../../model/pos'
+
     function getRows() {
         return getKeyNames().filter(key => key !== 'UNDEFINED')
             .map(key => getPosDescription(key))

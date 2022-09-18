@@ -1,6 +1,6 @@
-import { processHash } from './lib/router'
-import sections from './components/sections'
-import Navbar from './components/navbar/Navbar.svelte'
+import { processHash } from './controller/router'
+import sections from './view/sections'
+import Navbar from './view/navbar/Navbar.svelte'
 
 const getProxyName = id => `Proxy<${id.split('').map((ch, i) => i === 0 ? ch.toUpperCase() : ch).join('')}>`
 const findProxy = id => sections.find(section => section.name === getProxyName(id))

@@ -1,29 +1,10 @@
-import { writable, get } from 'svelte/store'
+/*import { writable, get } from 'svelte/store'
 import { fromStorage, getTimeWithUnits } from './util'
 import { durationMin, moveAmountMin, ignoreInstructionKey, ignoreInstruction, instructionTimeout, setupTimeout } from '../settings.json'
-
-enum GameStages {
-    INSTRUCTION,
-    SETUP,
-    FLOW,
-    BREAK,
-    END
-}
-
-enum MoveStatuses {
-    FORTHCOMING,
-    HOST_IS_WON,
-    GUEST_IS_WON,
-    BOTH_ARE_FAILED
-}
-
-enum GamerRoles {
-    HOST,
-    GUEST
-}
+import { GameStages, MoveStatuses, GamerRoles } from '../model/types'
 
 const stage = writable(GameStages.INSTRUCTION)
-const role = writable(GamerStatuses.HOST)
+const role = writable(GamerRoles.HOST)
 const durationInSeconds = writable(durationMin)
 const moviesAmount = writable(moveAmountMin)
 const elapsedTime = writable(0)
@@ -87,7 +68,8 @@ export {
     stage, durationInSeconds, moviesAmount, elapsedTime, moves, role,
     getElapsedTimeWithUnits, getScores, startGame, stopGame, 
 }
-
+*/
+export default null
 /*
 import { PartsOfSpeech, getKeyNames, MorphominoItem } from './models'
 

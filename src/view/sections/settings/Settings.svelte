@@ -1,12 +1,16 @@
 <script>
-    import { onMount } from 'svelte'
+    import Article from '../../util/Article.svelte'
+
+    export let id
+
+    /*import { onMount } from 'svelte'
     import { derived } from 'svelte/store'
-    import { durationInSeconds, moviesAmount } from '../../../lib/game'
-    import { fromStorage, saveValue } from '../../../lib/util'
+    import { durationInSeconds, moviesAmount } from '../../../controller/game'
+    import { fromStorage, saveValue } from '../../../controller/util'
     import { durationMin, durationMax, durationStep, 
         moveAmountMin, moveAmountMax, moveAmountStep, ignoreInstruction,
         moveAmountKey, durationKey, ignoreInstructionKey } from '../../../settings.json'
-    import Article from '../Article.svelte'
+    import Article from '../../util/Article.svelte'
 
     export let id
     
@@ -24,10 +28,10 @@
     })
 
     const durationInMinutes = derived(durationInSeconds, $durationInSeconds => $durationInSeconds / 60)
-
+*/
 </script>
-
 <Article {id} />
+<!-- 
 <div class="card mt-5 settings-holder">
     <div class="card-body">
         <div class="input-holder">
@@ -71,3 +75,4 @@
         margin: auto;
     }
 </style>
+-->

@@ -1,4 +1,5 @@
 {
+    "withLoader": false,
     "durationMin": 60,
     "durationMax": 600,
     "durationStep": 60,
