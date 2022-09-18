@@ -1,21 +1,6 @@
-enum PartsOfSpeech {
-    NOUN,
-    PRONOUN,
-    VERB,
-    ADJECTIVE,
-    ADVERB,
-    PREPOSITION,
-    CONJUNCTION,
-    INTERJECTION,
-    NUMERAL,
-    PARTICLE,
-    UNDEFINED
-}
+export default null
 
-interface WordWithPos {
-    word: string
-    pos: PartsOfSpeech
-}
+/*
 
 interface PosDescription {
     pos: PartsOfSpeech
@@ -45,11 +30,6 @@ function getPosDescription(_pos: PartsOfSpeech | string): PosDescription{
     if(!descr) throw 'Не удалось определить характеристики части речи.'
     const [nominative, genetive, shortName, shortestName] = descr
     return {pos, nominative, genetive, shortName, shortestName}
-}
-
-function getKeyNames(): string[] {
-    return Object.keys(PartsOfSpeech)
-        .filter(v => isNaN(Number(v)))
 }
 
 class MorphominoItem {
@@ -115,12 +95,7 @@ function assureNumber(val){
 }
 
 
-/*function getRandomPosRepresentable() : PartsOfSpeech{
-    const {length} = posRepresentation
-    const rand = Math.random() * length
-    const floor = Math.floor(rand)
-    return posRepresentation[floor]
-}*/
+
 
 function getRandomPos(): PartsOfSpeech {
     const {length} = getKeyNames()
@@ -142,4 +117,4 @@ function getRandomPos(): PartsOfSpeech {
 }
 
 export { PartsOfSpeech, MorphominoItem, getPosDescription, getRandomPos, getKeyNames, setStatistics }
-export type { WordWithPos }
+*/
