@@ -1,11 +1,12 @@
 import { writable, get } from 'svelte/store'
-import { getTimeWithUnits } from './util'
-import { durationMin, moveAmountMin, ignoreInstruction, instructionTimeout } from '../settings.json'
+import { fromStorage, getTimeWithUnits } from './util'
+import { durationMin, moveAmountMin, ignoreInstructionKey, ignoreInstruction, instructionTimeout, setupTimeout } from '../settings.json'
 
 enum GameStages {
     INSTRUCTION,
-    BEGIN,
+    SETUP,
     FLOW,
+    BREAK,
     END
 }
 
@@ -31,31 +32,43 @@ function getElapsedTimeWithUnits() {
     return `${minutes} ${minUnitCase} ${seconds} ${secUnitCase}`
 }
 
-const delayedAction = (func, delay) => new Promise((yep, nop) => setTimeout(() => yep(func()), delay))
-const actions = [
-    delayedAction(() => stage.set(GameStages.BEGIN), instructionTimeout)
-]
-
 let gameTimeCounter = null
 
-async function startGame(){
-    moves.set(new Array(moveAmountMin).fill(MoveStatuses.FORTHCOMING))
-    stage.set(ignoreInstruction ? GameStages.BEGIN : GameStages.INSTRUCTION)
-    elapsedTime.set(0)
-    /*
-    try {
-        await delayedStage(() => stage.set(GameStages.BEGIN), 5000)
+function gameTicker() {
+    return new Promise((yep, nop) => {
         gameTimeCounter = setInterval(() => {
             const seconds = get(elapsedTime)
             elapsedTime.set(seconds + 1)
+            if(get(stage) === GameStages.BREAK) nop('The game is broken.')
         }, 1000)
-            await delayedStage(() => stage.set(GameStages.END), 11000)
+    })
+}
+
+const delayedAction = (func, delay) => new Promise((yep, nop) => setTimeout(() => yep(func()), delay))
+
+const promises = [
+    delayedAction(() => stage.set(GameStages.SETUP), instructionTimeout),
+    delayedAction(() => stage.set(GameStages.FLOW), instructionTimeout + setupTimeout),
+    delayedAction(() => stage.set(GameStages.BREAK), get(durationInSeconds) * 1000),
+    gameTicker(),
+]
+
+function setupGame(){
+    moves.set(new Array(moveAmountMin).fill(MoveStatuses.FORTHCOMING))
+    const ign = fromStorage(ignoreInstructionKey, ignoreInstruction)
+    stage.set(ign ? GameStages.SETUP : GameStages.INSTRUCTION)
+    elapsedTime.set(0)
+}
+
+async function startGame(){
+    setupGame()
+    try {
+        await Promise.all(promises)
     }
     catch(err){
         console.log(err)
     }
     stopGame()
-    */
 }
 
 function stopGame(){

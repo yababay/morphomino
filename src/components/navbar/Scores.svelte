@@ -1,5 +1,5 @@
 <script>
-    import { elapsedTime, stopGame } from '../../lib/game'
+    import { elapsedTime, stage, GameStages } from '../../lib/game'
 </script>
 
 <ul class="navbar-nav">
@@ -14,5 +14,4 @@
         <!-- span>{$scores.filter(el => el === true).length}/{$scores.filter(el => typeof el === 'boolean').length}</span -->
     </li>
 </ul>
-<button class="btn btn-secondary" on:click={stopGame}>Прервать</button>
-
+<button class="btn btn-secondary" on:click={() => stage.set(GameStages.BREAK)}>Прервать</button>

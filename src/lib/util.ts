@@ -1,3 +1,18 @@
+function saveValue(event, key: string, writable = null){
+    let {target} = event
+    let {value} = target
+    if(target.type !== 'checkbox' && !isNaN(value)) value = parseInt(value)
+    localStorage.setItem(key, value)
+    if(writable) writable.set(value)
+}
+
+function fromStorage(key, min){
+    let val = localStorage.getItem(key) || min
+    if(['true', 'false'].includes(val)) val = val === 'true'
+    else if(!isNaN(val)) val = parseInt(val)
+    return val
+}
+
 function getTimeWithUnits(seconds: number) {
     const minutes = Math.floor(seconds / 60)
     seconds = seconds - minutes * 60
@@ -31,4 +46,4 @@ function getTimeWithUnits(seconds: number) {
     return {minutes, seconds, minUnitCase, secUnitCase}
 }
 
-export { getTimeWithUnits }
+export { getTimeWithUnits, saveValue, fromStorage }
