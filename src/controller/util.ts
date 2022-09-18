@@ -1,19 +1,42 @@
-function saveValue(event, key: string, writable = null){
+function toStorage(event, key: string, writable = null): void{
     let {target} = event
     let {value} = target
-    if(target.type !== 'checkbox' && !isNaN(value)) value = parseInt(value)
+    if(target.type === 'checkbox') value = target.checked
+    else if(!isNaN(value)) value = parseInt(value)
     localStorage.setItem(key, value)
     if(writable) writable.set(value)
 }
 
-function fromStorage(key, min){
-    let val = localStorage.getItem(key) || min
-    if(['true', 'false'].includes(val)) val = val === 'true'
-    else if(!isNaN(val)) val = parseInt(val)
-    return val
+function stringFromStorage(key: string, byDefault: number) : string {
+    const error = new Error('Не удалось распознать строковое значение в хранилище или настройках.')
+    const value = fromStorage(key, byDefault)
+    if(typeof value === 'number' || typeof value === 'boolean') throw error
+    return  value
 }
 
-function getTimeWithUnits(seconds: number) {
+function booleanFromStorage(key: string, byDefault: boolean) : boolean {
+    const error = new Error('Не удалось распознать логическое значение в хранилище или настройках.')
+    const value = fromStorage(key, byDefault)
+    if(typeof value === 'boolean') return value
+    if(typeof value === 'number' || !['true', 'false'].includes(value)) throw error
+    return  value === 'true'
+}
+
+function numberFromStorage(key: string, byDefault: number) : number {
+    const error = new Error('Не удалось распознать число в хранилище или настройках.')
+    let value = fromStorage(key, byDefault)
+    if(typeof value === 'number') return value
+    if(typeof value === 'boolean') throw error
+    value = parseFloat(value)
+    if(isNaN(value)) throw error
+    return
+}
+
+function fromStorage(key: string, byDefault: string | number | boolean): string | number | boolean{
+    return localStorage.getItem(key) || byDefault
+}
+
+function getTimeWithUnits(seconds: number): object {
     const minutes = Math.floor(seconds / 60)
     seconds = seconds - minutes * 60
     const minRest = minutes % 10
@@ -46,4 +69,4 @@ function getTimeWithUnits(seconds: number) {
     return {minutes, seconds, minUnitCase, secUnitCase}
 }
 
-export { getTimeWithUnits, saveValue, fromStorage }
+export { getTimeWithUnits, toStorage, numberFromStorage, booleanFromStorage, stringFromStorage }
