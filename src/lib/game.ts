@@ -1,4 +1,6 @@
-import { writable, get, derived } from 'svelte/store'
+import { writable, get } from 'svelte/store'
+import { getTimeWithUnits } from './util'
+import { durationMin, moveAmountMin, ignoreInstruction, instructionTimeout } from '../settings.json'
 
 enum GameStages {
     INSTRUCTION,
@@ -7,52 +9,41 @@ enum GameStages {
     END
 }
 
-const stage = writable(GameStages.INSTRUCTION)
-const timeInSeconds = writable(60)
-const moviesAmount = writable(10)
-const elapsedTime = writable(0)
-
-function getElapsedTime() {
-    let seconds = get(elapsedTime)
-    const minutes = Math.floor(seconds / 60)
-    seconds = seconds - minutes * 60
-    const minRest = minutes % 10
-    const secRest = seconds % 10
-    let minUnitCase, secUnitCase
-    switch(secRest){
-        case 1: 
-            secUnitCase = 'секунду'
-            break
-        case 2: 
-        case 3: 
-        case 4: 
-            secUnitCase = 'секунды'
-            break 
-        default: 
-            secUnitCase = 'секунд' 
-    }
-    switch(minRest){
-        case 1: 
-            minUnitCase = 'минуту'
-            break
-        case 2: 
-        case 3: 
-        case 4: 
-            minUnitCase = 'минуты'
-            break 
-        default: 
-            minUnitCase = 'минут'
-    }
-    return {minutes, seconds, minUnitCase, secUnitCase}
+enum MoveStatuses {
+    FORTHCOMING,
+    HOST_IS_WON,
+    GUEST_IS_WON,
+    BOTH_ARE_FAILED
 }
 
-const delayedStage = (func, delay) => new Promise((yep, nop) => setTimeout(() => yep(func()), delay))
+const stage = writable(GameStages.INSTRUCTION)
+const durationInSeconds = writable(durationMin)
+const moviesAmount = writable(moveAmountMin)
+const elapsedTime = writable(0)
+const moves = writable([])
+
+function getScores() {
+
+}
+
+function getElapsedTimeWithUnits() {
+    const {seconds, minutes, minUnitCase, secUnitCase} = getTimeWithUnits(get(elapsedTime))
+    return `${minutes} ${minUnitCase} ${seconds} ${secUnitCase}`
+}
+
+const delayedAction = (func, delay) => new Promise((yep, nop) => setTimeout(() => yep(func()), delay))
+const actions = [
+    delayedAction(() => stage.set(GameStages.BEGIN), instructionTimeout)
+]
+
 let gameTimeCounter = null
 
 async function startGame(){
+    moves.set(new Array(moveAmountMin).fill(MoveStatuses.FORTHCOMING))
+    stage.set(ignoreInstruction ? GameStages.BEGIN : GameStages.INSTRUCTION)
     elapsedTime.set(0)
+    /*
     try {
-        stage.set(GameStages.INSTRUCTION)
         await delayedStage(() => stage.set(GameStages.BEGIN), 5000)
         gameTimeCounter = setInterval(() => {
             const seconds = get(elapsedTime)
@@ -64,6 +55,7 @@ async function startGame(){
         console.log(err)
     }
     stopGame()
+    */
 }
 
 function stopGame(){
@@ -71,7 +63,7 @@ function stopGame(){
     stage.set(GameStages.END)
 }
 
-export { GameStages, stage, startGame, stopGame, timeInSeconds, moviesAmount, elapsedTime, getElapsedTime }
+export { GameStages, stage, startGame, stopGame, durationInSeconds, moviesAmount, elapsedTime, getElapsedTimeWithUnits, getScores }
 
 /*
 import { PartsOfSpeech, getKeyNames, MorphominoItem } from './models'

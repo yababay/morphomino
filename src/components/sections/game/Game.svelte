@@ -1,22 +1,15 @@
 <script>
-    import { GameStages, stage, startGame, getElapsedTime } from '../../../lib/game'
+    import { GameStages, stage, startGame, getElapsedTimeWithUnits, moviesAmount, getScores } from '../../../lib/game'
     import Article from '../Article.svelte'
 
     export let id
 
-    let instruction
-
     const afterFetch = txt => txt.replace('<p>', '<span>').replace('</p>', '</span>')
-
-    function formatElapsedTime() {
-        const {seconds, minutes, minUnitCase, secUnitCase} = getElapsedTime()
-        return `${minutes} ${minUnitCase} ${seconds} ${secUnitCase}`
-    }
 
 </script>
 
 {#if $stage === GameStages.INSTRUCTION }
-    <div  class="alert alert-primary alert-dismissible fade show text-center" role="alert" bind:this={instruction}>
+    <div  class="alert alert-primary alert-dismissible fade show text-center" role="alert">
         <Article {id} {afterFetch} />
         <span></span>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
@@ -26,7 +19,7 @@
     </div>
 {:else if $stage === GameStages.END }
     <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-        <strong>Поздравляем!</strong> Вы правильно выполнили 8 заданий из 11 за {formatElapsedTime()}.
+        <strong>Поздравляем!</strong> Вы правильно выполнили 8 заданий из {$moviesAmount} за {getElapsedTimeWithUnits()}.
         <button type="button" class="btn btn-success ms-3" 
             data-bs-dismiss="alert" aria-label="Перезапустить"
             on:click={startGame}>Начать новую игру</button>
