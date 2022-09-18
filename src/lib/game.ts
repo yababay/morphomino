@@ -17,7 +17,13 @@ enum MoveStatuses {
     BOTH_ARE_FAILED
 }
 
+enum GamerRoles {
+    HOST,
+    GUEST
+}
+
 const stage = writable(GameStages.INSTRUCTION)
+const role = writable(GamerStatuses.HOST)
 const durationInSeconds = writable(durationMin)
 const moviesAmount = writable(moveAmountMin)
 const elapsedTime = writable(0)
@@ -76,7 +82,11 @@ function stopGame(){
     stage.set(GameStages.END)
 }
 
-export { GameStages, stage, startGame, stopGame, durationInSeconds, moviesAmount, elapsedTime, getElapsedTimeWithUnits, getScores }
+export { 
+    GameStages, MoveStatuses, GamerRoles,
+    stage, durationInSeconds, moviesAmount, elapsedTime, moves, role,
+    getElapsedTimeWithUnits, getScores, startGame, stopGame, 
+}
 
 /*
 import { PartsOfSpeech, getKeyNames, MorphominoItem } from './models'

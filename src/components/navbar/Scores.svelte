@@ -1,5 +1,17 @@
 <script>
-    import { elapsedTime, stage, GameStages } from '../../lib/game'
+    import { get } from 'svelte/store'
+    import { elapsedTime, stage, GameStages, GamerRoles, MoveStatuses, moves, role } from '../../lib/game'
+
+    function getScores(){
+        const r = get(role)
+        const scores = $moves.filter(
+            el => r === 
+            GamerRoles.HOST && el === MoveStatuses.HOST_IS_WON
+            ||
+            GamerRoles.GUEST && el === MoveStatuses.GUEST_IS_WON
+        ).length
+        return `${scores}/${$moves.length}`
+    }
 </script>
 
 <ul class="navbar-nav">
@@ -11,7 +23,7 @@
 <ul class="navbar-nav">
     <li class="nav-item  text-light">
         <strong>Отгадано:</strong>
-        <!-- span>{$scores.filter(el => el === true).length}/{$scores.filter(el => typeof el === 'boolean').length}</span -->
+        <span>{getScores()}</span>
     </li>
 </ul>
 <button class="btn btn-secondary" on:click={() => stage.set(GameStages.BREAK)}>Прервать</button>
