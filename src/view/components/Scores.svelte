@@ -14,6 +14,18 @@
         return `${scores}/${$moves.length}`
     }*/
 </script>
+<ul class="navbar-nav">
+    <li class="nav-item text-light">
+        <strong>Время игры:</strong>
+        <span>{0}</span>
+    </li>
+</ul>
+<ul class="navbar-nav">
+    <li class="nav-item  text-light">
+        <strong>Отгадано:</strong>
+        <span>{0/10}</span>
+    </li>
+</ul>
 
 <!-- ul class="navbar-nav">
     <li class="nav-item text-light">

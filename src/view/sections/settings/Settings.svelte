@@ -3,7 +3,7 @@
     import { toStorage } from '../../../controller/util'
     import { durationInSeconds, durationInMinutes, moviesAmount, ignoreInstruction } from '../../../controller/settings'
     import { durationMin, durationMax, durationStep, moveAmountMin, moveAmountMax, moveAmountStep, ignoreInstructionKey, durationKey, moveAmountKey } from '../../../settings.json'
-    import Article from '../../util/Article.svelte'
+    import Article from '../../components/Article.svelte'
 
     export let id
     let durationInput, moveAmountInput, ignoreInstructionInput
@@ -43,7 +43,7 @@
             <input 
                 id="ignore-instruction" 
                 class="form-check-input" 
-                type="checkbox" role="switch" 
+                type="checkbox" role="switch" aria-checked={ignoreInstructionInput && ignoreInstructionInput.checked}
                 bind:this={ignoreInstructionInput}
                 on:change={e => toStorage(e, ignoreInstructionKey)}
             >

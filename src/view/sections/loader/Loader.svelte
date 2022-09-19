@@ -1,5 +1,5 @@
 <script>
-    import Article from '../../util/Article.svelte';
+    import Article from '../../components/Article.svelte';
 
     export let id
 

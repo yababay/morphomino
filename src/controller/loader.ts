@@ -1,3 +1,4 @@
+import { progress } from './router'
 /*
 import { writable, get } from 'svelte/store'
 import { PartsOfSpeech, WordWithPos } from '../model/types'

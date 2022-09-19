@@ -1,15 +1,13 @@
 import { writable, get } from 'svelte/store'
 import { withLoader } from '../settings.json'
 
-//import { loader } from './dictionary'
-//import { startGame, stopGame } from './game'
-
+const progress = writable(0)
 const hash = writable('')
-const loader = writable(0)
+
 let lastURL: string
 
-const sectionIds = ['intro', 'settings', 'statistics', 'game', 'loader']
-const sections = sectionIds.map(id => document.getElementById(id))
+const sections = Array.from(document.querySelectorAll('main > section'))
+const hashes = sections.map(el => el.id)
 
 function assureElement(section: any){
   return typeof section === 'string' && sections.find(el => el.id === section) || section
@@ -39,18 +37,19 @@ window.addEventListener('hashchange', function (event) {
   })
 
 function processHash(){
-    if(withLoader && get(loader) < 100) return
-    let _hash = window.location.hash 
-    if(!_hash || !_hash.trim().length) _hash = '#intro'
-    _hash = _hash.substring(1).trim()
-    if(!sectionIds.includes(_hash)) return
+    if(withLoader && get(progress) < 100) return
+    let id = window.location.hash 
+    if(!id || !id.trim().length) id = '#intro'
+    id = id.substring(1).trim()
+    if(!hashes.includes(id)) return
     for(const section of sections) {
-      if(section.getAttribute('id') === _hash) section.classList.remove('d-none')
-      else section.classList.add('d-none')
+      if(section.id !== id) {
+        hideSection(section)
+        continue
+      }
+      showSection(section)
+      hash.set(id)
     }
-    hash.set(_hash)
-//    if(_hash === 'game') startGame()
-//    else stopGame()
   }
   
-export { processHash, hash }
+export { hash, progress, processHash }

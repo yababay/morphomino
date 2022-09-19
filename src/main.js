@@ -1,9 +1,14 @@
 import { processHash } from './controller/router'
 import sections from './view/sections'
-import Navbar from './view/navbar/Navbar.svelte'
+import Navbar from './view/components/Navbar.svelte'
 
-const getProxyName = id => `Proxy<${id.split('').map((ch, i) => i === 0 ? ch.toUpperCase() : ch).join('')}>`
-const findProxy = id => sections.find(section => section.name === getProxyName(id))
+function getProxyName(id){
+  return  `Proxy<${id.split('').map((ch, i) => i === 0 ? ch.toUpperCase() : ch).join('')}>`  
+}
+
+function findProxy(id){
+  return sections.find(section => section.name === getProxyName(id))
+}
 
 Array.from(document.querySelectorAll('main > section')).map(el => el.id).forEach(id => {
   const args = [{target: document.getElementById(id), props: {id}}]

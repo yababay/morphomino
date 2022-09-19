@@ -29,7 +29,7 @@ function numberFromStorage(key: string, byDefault: number) : number {
     if(typeof value === 'boolean') throw error
     value = parseFloat(value)
     if(isNaN(value)) throw error
-    return
+    return value
 }
 
 function fromStorage(key: string, byDefault: string | number | boolean): string | number | boolean{
@@ -69,4 +69,4 @@ function getTimeWithUnits(seconds: number): object {
     return {minutes, seconds, minUnitCase, secUnitCase}
 }
 
-export { getTimeWithUnits, toStorage, numberFromStorage, booleanFromStorage, stringFromStorage }
+export { getTimeWithUnits, toStorage, numberFromStorage, booleanFromStorage, stringFromStorage, fromStorage }

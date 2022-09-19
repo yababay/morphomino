@@ -1,8 +1,14 @@
 <script>
-    import Article from '../../util/Article.svelte'
+    import { hash } from '../../../controller/router'
+    import Article from '../../components/Article.svelte'
 
     export let id
     const afterFetch = txt => txt.replace('<p>', '<span>').replace('</p>', '</span>')
+
+    hash.subscribe(value => {
+        if(value !== id) return
+        console.log('start game')
+    })
 
     /*import { GameStages, stage, startGame, getElapsedTimeWithUnits, moviesAmount, getScores } from '../../../controller/game'
 

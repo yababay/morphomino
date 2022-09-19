@@ -1,4 +1,4 @@
-import { derived, writable, get } from 'svelte/store'
+import { derived, writable } from 'svelte/store'
 import { numberFromStorage, booleanFromStorage } from './util'
 import { durationMin, ignoreInstruction as ignoreInstr, moveAmountMin, moveAmountKey, durationKey, ignoreInstructionKey } from '../settings.json'
 
