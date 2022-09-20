@@ -2,5 +2,5 @@ import { PartsOfSpeech, MoveStatuses, GamerRoles, GameStages, WordWithPos } from
 import PartOfSpeech from './pos'
 import MorminoItem from './mormino'
 
-export { PartsOfSpeech, MoveStatuses, GamerRoles, GameStages, PartOfSpeech, MorminoItem }
+export { PartsOfSpeech, PartOfSpeech, MoveStatuses, GamerRoles, GameStages, MorminoItem }
 export type { WordWithPos }

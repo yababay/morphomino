@@ -8,6 +8,29 @@
             .map(({pos, genetive}) => [genetive, getStatisticsByPos(pos)])
             .sort((a, b) => b[1] > a[1] ? 1 : -1)
     }
+    /*
+function getRandomIndex(arr: any[]){
+    return Math.floor(Math.random() * arr.length)
+}
+
+function getRandomPos(): PartOfSpeech {
+    return new PartOfSpeech(statistics[getRandomIndex(statistics)])
+}
+
+function getRandomWordWithPos(): WordWithPos {
+    const dict = get(dictionary)
+    return dict[getRandomIndex(dict)]
+}
+function getStatisticsByPos(pos: PartsOfSpeech): number {
+    return statistics.filter((el:PartsOfSpeech) => el === pos).length
+}
+
+function getRandomItem(): MorminoItem {
+    const word = getRandomWordWithPos()
+    const pos = getRandomPos()
+    return new MorminoItem(word, pos)
+}
+*/
 </script>
 
 {#if $loader === 100}

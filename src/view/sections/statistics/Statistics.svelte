@@ -6,7 +6,7 @@
 
     hash.subscribe(value => {
         if(value !== id) return
-        console.log('update statistics')
+        console.log('TODO: update statistics')
     })
 
 </script>

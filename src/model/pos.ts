@@ -1,6 +1,24 @@
-/* Part of speech */
+/*
+
+Части речи
+
+В русском языке насчитывается:
+
+Глаголов 37319;
+Существительных 56332
+Прилагательных 24786
+Местоимений 93
+Наречий 1916 	
+Числительных 117
+Междометий 341
+Союзов 110
+Предлогов 141
+Частиц 149
+
+*/
 
 import { PartsOfSpeech } from "./types"
+import { getRandomIndex } from "../controller/util"
 
 const descriptions: object = {
     [PartsOfSpeech.NOUN]:         ["существительное", "существительных", "существ.", "сущ."],
@@ -15,6 +33,8 @@ const descriptions: object = {
     [PartsOfSpeech.PARTICLE]:     ["частица", "частиц", "частица", "част."],
     [PartsOfSpeech.UNDEFINED]:    ["", "", "", ""]
 }
+
+let statistics: PartsOfSpeech[] = null
 
 export default class PartOfSpeech {
 
@@ -45,6 +65,18 @@ export default class PartOfSpeech {
     static getKeyNames(withoutUndefined: boolean = true): string[] {
         return Object.keys(PartsOfSpeech)
             .filter(v => isNaN(Number(v)))
-            .filter(v => withoutUndefined && v !== 'UNDEFINED' || true)
+            .filter(v => withoutUndefined && v !== 'UNDEFINED' || false)
+    }
+
+    static getRandomPosType(): PartsOfSpeech {
+        return statistics[getRandomIndex(statistics)]
+    }
+
+    static getRandomPos(): PartOfSpeech {
+        return new PartOfSpeech(PartOfSpeech.getRandomPosType())
+    }
+
+    static setStatistics(stats: PartsOfSpeech[]): void{
+        statistics = stats
     }
 }

@@ -1,41 +1,29 @@
 <script>
-    import { hash } from '../../../controller/router'
-    import Article from '../../components/Article.svelte'
+    import { stage } from '../../../controller/game';
+    import { GameStages } from '../../../model'
+    import Instruction from './Instruction.svelte';
+    import Finish from './Finish.svelte';
+    import Flow from './Flow.svelte';
+    import Setup from './Setup.svelte';
 
     export let id
-    const afterFetch = txt => txt.replace('<p>', '<span>').replace('</p>', '</span>')
 
-    hash.subscribe(value => {
-        if(value !== id) return
-        console.log('start game')
-    })
-
-    /*import { GameStages, stage, startGame, getElapsedTimeWithUnits, moviesAmount, getScores } from '../../../controller/game'
-
-
-    */
 </script>
 
-<div  class="alert alert-primary alert-dismissible fade show text-center" role="alert">
-    <Article {id} {afterFetch} />
-    <span></span>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
-</div>
-
-<!-- 
 {#if $stage === GameStages.INSTRUCTION }
-    <div class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated w-100" role="progressbar" aria-label="Игра начитается..." aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
-{:else if $stage === GameStages.END }
-    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-        <strong>Поздравляем!</strong> Вы правильно выполнили 8 заданий из {$moviesAmount} за {getElapsedTimeWithUnits()}.
-        <button type="button" class="btn btn-success ms-3" 
-            data-bs-dismiss="alert" aria-label="Перезапустить"
-            on:click={startGame}>Начать новую игру</button>
-        <a type="button" class="btn btn-success ms-3" 
-            data-bs-dismiss="alert" aria-label="Статистика"
-            href='#statistics'>Посмотреть статистику</a>
-    </div>
+    <Instruction {id} />
+{:else if $stage === GameStages.SETUP }
+    <Setup />
+{:else if $stage === GameStages.FLOW }
+    <Flow />
+{:else if $stage === GameStages.BREAK }
+    <Finish mode={GameStages.BREAK} />
+{:else if $stage === GameStages.HOST_IS_WON }
+    <Finish mode={GameStages.HOST_IS_WON}/>
+{:else if $stage === GameStages.GUEST_IS_WON }
+    <Finish mode={GameStages.GUEST_IS_WON}/>
+{:else if $stage === GameStages.DEAD_HEAT }
+    <Finish mode={GameStages.DEAD_HEAT}/>
+{:else if $stage === GameStages.TIMEOUT }
+    <Finish mode={GameStages.TIMEOUT}/>
 {/if}
--->

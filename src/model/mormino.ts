@@ -1,5 +1,8 @@
 import { PartsOfSpeech, WordWithPos } from "./types"
+import { getRandomIndex } from "../controller/util"
 import PartOfSpeech from "./pos"
+
+let dictionary: WordWithPos[] = null
 
 export default class MorminoItem {
 
@@ -23,5 +26,15 @@ export default class MorminoItem {
 
     isUndefined(): boolean {
         return this.#selfPos.value === PartsOfSpeech.UNDEFINED
+    }
+
+    static setDictionary(dict: WordWithPos[]){
+        dictionary = dict
+    }
+
+    static getRandomItem(): MorminoItem {
+        const word = dictionary[getRandomIndex(dictionary)]
+        const pos = PartOfSpeech.getRandomPos()
+        return new MorminoItem(word, pos)
     }
 }

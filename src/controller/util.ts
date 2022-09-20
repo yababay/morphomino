@@ -1,3 +1,12 @@
+function delayedAction (func: CallableFunction, delay: number){
+    return new Promise((yep) => setTimeout(() => yep(func()), delay))
+}
+
+function getRandomIndex(arr: any[]){
+    if(!arr) throw 'Данные о статистике частей речи еще не загружены.'
+    return Math.floor(Math.random() * arr.length)
+}
+
 function toStorage(event, key: string, writable = null): void{
     let {target} = event
     let {value} = target
@@ -69,4 +78,7 @@ function getTimeWithUnits(seconds: number): object {
     return {minutes, seconds, minUnitCase, secUnitCase}
 }
 
-export { getTimeWithUnits, toStorage, numberFromStorage, booleanFromStorage, stringFromStorage, fromStorage }
+export { getTimeWithUnits, toStorage, numberFromStorage, 
+    booleanFromStorage, stringFromStorage, fromStorage, getRandomIndex,
+    delayedAction 
+}

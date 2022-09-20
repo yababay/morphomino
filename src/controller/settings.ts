@@ -1,9 +1,10 @@
 import { derived, writable } from 'svelte/store'
 import { numberFromStorage, booleanFromStorage } from './util'
-import { durationMin, ignoreInstruction as ignoreInstr, moveAmountMin, moveAmountKey, durationKey, ignoreInstructionKey } from '../settings.json'
+import { ignoreInstruction as ignoreInstr, moveAmountDefault, durationDefault,
+    moveAmountKey, durationKey, ignoreInstructionKey } from '../settings.json'
 
-const dur = numberFromStorage(durationKey, durationMin)
-const mov = numberFromStorage(moveAmountKey, moveAmountMin)
+const dur = numberFromStorage(durationKey, durationDefault)
+const mov = numberFromStorage(moveAmountKey, moveAmountDefault)
 const instr = booleanFromStorage(ignoreInstructionKey, ignoreInstr)
 const durationInSeconds = writable(dur)
 const moviesAmount = writable(mov)

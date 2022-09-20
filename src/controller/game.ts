@@ -1,27 +1,50 @@
-/*import { writable, get } from 'svelte/store'
-import { fromStorage, getTimeWithUnits } from './util'
-import { durationMin, moveAmountMin, ignoreInstructionKey, ignoreInstruction, instructionTimeout, setupTimeout } from '../settings.json'
-import { GameStages, MoveStatuses, GamerRoles } from '../model/types'
+import { writable, get, derived } from 'svelte/store'
+import { GameStages, GamerRoles, MoveStatuses, MorminoItem } from '../model'
+import { durationInSeconds, moviesAmount, ignoreInstruction, instructionTimeout, setupTimeout, gameSectionId } from './settings'
+import { delayedAction } from './util'
+import { hash } from './router'
 
-const stage = writable(GameStages.INSTRUCTION)
-const role = writable(GamerRoles.HOST)
-const durationInSeconds = writable(durationMin)
-const moviesAmount = writable(moveAmountMin)
+const stage = writable(ignoreInstruction && GameStages.SETUP || GameStages.INSTRUCTION)
 const elapsedTime = writable(0)
-const moves = writable([])
 
-function getScores() {
+const role = writable(GamerRoles.HOST)
+const moves = writable(new Array(get(moviesAmount)).fill(MoveStatuses.FORTHCOMING))
+const flow = writable([MorminoItem.getRandomItem()])
 
-}
-
-function getElapsedTimeWithUnits() {
-    const {seconds, minutes, minUnitCase, secUnitCase} = getTimeWithUnits(get(elapsedTime))
-    return `${minutes} ${minUnitCase} ${seconds} ${secUnitCase}`
-}
+const scores = derived(moves, $moves => {
+    const scores = $moves.filter(el => 
+        get(role) === GamerRoles.HOST && el === MoveStatuses.HOST_IS_WON 
+        || 
+        get(role) === GamerRoles.GUEST && el === MoveStatuses.GUEST_IS_WON 
+        ).length
+    return `${scores}/${$moves.length}`
+})
 
 let gameTimeCounter = null
 
-function gameTicker() {
+hash.subscribe(value => {
+    if(value === gameSectionId) startGame()
+    else breakGame()
+})
+
+function waitForStage (next: GameStages, delay: number){
+    return delayedAction(() => {stage.set(next); return next}, delay)
+}
+
+function waitForStart(){
+    if(ignoreInstruction){
+        stage.set(GameStages.SETUP)
+        return Promise.resolve(true)
+    }
+    stage.set(GameStages.INSTRUCTION)
+    return waitForStage(GameStages.SETUP, instructionTimeout)
+}
+
+function waitForFlow(){
+    return waitForStart().then(()=> waitForStage(GameStages.FLOW, setupTimeout))
+}
+
+function waitForBreak() {
     return new Promise((yep, nop) => {
         gameTimeCounter = setInterval(() => {
             const seconds = get(elapsedTime)
@@ -31,195 +54,22 @@ function gameTicker() {
     })
 }
 
-const delayedAction = (func, delay) => new Promise((yep, nop) => setTimeout(() => yep(func()), delay))
-
-const promises = [
-    delayedAction(() => stage.set(GameStages.SETUP), instructionTimeout),
-    delayedAction(() => stage.set(GameStages.FLOW), instructionTimeout + setupTimeout),
-    delayedAction(() => stage.set(GameStages.BREAK), get(durationInSeconds) * 1000),
-    gameTicker(),
-]
-
-function setupGame(){
-    moves.set(new Array(moveAmountMin).fill(MoveStatuses.FORTHCOMING))
-    const ign = fromStorage(ignoreInstructionKey, ignoreInstruction)
-    stage.set(ign ? GameStages.SETUP : GameStages.INSTRUCTION)
-    elapsedTime.set(0)
-}
-
-async function startGame(){
-    setupGame()
+async function startGame() {
     try {
-        await Promise.all(promises)
+        await waitForFlow()
+        await Promise.any([
+            waitForBreak(),
+            waitForStage(GameStages.TIMEOUT, get(durationInSeconds) * 1000)
+        ])
     }
     catch(err){
         console.log(err)
     }
-    stopGame()
-}
-
-function stopGame(){
     if(gameTimeCounter) clearInterval(gameTimeCounter)
-    stage.set(GameStages.END)
 }
 
-export { 
-    GameStages, MoveStatuses, GamerRoles,
-    stage, durationInSeconds, moviesAmount, elapsedTime, moves, role,
-    getElapsedTimeWithUnits, getScores, startGame, stopGame, 
-}
-*/
-export default null
-/*
-import { PartsOfSpeech, getKeyNames, MorphominoItem } from './models'
-
-const gameTime = writable(0)
-const scores = writable(new Array(100).fill(0))
-
-const hashHolder = writable('')
-const firstPlayer = writable([])
-const secondPlayer = writable([])
-const gameFlow = writable([new MorphominoItem, new MorphominoItem])
-const alertMessage = writable('')
-const gameOver = writable(false)
-
-let moveCount = 0
-let gameTimeCounter = null
-
-function startGame() {
-    if(gameTimeCounter) clearInterval(gameTimeCounter)
-    gameTimeCounter = setInterval(() => {
-        const seconds = get(gameTime)
-        gameTime.set(seconds + 1)
-    }, 1000)
-    return Promise.all(new Array(100).fill(0).map(el => moveCount++).map(i => new Promise((yep, nop) => {
-        if(typeof get(scores)[i] === 'boolean'){
-            yep(null)
-            return
-        } 
-        setTimeout(() => {
-            if(get(gameOver)) {
-                nop()
-                return
-            }
-            const arrScores = Array.from(get(scores))
-            if(arrScores[i] === 0) arrScores[i] = false
-            scores.set(arrScores)
-            const lastCard = get(gameFlow).at(-1)
-            let pos = lastCard.nextPos
-            if(pos === PartsOfSpeech.UNDEFINED) pos = PartsOfSpeech.NOUN
-            const item = new MorphominoItem(findNextPos(pos))
-            gameFlow.set([...get(gameFlow), item])
-            yep(i)
-        }, 5000 * i)
-    })))
+function breakGame() {
+    stage.set(GameStages.BREAK)
 }
 
-function makeMove(item, index, val){
-    const fromFlow = get(gameFlow).at(-1)
-    const isCongeneric = item.isCongeneric(fromFlow)
-    if(!isCongeneric) {
-      showAlert(`Слово "${item.value}" - не ${fromFlow.longPosName}!`)
-      return
-    }
-    const arr = [...get(scores)]
-    let count = 0
-    while(typeof arr[count] === 'boolean') count++
-    arr[count] = val
-    scores.set(arr)
-    replaceForFirst(index)
-    gameFlow.set([...get(gameFlow), item])
-}
-
-function showAlert(msg){
-    alertMessage.set(msg)
-    setTimeout(() => alertMessage.set(''), 4000)
-}
-
-let dictionary = null
-
-function findNextPos(pos: PartsOfSpeech){
-    shuffleDictionary()
-    return dictionary.find(el => el.pos === pos)
-}
-
-function shuffleDictionary(){
-    if(dictionary) dictionary.sort(el => Math.random() > .5 ? 1 : -1) 
-}
-
-function resetForFirst() {
-    firstPlayer.set(getRandomItems())
-}
-*/
-/*Promise.all(getKeyNames().map(key => 
-        fetch(`./assets/${key.toLowerCase()}s.txt`)
-        .then(res => res.text())
-        .then(txt => txt.split('\n')
-            .map(word => word.trim())
-            .map(word => ({pos: PartsOfSpeech[key], word: word && word.trim() || ''}))
-            .filter(item => item.word && item.word.length < 13)
-        ))
-).then(arr => {
-    dictionary = arr.reduce((acc, curr) => {
-        return [...acc, ...curr]
-    }, [])   
-    firstPlayer.set(getRandomItems())
-    secondPlayer.set(getRandomItems())
-    gameFlow.set([...get(gameFlow), getRandomItem()])
-    return Promise.resolve()
-})
-*/
-/*.then(() => {
-    gameTimeCounter = setInterval(() => {
-        const seconds = get(gameTime)
-        gameTime.set(seconds + 1)
-    }, 1000)
-    return Promise.resolve() //robotsGame
-})*/
-//.then(() => Promise.reject())
-//.catch(err => {
-    //clearInterval(gameTimeCounter)
-//})
-/*
-function getRandomItem(){
-    const r = Math.floor(Math.random() * dictionary.length)
-    return new MorphominoItem(dictionary[r])
-}
-
-function getRandomItems(){
-    return new Array(8)
-        .fill(0)
-        .map(el => getRandomItem())
-}
-
-function replaceItem(cards, n) {
-    return cards.map((el, i) => i === n ? getRandomItem() : el)
-}
-
-function replaceForFirst(n) {
-    firstPlayer.set(replaceItem(get(firstPlayer), n))
-}
-
-function replaceForSecond(n) {
-    firstPlayer.set(replaceItem(get(secondPlayer), n))
-}
-
-export { 
-    firstPlayer, 
-    secondPlayer, 
-    gameFlow, 
-    alertMessage, 
-    scores,
-    gameTime,
-    gameOver,
-    gameTimeCounter,
-    hashHolder,
-    replaceForFirst, 
-    replaceForSecond, 
-    showAlert, 
-    resetForFirst,
-    makeMove,
-    findNextPos,
-    startGame 
-}
-*/
+export { breakGame, startGame, stage, getScores, elapsedTime }

@@ -1,28 +1,23 @@
 <script>
-    import Article from '../../components/Article.svelte';
+    import { onMount } from 'svelte'
+    import { progress } from '../../../controller/router'
+    import loadAllWords from '../../../controller/loader'
+    import Article from '../../components/Article.svelte'
 
     export let id
 
-    /*import { loader } from '../../../controller/dictionary'
-    import { processHash } from '../../../controller/router'
+    onMount(loadAllWords)
 
-
-    loader.subscribe(val => {
-        if(val < 100) return
-        setTimeout(() => {
-            processHash()
-        }, 1000)
-    })*/
 </script>
 <Article {id} />
-<!-- div>
+<div>
     <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated" 
             role="progressbar" aria-label="Animated striped example" 
-            aria-valuenow={$loader} 
-            aria-valuemin="0" 
-            aria-valuemax="100"
-            style:width={$loader + '%'}
+            aria-valuenow={$progress} 
+            aria-valuemin={0} 
+            aria-valuemax={100}
+            style:width={$progress + '%'}
         ></div>
     </div>
-</div -->
+</div>
