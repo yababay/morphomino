@@ -1,4 +1,59 @@
-export default null
+import { writable, get, derived } from 'svelte/store'
+import { GamerRoles, MoveStatuses, MorminoItem, Move } from '../model'
+import { moviesAmount, durationInSeconds } from './settings'
+import { minMoveTimeout } from '../settings.json'
+
+const moves = writable(new Array(get(moviesAmount)).fill(MoveStatuses.FORTHCOMING))
+const flow = writable([])
+const lastStatus = derived(moves, $moves => $moves.find(el => el !== MoveStatuses.FORTHCOMING) || MoveStatuses.FORTHCOMING)
+const role = writable(GamerRoles.HOST)
+
+function getMoveTimeout(){
+    const calculated = get(durationInSeconds) / get(moviesAmount)
+    return calculated > minMoveTimeout && calculated || minMoveTimeout
+}
+
+function makeMove(move: Move): MoveStatuses {
+    const $flow = get(flow)
+    if(!$flow.length) return
+    const lastCard = $flow.at(-1)
+    const $role = get(role)
+    const byHost = $role === GamerRoles.HOST && move.role === GamerRoles.HOST
+    const byGuest = $role === GamerRoles.GUEST && move.role === GamerRoles.GUEST
+    if(!byGuest && !byHost) throw 'А кто же тогда?'
+    const isCongeneric = lastCard.isCongeneric(move.card)
+    if(isCongeneric){
+        const status = byHost && MoveStatuses.HOST_IS_WON || MoveStatuses.GUEST_IS_WON
+        const $moves = get(moves)
+        const $flow = get(flow)
+        const pos = $flow.length - 1
+        $moves[pos] = status
+        moves.set([...$moves])
+        $flow.push(move.card)
+        flow.set([...$flow])
+        return status
+    }
+    return byHost && MoveStatuses.GUEST_IS_WRONG || MoveStatuses.GUEST_IS_WRONG
+}
+
+let flowInterval = null
+
+function flowController(){
+    return new Promise((yep, nop) => {
+        let moveTimeout = get(durationInSeconds) / get(moviesAmount)
+        if(moveTimeout < minMoveTimeout) moveTimeout = minMoveTimeout
+        flowInterval = setInterval(() => {
+
+        }, moveTimeout)
+    })
+}
+
+function stopFlow(){
+    if(flowInterval) clearInterval(flowInterval)
+}
+
+export { moves, flow, role, makeMove, flowController, stopFlow }
+
 /*
 import { fromStorage, getTimeWithUnits } from './util'
 import { durationMin, moveAmountMin, ignoreInstructionKey, ignoreInstruction, instructionTimeout, setupTimeout } from '../settings.json'

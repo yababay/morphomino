@@ -22,6 +22,7 @@ enum GameStages {
     SETUP,
     FLOW,
     BREAK,
+    END,
     HOST_IS_WON,
     GUEST_IS_WON,
     DEAD_HEAT,
@@ -32,6 +33,8 @@ enum MoveStatuses {
     FORTHCOMING,
     HOST_IS_WON,
     GUEST_IS_WON,
+    HOST_IS_WRONG,
+    GUEST_IS_WRONG,
     BOTH_ARE_FAILED
 }
 

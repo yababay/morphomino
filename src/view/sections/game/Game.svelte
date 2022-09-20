@@ -15,6 +15,7 @@
 {:else if $stage === GameStages.SETUP }
     <Setup />
 {:else if $stage === GameStages.FLOW }
+    <Setup />
     <Flow />
 {:else if $stage === GameStages.BREAK }
     <Finish mode={GameStages.BREAK} />
@@ -26,4 +27,6 @@
     <Finish mode={GameStages.DEAD_HEAT}/>
 {:else if $stage === GameStages.TIMEOUT }
     <Finish mode={GameStages.TIMEOUT}/>
+{:else if $stage === GameStages.END }
+    <Finish mode={GameStages.END}/>
 {/if}

@@ -12,6 +12,7 @@
     "setupTimeout": 2000,
     "ignoreInstruction": false,
     "gameSectionId": "game",
+    "minMoveTimeout": 5000,
     "durationKey": "mormino.gameDuration",
     "moveAmountKey": "mormino.moveAmount",
     "ignoreInstructionKey": "mormino.ignoreInstruction"

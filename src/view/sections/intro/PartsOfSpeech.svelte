@@ -1,5 +1,5 @@
 <script>
-    import { loader, getStatisticsByPos } from '../../../controller/dictionary'
+    /*import { loader, getStatisticsByPos } from '../../../controller/dictionary'
     import { getPosDescription, getKeyNames } from '../../../model/pos'
 
     function getRows() {
@@ -7,7 +7,7 @@
             .map(key => getPosDescription(key))
             .map(({pos, genetive}) => [genetive, getStatisticsByPos(pos)])
             .sort((a, b) => b[1] > a[1] ? 1 : -1)
-    }
+    }*/
     /*
 function getRandomIndex(arr: any[]){
     return Math.floor(Math.random() * arr.length)
@@ -33,6 +33,7 @@ function getRandomItem(): MorminoItem {
 */
 </script>
 
+<!--
 {#if $loader === 100}
     <table class="table table-success table-striped pos-statistics">
         <thead>
@@ -45,8 +46,8 @@ function getRandomItem(): MorminoItem {
         </tbody>
     </table>
 {/if}
-
-<style>
+-->
+<!-- style>
     .pos-statistics {
         max-width: 50ch;
         margin: 0 auto;
@@ -57,4 +58,4 @@ function getRandomItem(): MorminoItem {
     .pos-statistics tr :nth-child(2) {
         width: 30%;
     }
-</style>
+</style -->
