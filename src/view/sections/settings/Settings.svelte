@@ -52,6 +52,11 @@
           
     </div>
 </div>
+<svg width="500" height="310">
+    <use xlink:href="./assets/img/vignettes.svg#vignette-01"></use>
+    <use xlink:href="./assets/img/vignettes.svg#cartouche"></use>
+    <use xlink:href="./assets/img/vignettes.svg#words"></use>
+</svg>
 
 <style>
     .settings-holder {

@@ -6,7 +6,7 @@
     export let afterFetch = h => h
 
     async function getHtml() {
-        const url = `${`./assets/${id}.md`}?r=${Math.random()}`
+        const url = `${`./assets/sections/${id}.md`}?r=${Math.random()}`
         const res = await fetch(url)
         if(res.status > 299) throw "Не удалось загрузить запрашиваемый ресурс."
         const text = await res.text()

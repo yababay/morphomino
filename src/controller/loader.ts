@@ -16,7 +16,7 @@ function setLoader(res:Response, i:number): Promise<string> {
 }
 
 export default async ()=> await Promise.all(posKeys.map((key, i) => 
-    fetch(`./assets/${key.toLowerCase()}s.txt`)
+    fetch(`./assets/linguo/${key.toLowerCase()}s.txt`)
         .then(res => setLoader(res, i))
         .then((txt:string) => txt.split('\n')
             .map(word => ({pos: PartsOfSpeech[key], word: word && word.trim() || ''}))
