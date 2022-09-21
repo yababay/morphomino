@@ -53,8 +53,8 @@
           
     </div>
 </div>
-<div style="width: 500px; height: 310px">
-    <Vignette word="образец" pos="шшш." />
+<div style="width: 250px; height: 155px">
+    <Vignette word="образец" pos="существ." variant="04" />
 </div>
 
 <style>

@@ -1,5 +1,5 @@
 <script>
-    export let word, pos
+    export let word, pos, variant
 
     function getPosShift(){
         switch(pos.length){
@@ -16,21 +16,21 @@
     function getWordShift(){
         switch(word.length){
             case 1: return 102
-            case 2: return 93
-            case 3: return 87
-            case 4: return 78
-            case 5: return 68
-            case 6: return 61
-            case 7: return 54
-            case 8: return 47
-            case 9: return 39
+            case 2: return 97
+            case 3: return 92
+            case 4: return 87
+            case 5: return 82
+            case 6: return 77
+            case 7: return 72
+            case 8: return 67
+            case 9: return 60
             default: return 32
         }
     }
 </script>
 
 <svg class="swell-up" viewBox="0 0 50 31">
-    <use xlink:href="./assets/img/vignettes.svg#vignette-01"></use>
+    <use xlink:href={`./assets/img/vignettes.svg#vignette-${variant}`}></use>
     <use xlink:href="./assets/img/vignettes.svg#cartouche"></use>
     <text
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;white-space:pre;shape-inside:url(#rect78732-6-5);display:inline;fill:#000000;fill-opacity:1;stroke:none"
