@@ -7,7 +7,7 @@
    viewBox="0 0 50 31"
    version="1.1"
    xmlns="http://www.w3.org/2000/svg">
-  <defs
+  <!-- defs
      id="defs2">
     <rect
        x="4.4153162"
@@ -45,7 +45,7 @@
        width="148.42506"
        height="21.842545"
        id="rect78732-6-5" />
-  </defs>
+  </defs -->
   <symbol id="vignette-01" viewBox="0 0 50 31">
     <g
        id="g2999"
@@ -422,12 +422,20 @@
   <symbol id="words" viewBox="0 0 50 31">
     <text
        xml:space="preserve"
+       id="text78730"
+       transform="translate(17 16.5)scale(0.23 0.23)"
+       style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;white-space:pre;shape-inside:url(#rect78732-6-5);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
+         x="0"
+         y="0"
+         id="tspan1142">образец</tspan></text>
+    <!-- text
+       xml:space="preserve"
        transform="matrix(0.22939188,0,0,0.22939188,5.7404503,6.5635209)"
        id="text78730"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;white-space:pre;shape-inside:url(#rect78732-6-5);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="29.581055"
          y="44.519531"
-         id="tspan1142">образец</tspan></text>
+         id="tspan1142">образец</tspan></text -->
     <text
        xml:space="preserve"
        transform="matrix(0,-0.15701459,0.15701459,0,42.108293,27.167395)"

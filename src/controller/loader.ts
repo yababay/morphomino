@@ -20,7 +20,7 @@ export default async ()=> await Promise.all(posKeys.map((key, i) =>
         .then(res => setLoader(res, i))
         .then((txt:string) => txt.split('\n')
             .map(word => ({pos: PartsOfSpeech[key], word: word && word.trim() || ''}))
-            .filter(item => item.word && item.word.length < 13)
+            .filter(item => item.word && item.word.length < 11)
         ))
     )
     .then(arr => {

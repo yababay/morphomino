@@ -4,6 +4,7 @@
     import { durationInSeconds, durationInMinutes, moviesAmount, ignoreInstruction } from '../../../controller/settings'
     import { durationMin, durationMax, durationStep, moveAmountMin, moveAmountMax, moveAmountStep, ignoreInstructionKey, durationKey, moveAmountKey } from '../../../settings.json'
     import Article from '../../components/Article.svelte'
+    import Vignette from '../../components/Vignette.svelte'
 
     export let id
     let durationInput, moveAmountInput, ignoreInstructionInput
@@ -52,11 +53,9 @@
           
     </div>
 </div>
-<svg width="500" height="310">
-    <use xlink:href="./assets/img/vignettes.svg#vignette-01"></use>
-    <use xlink:href="./assets/img/vignettes.svg#cartouche"></use>
-    <use xlink:href="./assets/img/vignettes.svg#words"></use>
-</svg>
+<div style="width: 500px; height: 310px">
+    <Vignette word="образец" pos="шшш." />
+</div>
 
 <style>
     .settings-holder {
