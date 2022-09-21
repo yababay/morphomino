@@ -4,7 +4,7 @@
     import { durationInSeconds, durationInMinutes, moviesAmount, ignoreInstruction } from '../../../controller/settings'
     import { durationMin, durationMax, durationStep, moveAmountMin, moveAmountMax, moveAmountStep, ignoreInstructionKey, durationKey, moveAmountKey } from '../../../settings.json'
     import Article from '../../components/Article.svelte'
-    import Vignette from '../../components/Vignette.svelte'
+    import CardDesign from '../../components/CardDesign.svelte'
 
     export let id
     let durationInput, moveAmountInput, ignoreInstructionInput
@@ -53,13 +53,22 @@
           
     </div>
 </div>
-<div style="width: 250px; height: 155px">
-    <Vignette word="образец" pos="существ." variant="04" />
+<h2>Вариант оформления:</h2>
+<div class="design-holder">
+    {#each [1,2,3,4,5,6,7,8,9].map(i => `0${i}`) as variant }
+        <CardDesign word="образец" pos="существ." {variant} />
+    {/each}
 </div>
 
 <style>
     .settings-holder {
         max-width: 640px;
         margin: auto;
+    }
+
+    .design-holder {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
     }
 </style>
