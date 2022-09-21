@@ -3,42 +3,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
-    <link rel="stylesheet" href="bootstrap.min.css" />
-    <link rel="stylesheet" href="hmf.css" />
-    <script src="bootstrap.bundle.min.js"></script>
+    <link rel="icon" type="image/svg+xml" href=".assets/img/logo.svg" />
+    <link rel="stylesheet" href=".assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href=".assets/css/hmf.css" />
+    <style>
+      #intro, #settings, #statistics {max-width: 80ch}
+      #loader, #game {
+        height: var(--main-min-height); 
+        width: 100%; 
+        display: flex; 
+        justify-content: center; 
+        flex-direction: column;
+      }
+      #alert {
+        position: absolute;
+        bottom: 32px;
+        right: 32px;
+      }
+    </style>
+    <script src=".assets/js/bootstrap.bundle.min.js" defer></script>
     
     <title>Мормино: морфологическое домино</title>
-    <script type="module" crossorigin src="assets/index.f9a344e3.js"></script>
-    <link rel="stylesheet" href="assets/index.8fd26032.css">
+    <script type="module" crossorigin src="assets/index.cd1a90f7.js"></script>
+    <link rel="stylesheet" href="assets/index.822671fa.css">
   </head>
   <body>
     <header>
         <nav class="navbar navbar-dark bg-dark">
           <div class="container-fluid">
             <a class="navbar-brand" href="#">
-              <img src="logo.svg" alt="Мормино" height="24">
+              <img src=".assets/img/logo.svg" alt="Мормино" height="24">
               <span>Мормино</span>
             </a>
-            <div class="d-flex align-items-center w-25 justify-content-between" id="scores"></div>
+            <div class="d-flex align-items-center justify-content-between" id="scores"></div>
           </div>
         </nav>
     </header>
+
     <main>
-      <section class="container" id="intro">
-        <h1>Правила игры</h1>
-        <p>Lorem ipsum</p>
-      </section>
-      <section class="container d-none" id="settings">
-        <h1>Настройки</h1>
-        <p>Lorem ipsum</p>
-      </section>
-      <section class="container d-none" id="statistics">
-        <h1>Статистика</h1>
-        <p>Lorem ipsum</p>
-      </section>
-      <section id="game" class="d-none"></section>
+      <section id="loader"     class="container"></section>
+      <section id="intro"      class="container d-none"></section>
+      <section id="game"       class="container d-none"></section>
+      <section id="settings"   class="container d-none"></section>
+      <section id="statistics" class="container d-none"></section>
     </main>
+
     <footer class="footer text-center">(C) 2022</footer>
+    <div id="alert"></div>
   </body>
 </html>

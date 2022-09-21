@@ -18,10 +18,28 @@ export default class MorminoItem {
 
     get word(){return this.#word}
 
-    get pos(){return this.#selfPos.value}
+    get selfPos(){return this.#selfPos.value}
+
+    get nextfPos(){return this.#nextPos.value}
+
+    get selfNomenative(){return this.#selfPos.nominative}
+
+    get selfGenetive(){return this.#selfPos.genetive}
+
+    get selfShortName(){return this.#selfPos.shortName}
+
+    get selfShortestName(){return this.#selfPos.shortestName}
+
+    get nextNomenative(){return this.#nextPos.nominative}
+
+    get nextGenetive(){return this.#nextPos.genetive}
+
+    get nextShortName(){return this.#nextPos.shortName}
+
+    get nextShortestName(){return this.#nextPos.shortestName}
 
     isCongeneric(other: MorminoItem): boolean{
-        return this.#nextPos.value === other.pos
+        return this.#nextPos.value === other.selfPos
     }
 
     isUndefined(): boolean {

@@ -1,39 +1,45 @@
 import { writable, get, derived } from 'svelte/store'
-import { GamerRoles, MoveStatuses, MorminoItem, Move } from '../model'
+import { GamerRoles, MoveStatuses, MorminoItem } from '../model'
 import { moviesAmount, durationInSeconds } from './settings'
-import { minMoveTimeout } from '../settings.json'
+import { minMoveTimeout, dealAmount } from '../settings.json'
 
 const moves = writable(new Array(get(moviesAmount)).fill(MoveStatuses.FORTHCOMING))
 const flow = writable([])
 const lastStatus = derived(moves, $moves => $moves.find(el => el !== MoveStatuses.FORTHCOMING) || MoveStatuses.FORTHCOMING)
 const role = writable(GamerRoles.HOST)
+const alert = writable('')
+
+function setRandomItems(){
+    deal.set(getRandomItems())
+}
+
+function getRandomItems(){
+    return new Array(dealAmount).fill(0).map($=> MorminoItem.getRandomItem())
+} 
+
+const deal = writable([])
 
 function getMoveTimeout(){
     const calculated = get(durationInSeconds) / get(moviesAmount)
     return calculated > minMoveTimeout && calculated || minMoveTimeout
 }
 
-function makeMove(move: Move): MoveStatuses {
+function makeMove(item: MorminoItem, $role = get(role)): boolean {
     const $flow = get(flow)
-    if(!$flow.length) return
+    if(!$flow.length) return false
     const lastCard = $flow.at(-1)
-    const $role = get(role)
-    const byHost = $role === GamerRoles.HOST && move.role === GamerRoles.HOST
-    const byGuest = $role === GamerRoles.GUEST && move.role === GamerRoles.GUEST
-    if(!byGuest && !byHost) throw 'А кто же тогда?'
-    const isCongeneric = lastCard.isCongeneric(move.card)
-    if(isCongeneric){
-        const status = byHost && MoveStatuses.HOST_IS_WON || MoveStatuses.GUEST_IS_WON
-        const $moves = get(moves)
-        const $flow = get(flow)
-        const pos = $flow.length - 1
-        $moves[pos] = status
-        moves.set([...$moves])
-        $flow.push(move.card)
-        flow.set([...$flow])
-        return status
-    }
-    return byHost && MoveStatuses.GUEST_IS_WRONG || MoveStatuses.GUEST_IS_WRONG
+    if(!lastCard.isCongeneric(item)){
+        alert.set(`"${item.word}" - это не ${lastCard.nextNomenative}.`)
+        setTimeout($=> alert.set(''), 3000)
+        return false
+    } 
+    const status = $role === GamerRoles.HOST && MoveStatuses.HOST_IS_WON || MoveStatuses.GUEST_IS_WON
+    const $moves = get(moves)
+    const lastIndex = $flow.length - 1
+    moves.set([...$moves.slice(0, lastIndex), status, ...$moves.slice(lastIndex + 1)])
+    flow.set([...$flow, item])
+    if($role === GamerRoles.HOST) return status === MoveStatuses.HOST_IS_WON 
+    return status === MoveStatuses.GUEST_IS_WON
 }
 
 let flowInterval = null
@@ -52,7 +58,7 @@ function stopFlow(){
     if(flowInterval) clearInterval(flowInterval)
 }
 
-export { moves, flow, role, makeMove, flowController, stopFlow }
+export { moves, flow, role, makeMove, flowController, stopFlow, alert, deal, setRandomItems }
 
 /*
 import { fromStorage, getTimeWithUnits } from './util'

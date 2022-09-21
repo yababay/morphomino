@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 50 50"
+   version="1.1"
+   id="logo"
+   sodipodi:docname="logo.svg"
+   width="50"
+   height="50"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs987" />
+  <sodipodi:namedview
+     id="namedview985"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="13.38"
+     inkscape:cx="20.029895"
+     inkscape:cy="27.279522"
+     inkscape:window-width="1920"
+     inkscape:window-height="1051"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="logo" />
+  <rect
+     style="fill:#ffccaa;stroke:none;stroke-width:1.75656;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:0.878277, 0.878277;paint-order:markers stroke fill"
+     width="50"
+     height="50"
+     x="-50"
+     y="0"
+     transform="rotate(-90)"
+     id="rect978" />
+  <rect
+     style="fill:#aa4400;stroke:none;stroke-width:1.42615;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:0.713073, 0.713073;paint-order:markers stroke fill"
+     width="32.958973"
+     height="50"
+     x="-50"
+     y="0"
+     transform="rotate(-90)"
+     id="rect980" />
+  <rect
+     style="fill:#d45500;stroke:none;stroke-width:1.1584;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:0.579195, 0.579195;paint-order:markers stroke fill"
+     width="21.74485"
+     height="50"
+     x="-35.872425"
+     y="0"
+     transform="rotate(-90)"
+     id="rect910" />
+  <rect
+     style="fill:#ff7f2a;stroke:none;stroke-width:1.03605;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:0.518022, 0.518022;paint-order:markers stroke fill;fill-opacity:0.59101564"
+     width="17.394127"
+     height="50"
+     x="32.605873"
+     y="-8.8123953e-16"
+     id="rect982" />
+</svg>

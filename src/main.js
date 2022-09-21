@@ -1,6 +1,7 @@
 import { processHash } from './controller/router'
 import sections from './view/sections'
 import Navbar from './view/components/Navbar.svelte'
+import Alert from './view/components/Alert.svelte'
 
 function getProxyName(id){
   return  `Proxy<${id.split('').map((ch, i) => i === 0 ? ch.toUpperCase() : ch).join('')}>`  
@@ -17,5 +18,7 @@ Array.from(document.querySelectorAll('main > section')).map(el => el.id).forEach
 })
 
 Reflect.construct(Navbar, [{target: document.getElementById('scores')}])
+
+Reflect.construct(Alert, [{target: document.getElementById('alert')}])
 
 processHash()

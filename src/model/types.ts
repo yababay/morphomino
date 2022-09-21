@@ -30,6 +30,7 @@ enum GameStages {
 }
 
 enum MoveStatuses {
+    UNDEFINED,
     FORTHCOMING,
     HOST_IS_WON,
     GUEST_IS_WON,

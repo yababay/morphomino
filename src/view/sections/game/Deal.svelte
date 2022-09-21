@@ -1,15 +1,21 @@
 <script>
+    import { onMount } from 'svelte'
     import { MorminoItem } from '../../../model'
     import MorminoWord from '../../components/MorminoWord.svelte'
-    import { writable } from 'svelte/store'
-    import { dealAmount } from '../../../settings.json'
+    import { makeMove, deal, setRandomItems } from '../../../controller/flow'
 
-    const deal = writable(new Array(dealAmount).fill(0).map(_ => MorminoItem.getRandomItem()))
+    function checkCard(item, index){
+        const status = makeMove(item)
+        if(!status) return
+        deal.set([...$deal.filter((_, i) => i < index), MorminoItem.getRandomItem(), ...$deal.filter((_, i) => i > index)])
+    }
+
+    onMount($=> setRandomItems())
 </script>
 
 <div class="mormino-deal">
-    {#each $deal as item}
-        <div class="mormino-card">
+    {#each $deal as item, index}
+        <div class="mormino-card" on:click={_=> checkCard(item, index)}>
             <MorminoWord word={item.word} vignette={1}/>
         </div>
     {/each}
@@ -22,7 +28,8 @@
     }
     .mormino-card {
         width: var(--mormino-card-width);
-        height: calc(var(--mormino-card-width) / 1.618)
+        height: calc(var(--mormino-card-width) / 1.618);
+        cursor: pointer;
     }
 
     .mormino-deal {
