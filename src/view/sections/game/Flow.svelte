@@ -1,11 +1,12 @@
 <script>
-    import MorminoCard from '../../components/MorminoCard.svelte';
+    import MorminoCard from '../../components/MorminoCard.svelte'
+    import Progress from './Progress.svelte'
     import { flow, setRandomItems } from '../../../controller/flow'
 </script>
 
 <div class="mormino-flow">
     <div class="flow-control">
-        &nbsp;
+        <Progress />
     </div>
     <div class="mormino-card">
         <MorminoCard word={$flow.at(-1).word} pos={$flow.at(-1).nextShortName} vignette={1} />
