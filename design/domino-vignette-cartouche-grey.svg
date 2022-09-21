@@ -6,8 +6,10 @@
    height="31mm"
    viewBox="0 0 50 31"
    version="1.1"
-   xmlns="http://www.w3.org/2000/svg">
-  <!-- defs
+   id="svg5"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
      id="defs2">
     <rect
        x="4.4153162"
@@ -45,8 +47,10 @@
        width="148.42506"
        height="21.842545"
        id="rect78732-6-5" />
-  </defs -->
-  <symbol id="vignette-01" viewBox="0 0 50 31">
+  </defs>
+  <g
+     id="layer3"
+     style="display:none">
     <g
        id="g2999"
        transform="matrix(0.937322,0,0,0.937322,-194.19279,4.1936001)">
@@ -71,8 +75,10 @@
          style="clip-rule:evenodd;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.00820381;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
          id="path1157" />
     </g>
-  </symbol>
-  <symbol id="vignette-02" viewBox="0 0 50 31">
+  </g>
+  <g
+     id="layer4"
+     style="display:none">
     <g
        id="g3002"
        transform="matrix(0.937322,0,0,0.937322,-140.23414,4.1934921)">
@@ -81,8 +87,10 @@
          style="clip-rule:evenodd;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.00820381;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
          id="path1147" />
     </g>
-  </symbol>
-  <symbol id="vignette-03" viewBox="0 0 50 31">
+  </g>
+  <g
+     id="layer5"
+     style="display:none">
     <g
        id="g2972"
        transform="matrix(0.937322,0,0,0.937322,-247.81009,46.331929)">
@@ -107,8 +115,10 @@
          style="clip-rule:evenodd;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.00820381;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
          id="path1137" />
     </g>
-  </symbol>
-  <symbol id="vignette-04" viewBox="0 0 50 31">
+  </g>
+  <g
+     id="layer6"
+     style="display:none">
     <g
        id="g3030"
        transform="matrix(0.937322,0,0,0.937322,-140.23333,46.332)">
@@ -217,8 +227,10 @@
          style="clip-rule:evenodd;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.00820381;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
          id="path1127" />
     </g>
-  </symbol>
-  <symbol id="vignette-05" viewBox="0 0 50 31">
+  </g>
+  <g
+     id="layer7"
+     style="display:none">
     <g
        id="g2965"
        transform="matrix(0.937322,0,0,0.937322,-247.81008,87.071668)">
@@ -259,8 +271,10 @@
          style="clip-rule:evenodd;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.00820381;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
          id="path1075" />
     </g>
-  </symbol>
-  <symbol id="vignette-06" viewBox="0 0 50 31">
+  </g>
+  <g
+     id="layer8"
+     style="display:none">
     <g
        id="g2992"
        transform="matrix(0.937322,0,0,0.937322,-247.81051,4.1935027)">
@@ -337,8 +351,10 @@
          style="clip-rule:evenodd;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.00820381;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
          id="path1039" />
     </g>
-  </symbol>
-  <symbol id="vignette-07" viewBox="0 0 50 31">
+  </g>
+  <g
+     id="layer9"
+     style="display:none">
     <g
        id="g2954"
        transform="matrix(0.937322,0,0,0.937322,-194.19286,87.07167)">
@@ -359,8 +375,10 @@
          style="clip-rule:evenodd;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.00820381;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
          id="path1145" />
     </g>
-  </symbol>
-  <symbol id="vignette-08" viewBox="0 0 50 31">
+  </g>
+  <g
+     id="layer10"
+     style="display:inline">
     <g
        id="g3037"
        transform="matrix(0.937322,0,0,0.937322,-194.19285,46.332072)">
@@ -385,8 +403,10 @@
          style="clip-rule:evenodd;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.00820381;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
          id="path1057" />
     </g>
-  </symbol>
-  <symbol id="vignette-09" viewBox="0 0 50 31">
+  </g>
+  <g
+     id="layer11"
+     style="display:none">
     <g
        id="g2948"
        transform="matrix(0.937322,0,0,0.937322,-140.23333,87.072032)">
@@ -407,8 +427,10 @@
          style="clip-rule:evenodd;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.00820381;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
          id="path1047" />
     </g>
-  </symbol>
-  <symbol id="cartouche" viewBox="0 0 50 31">
+  </g>
+  <g
+     id="layer13"
+     style="display:inline">
     <rect
        style="display:inline;fill:#e6e6e6;fill-opacity:0.998726;stroke:#808080;stroke-width:1.03467;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;paint-order:markers stroke fill"
        id="rect4411"
@@ -418,14 +440,26 @@
        y="5.2581987"
        rx="1.3525043"
        ry="1.3525043" />
-    <!-- rect
-       style="display:inline;fill:#ffffff;fill-opacity:0.998726;stroke:#000000;stroke-width:0.765;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;paint-order:markers stroke fill"
-       id="rect4411"
-       width="4.7452703"
-       height="15.144946"
-       x="42.906281"
-       y="7.927527"
-       rx="1"
-       ry="1" / -->
-  </symbol>
+  </g>
+  <g
+     id="layer12">
+    <text
+       xml:space="preserve"
+       transform="matrix(0.22939188,0,0,0.22939188,5.7404503,6.5635209)"
+       id="text78730"
+       style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;white-space:pre;shape-inside:url(#rect78732-6-5);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
+         x="29.581055"
+         y="44.519531"
+         id="tspan1420">барабулька</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0,-0.15701459,0.15701459,0,42.63746,27.167395)"
+       id="text8734"
+       style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;white-space:pre;shape-inside:url(#rect8736-3-7);display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       x="34.449219"
+       y="0"><tspan
+         x="38.814453"
+         y="24.246094"
+         id="tspan1422">существ.</tspan></text>
+  </g>
 </svg>

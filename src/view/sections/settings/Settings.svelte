@@ -4,8 +4,7 @@
     import { durationInSeconds, durationInMinutes, moviesAmount, ignoreInstruction } from '../../../controller/settings'
     import { durationMin, durationMax, durationStep, moveAmountMin, moveAmountMax, moveAmountStep, ignoreInstructionKey, durationKey, moveAmountKey } from '../../../settings.json'
     import Article from '../../components/Article.svelte'
-    //import CardDesign from '../../components/CardDesign.svelte'
-    //import MorminoWord from '../../components/MorminoWord.svelte';
+    import MorminoCard from '../../components/MorminoCard.svelte'
 
     export let id
     let durationInput, moveAmountInput, ignoreInstructionInput
@@ -54,6 +53,7 @@
           
     </div>
 </div>
+<MorminoCard word="образец" vignette={5} pos="союз"/>
 <!-- h2>Вариант оформления:</h2>
 <div class="design-holder">
         {#each [1,2,3,4,5,6,7,8,9] as vignette }
