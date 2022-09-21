@@ -4,7 +4,8 @@
     import { durationInSeconds, durationInMinutes, moviesAmount, ignoreInstruction } from '../../../controller/settings'
     import { durationMin, durationMax, durationStep, moveAmountMin, moveAmountMax, moveAmountStep, ignoreInstructionKey, durationKey, moveAmountKey } from '../../../settings.json'
     import Article from '../../components/Article.svelte'
-    import CardDesign from '../../components/CardDesign.svelte'
+    //import CardDesign from '../../components/CardDesign.svelte'
+    //import MorminoWord from '../../components/MorminoWord.svelte';
 
     export let id
     let durationInput, moveAmountInput, ignoreInstructionInput
@@ -53,12 +54,16 @@
           
     </div>
 </div>
-<h2>Вариант оформления:</h2>
+<!-- h2>Вариант оформления:</h2>
 <div class="design-holder">
-    {#each [1,2,3,4,5,6,7,8,9].map(i => `0${i}`) as variant }
-        <CardDesign word="образец" pos="существ." {variant} />
-    {/each}
+        {#each [1,2,3,4,5,6,7,8,9] as vignette }
+            <div class="card-holder">
+                <CardDesign word="образец" pos="существ." {vignette} />
+            </div>
+        {/each}
 </div>
+<MorminoWord word="образец" vignette={5} />
+-->
 
 <style>
     .settings-holder {
@@ -70,5 +75,10 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
+    }
+
+    .card-holder {
+        width: 250px;
+        height: 155px;
     }
 </style>

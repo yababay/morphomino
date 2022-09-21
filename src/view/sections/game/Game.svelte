@@ -4,7 +4,7 @@
     import Instruction from './Instruction.svelte';
     import Finish from './Finish.svelte';
     import Flow from './Flow.svelte';
-    import Setup from './Setup.svelte';
+    import Deal from './Deal.svelte';
 
     export let id
 
@@ -13,9 +13,9 @@
 {#if $stage === GameStages.INSTRUCTION }
     <Instruction {id} />
 {:else if $stage === GameStages.SETUP }
-    <Setup />
+    <Deal />
 {:else if $stage === GameStages.FLOW }
-    <Setup />
+    <Deal />
     <Flow />
 {:else if $stage === GameStages.BREAK }
     <Finish mode={GameStages.BREAK} />

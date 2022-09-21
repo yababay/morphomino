@@ -1,4 +1,5 @@
 {
+    "dealAmount": 8,
     "withLoader": true,
     "durationMin": 60,
     "durationDefault": 100,
