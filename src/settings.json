@@ -1,13 +1,18 @@
 {
+    "withLoader": true,
     "durationMin": 60,
+    "durationDefault": 100,
     "durationMax": 600,
     "durationStep": 60,
     "moveAmountMin": 10,
+    "moveAmountDefault": 20,
     "moveAmountMax": 100,
     "moveAmountStep": 10,
     "instructionTimeout": 5000,
     "setupTimeout": 2000,
     "ignoreInstruction": false,
+    "gameSectionId": "game",
+    "minMoveTimeout": 5000,
     "durationKey": "mormino.gameDuration",
     "moveAmountKey": "mormino.moveAmount",
     "ignoreInstructionKey": "mormino.ignoreInstruction"
