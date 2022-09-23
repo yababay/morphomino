@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="./assets/img/logo.svg" />
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/css/hmf.css" />
+    <style>
+      #intro, #settings, #statistics {max-width: 80ch}
+      #loader, #game {
+        height: var(--main-min-height); 
+        width: 100%; 
+        display: flex; 
+        justify-content: center; 
+        flex-direction: column;
+      }
+      #alert {
+        position: absolute;
+        bottom: 32px;
+        right: 32px;
+      }
+    </style>
+    <script src="./assets/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="/src/main.ts" defer></script>
+    <title>Мормино: морфологическое домино</title>
+  </head>
+  <body>
+    <header>
+        <nav class="navbar navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+              <img src="./assets/img/logo.svg" alt="Мормино" height="24">
+              <span>Мормино</span>
+            </a>
+            <div class="d-flex align-items-center justify-content-between" id="scores"></div>
+          </div>
+        </nav>
+    </header>
+
+    <main>
+      <section id="loader"     class="container"></section>
+      <section id="intro"      class="container d-none"></section>
+      <section id="game"       class="container d-none"></section>
+      <section id="settings"   class="container d-none"></section>
+      <section id="statistics" class="container d-none"></section>
+    </main>
+
+    <div id="alert"></div>
+    <div id="level"></div>
+
+    <footer class="footer text-center">(C) 2022</footer>
+  </body>
+</html>
