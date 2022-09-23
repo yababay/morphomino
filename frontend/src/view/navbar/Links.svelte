@@ -1,3 +1,7 @@
+<script lang="ts">
+  import Level from '../components/Level.svelte'
+</script>
+
 <div class="holder">
 <ul class="navbar-nav">
     <li class="nav-item">
@@ -14,12 +18,13 @@
   <a class="nav-link" href="#statistics">Статистика</a>
 </li>
 </ul>
-<a class="btn btn-primary" href="#game">Начать игру</a>
+<button class="btn btn-primary" href="#game" on:click={()=>{}}>Начать игру</button>
+<Level />
 </div>
 
 <style>
   .holder {
-    width: 480px;
+    width: 640px;
     display: flex;
     justify-content: space-between;
     align-items: center;

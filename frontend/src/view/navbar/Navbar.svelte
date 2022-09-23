@@ -4,7 +4,6 @@
     import Links from './Links.svelte'
 </script>
 
-<Scores />
 <Links />
 
 <!--

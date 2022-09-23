@@ -1,4 +1,4 @@
-import { PartsOfSpeech, WordWithPos } from "./types"
+/*import { PartsOfSpeech, WordWithPos } from "./types"
 import { getRandomIndex } from "../controller/util"
 import PartOfSpeech from "./pos"
 
@@ -55,4 +55,6 @@ export default class MorminoItem {
         const pos = PartOfSpeech.getRandomPos()
         return new MorminoItem(word, pos)
     }
-}
+}*/
+
+export default null
