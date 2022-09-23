@@ -21,17 +21,41 @@ import { PartsOfSpeech } from "./types"
 import { getRandomIndex } from "../controller/util"
 
 const descriptions: object = {
-    [PartsOfSpeech.NOUN]:         ["существительное", "существительных", "существ.", "сущ."],
-    [PartsOfSpeech.PRONOUN]:      ["местоимение", "местоимений", "местоим.", "мест"],
-    [PartsOfSpeech.VERB]:         ["глагол", "глаголов", "глагол", "глаг."],
-    [PartsOfSpeech.ADJECTIVE]:    ["прилагательное", "прилагательных", "прилаг.", "прил."],
-    [PartsOfSpeech.ADVERB]:       ["наречие", "наречий", "наречие", "нар."],
-    [PartsOfSpeech.PREPOSITION]:  ["предлог", "предлогов", "предлог", "предл."],
-    [PartsOfSpeech.CONJUNCTION]:  ["союз", "союзов", "союз", "союз"],
-    [PartsOfSpeech.INTERJECTION]: ["междометие", "междометий", "междом.", "межд."],
-    [PartsOfSpeech.NUMERAL]:      ["числительное", "числительных", "числит.", "числ."],
-    [PartsOfSpeech.PARTICLE]:     ["частица", "частиц", "частица", "част."],
-    [PartsOfSpeech.UNDEFINED]:    ["", "", "", ""]
+    [PartsOfSpeech.NOUNS]:          ["существительное", "существительных", "существ.", "сущ."],
+    [PartsOfSpeech.PRONOUNS]:       ["местоимение", "местоимений", "местоим.", "мест"],
+    [PartsOfSpeech.VERBS]:          ["глагол", "глаголов", "глагол", "глаг."],
+    [PartsOfSpeech.ADJECTIVES]:     ["прилагательное", "прилагательных", "прилаг.", "прил."],
+    [PartsOfSpeech.ADVERBS]:        ["наречие", "наречий", "наречие", "нар."],
+    [PartsOfSpeech.PREPOSITIONS]:   ["предлог", "предлогов", "предлог", "предл."],
+    [PartsOfSpeech.CONJUNCTIONS]:   ["союз", "союзов", "союз", "союз"],
+    [PartsOfSpeech.INTERJECTIONS]:  ["междометие", "междометий", "междом.", "межд."],
+    [PartsOfSpeech.NUMERALS]:       ["числительное", "числительных", "числит.", "числ."],
+    [PartsOfSpeech.PARTICLES]:      ["частица", "частиц", "частица", "част."],
+    [PartsOfSpeech.ADVERB_CE]:      ["", "", "", ""],
+    [PartsOfSpeech.ADVERB_ME]:      ["", "", "", ""],
+    [PartsOfSpeech.ADVERB_MS]:      ["", "", "", ""],
+    [PartsOfSpeech.ADVERB_OD]:      ["", "", "", ""],
+    [PartsOfSpeech.ADVERB_OTR]:     ["", "", "", ""],
+    [PartsOfSpeech.ADVERB_PR]:      ["", "", "", ""],
+    [PartsOfSpeech.ADVERB_UK]:      ["", "", "", ""],
+    [PartsOfSpeech.ADVERB_VR]:      ["", "", "", ""],
+    [PartsOfSpeech.CATEGORYS]:      ["", "", "", ""],
+    [PartsOfSpeech.GERUND_NSV]:     ["", "", "", ""],
+    [PartsOfSpeech.GERUNDS]:        ["", "", "", ""],
+    [PartsOfSpeech.GERUND_SV]:      ["", "", "", ""],
+    [PartsOfSpeech.ONOMATOPOEIAS]:  ["", "", "", ""],
+    [PartsOfSpeech.PARTICIPLE_D]:   ["", "", "", ""],
+    [PartsOfSpeech.PARTICIPLE_S]:   ["", "", "", ""],
+    [PartsOfSpeech.PARTICIPLES]:    ["", "", "", ""],
+    [PartsOfSpeech.PARTICLE_F]:     ["", "", "", ""],
+    [PartsOfSpeech.PARTICLE_MOD]:   ["", "", "", ""],
+    [PartsOfSpeech.PARTICLE_OTR]:   ["", "", "", ""],
+    [PartsOfSpeech.PREPOSITION_NP]: ["", "", "", ""],
+    [PartsOfSpeech.PREPOSITION_PR]: ["", "", "", ""],
+    [PartsOfSpeech.UNION_P]:        ["", "", "", ""],
+    [PartsOfSpeech.UNION_S]:        ["", "", "", ""],
+    [PartsOfSpeech.UNIONS]:         ["", "", "", ""],
+    [PartsOfSpeech.UNDEFINED]:      ["", "", "", ""]
 }
 
 let statistics: PartsOfSpeech[] = null
@@ -45,7 +69,7 @@ export default class PartOfSpeech {
     #shortestName: string
 
     constructor(pos: PartsOfSpeech | string = PartsOfSpeech.UNDEFINED){
-        this.#pos = typeof pos !== 'string' && pos || PartsOfSpeech[pos]
+        this.#pos = typeof pos !== 'string' ? pos : PartsOfSpeech[pos]
         const descr = descriptions[this.#pos]
         if(!descr) throw `Не удалось определить характеристики части речи по ключу ${pos}.`
         const [nominative, genetive, shortName, shortestName] = descr

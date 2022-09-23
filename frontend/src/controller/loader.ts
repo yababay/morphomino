@@ -1,7 +1,8 @@
 import { writable, get } from 'svelte/store'
 import { fulfillSections } from '../view/sections'
-import { processHash, setHashListener } from './router'
-import { level } from './level'
+import { processHash, setHashListener, hideAllSections, showSection } from './router'
+import { level, levelFiles } from './level'
+
 
 const progress = writable(0)
 
@@ -13,7 +14,10 @@ function afterLoad(){
 }
 
 function loadAll($level: string = get(level)){
-    afterLoad()
+    hideAllSections()
+    showSection('loader')
+    console.log(get(levelFiles))
+    setTimeout(afterLoad, 5000)
 }
 
 export { progress, loadAll }

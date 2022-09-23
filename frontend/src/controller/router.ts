@@ -11,11 +11,11 @@ function assureElement(section: string | Element): Element{
   return typeof section === 'string' ? sections.find(el => el.id === section) : section
 }
 
-function showSection(section: Element){
+function showSection(section: string | Element){
   assureElement(section).classList.remove('d-none')
 }
 
-function hideSection(section: Element){
+function hideSection(section: string | Element){
   assureElement(section).classList.add('d-none')
 }
 
@@ -36,19 +36,18 @@ function setHashListener() {
   })
 }
 
+function hideAllSections(){
+  for(const section of sections) hideSection(section)
+}
+
 function processHash(){
     let id = window.location.hash 
     if(!id || !id.trim().length) id = '#intro'
     id = id.substring(1).trim()
     if(!hashes.includes(id)) return
-    for(const section of sections) {
-      if(section.id !== id) {
-        hideSection(section)
-        continue
-      }
-      showSection(section)
-      hash.set(id)
-    }
+    hideAllSections()
+    showSection(id)
+    hash.set(id)
   }
   
-export { hash, processHash, setHashListener }
+export { hash, processHash, setHashListener, showSection, hideSection, hideAllSections }

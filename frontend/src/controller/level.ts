@@ -1,22 +1,16 @@
-import { writable } from "svelte/store"
-import { stringFromStorage, setComponent } from './util'
+import { derived, writable, get } from "svelte/store"
+import { stringFromStorage } from './util'
 import { levelKey } from '../../settings.json'
-import { PartsOfSpeech, Levels, PosByLevel } from '../model'
-/*
-const levelId = 'level'
-const levelSection = document.getElementById(levelId)
-const { Modal } = window['bootstrap']
-const levelModal = new Modal(levelSection.querySelector('div'))
-setComponent(Level, levelId)
+import { PartOfSpeech, Levels, Level } from '../model'
 
-function showLevelChooser(){
-    levelModal.show()
-}
-*/
-const level = writable(stringFromStorage(levelKey, 'common'))
+const level = writable(stringFromStorage(levelKey, Levels[Levels.COMMON]))
+const levelFiles = derived(level, $level => new Level($level).items
+    .map($=> new PartOfSpeech($).key)
+    .map($=> `./assets/linguo/${get(level).replace('CLASS_', 'level-')}/${$.toLowerCase()}.txt`)
+)
 
-function chooseLevel(){
-//    return new
+function getKeysWithLabels(){
+    return Level.getKeyNames().map($=> new Level($)).map($=> ({key: $.key, label: $.description}))
 }
 
-export { level }
+export { level, levelFiles, getKeysWithLabels }
