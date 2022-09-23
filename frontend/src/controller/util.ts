@@ -20,7 +20,7 @@ function toStorage(event, key: string, writable = null): void{
     if(writable) writable.set(value)
 }
 
-function stringFromStorage(key: string, byDefault: number) : string {
+function stringFromStorage(key: string, byDefault: string) : string {
     const error = new Error('Не удалось распознать строковое значение в хранилище или настройках.')
     const value = fromStorage(key, byDefault)
     if(typeof value === 'number' || typeof value === 'boolean') throw error

@@ -1,14 +1,19 @@
-import { writable } from 'svelte/store'
+import { writable, get } from 'svelte/store'
 import { fulfillSections } from '../view/sections'
 import { processHash, setHashListener } from './router'
+import { level } from './level'
 
 const progress = writable(0)
 
-function loadAll(){
+function afterLoad(){
     progress.set(100)
     fulfillSections()
     setHashListener()
     processHash()
+}
+
+function loadAll($level: string = get(level)){
+    afterLoad()
 }
 
 export { progress, loadAll }
