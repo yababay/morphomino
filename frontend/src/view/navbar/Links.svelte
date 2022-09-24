@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Level from '../components/Level.svelte'
 </script>
 
 <div class="holder">
@@ -18,8 +17,7 @@
   <a class="nav-link" href="#statistics">Статистика</a>
 </li>
 </ul>
-<button class="btn btn-primary" href="#game" on:click={()=>{}}>Начать игру</button>
-<Level />
+<a class="btn btn-primary" href="#game">Начать игру</a>
 </div>
 
 <style>

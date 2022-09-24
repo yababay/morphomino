@@ -5,11 +5,15 @@ import { level, levelFiles } from './level'
 import { PartsOfSpeech, PartOfSpeech, MorminoItem } from '../model'
 
 const progress = writable(0)
+let firstTime = true
 
 function afterLoad(){
     progress.set(100)
-    fulfillSections()
-    setHashListener()
+    if(firstTime){
+        fulfillSections()
+        setHashListener()
+        firstTime = false
+    }
     processHash()
 }
 
@@ -32,8 +36,8 @@ async function loadAll($level: string = get(level)){
         const dict = arr.reduce((acc, curr) => [...acc, ...curr], [])
         MorminoItem.setDictionary(dict)   
         PartOfSpeech.setStatistics(dict.map(el => el.pos).sort(el => 1 - Math.random()))
-        progress.set(95)
-        setTimeout(() => {progress.set(100);setHashListener();processHash()}, 1000)
+        progress.set(100)
+        setTimeout(afterLoad, 2000)
     })
     .catch(err => console.log(err))
 }
