@@ -31,8 +31,27 @@ function getRandomItems(){
     return new Array(dealAmount).fill(0).map($=> MorminoItem.getRandomItem())
 } 
 
-function makeMove(item){
-    return false
+function makeMove(item: MorminoItem, $role = get(role)): boolean {
+    const $flow = get(flow)
+    if(!$flow.length) return false
+    const lastCard = $flow.at(-1)
+    if(!lastCard.isCongeneric(item)){
+        alert.set(`"${item.word}" - это не ${lastCard.nextNomenative}.`)
+        setTimeout($=> alert.set(''), 3000)
+        return false
+    } 
+    const status = $role === GamerRoles.HOST && MoveStatuses.HOST_IS_WON || MoveStatuses.GUEST_IS_WON
+    const $moves = get(moves)
+    const lastIndex = $flow.length - 1
+    moves.set([...$moves.slice(0, lastIndex), status, ...$moves.slice(lastIndex + 1)])
+    flow.set([...$flow, item])
+    if($role === GamerRoles.HOST) return status === MoveStatuses.HOST_IS_WON 
+    return status === MoveStatuses.GUEST_IS_WON
 }
 
-export { moves, flow, role, scores, deal, setRandomItems, makeMove }
+function showAlert(msg){
+    alert.set(msg)
+    setTimeout(() => alert.set(''), 4000)
+}
+
+export { moves, flow, role, scores, deal, alert, setRandomItems, makeMove }
