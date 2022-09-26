@@ -19,9 +19,16 @@ const sections = Array.from(document.querySelectorAll('main > section'))
 function fulfillSections(){
     sections.map(el => el.id).filter($=> $ !== 'loader').forEach(id => {
       const target = sections.find(section => section.id === id)
-      const args = [{target, props: {id}}]
-      const Constructor = findProxy(id)
-      setComponent(Constructor, id, {id})
+      const args = {target, props: {id}}
+      switch(id){
+        case 'game': return new Game(args)
+        case 'intro': return new Intro(args)
+        case 'settings': return new Settings(args)
+        case 'statistics': return new Statistics(args)
+        default: return null
+      }
+      //const Constructor = findProxy(id)
+      //setComponent(Constructor, id, {id})
     })
 }
 

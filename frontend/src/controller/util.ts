@@ -1,5 +1,6 @@
 function setComponent(Component, id: string, props: object = {}): void{
-    Reflect.construct(Component, [{target: document.getElementById(id), props}])
+//    Reflect.construct(Component, [{target: document.getElementById(id), props}])
+    return new Component({target: document.getElementById(id), props})
 }
 
 function delayedAction (func: CallableFunction, delay: number){
