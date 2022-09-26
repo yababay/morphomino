@@ -1,9 +1,9 @@
 import { PartsOfSpeech } from "./types"
 
 enum Levels {
-    COMMON,
     CLASS_7_1,
     CLASS_7_2,
+    COMMON,
     UNDEFINED
 }
 

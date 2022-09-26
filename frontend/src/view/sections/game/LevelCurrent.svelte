@@ -1,6 +1,6 @@
 <script lang="ts">
     import { levelDescription } from '../../../controller/settings'
-    import LevelModal from './LevelModal.svelte'
+    import LevelModal from '../settings/LevelModal.svelte'
 </script>
 
 <p class="text-end" style="font-size: smaller">

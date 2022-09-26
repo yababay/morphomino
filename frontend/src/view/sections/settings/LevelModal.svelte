@@ -1,9 +1,12 @@
 <script lang="ts">
+  import { get } from 'svelte/store';
   import { onMount } from 'svelte'
+  import { startGame } from '../../../controller/game'
+  import { hash } from '../../../controller/router'
   import { loadAll } from '../../../controller/loader'
   import { level } from '../../../controller/settings'
   import { Level } from '../../../model'
-  import { levelKey } from '../../../../settings.json'
+  import { levelKey, gameSectionId } from '../../../../settings.json'
 
   let levelsForm: HTMLFormElement, modal
 
@@ -13,6 +16,11 @@
     level.set(value)
     modal.hide()
     loadAll()
+    if(get(hash) === gameSectionId) startGame()
+  }
+
+  function isCurrent(level){
+    return level === localStorage.getItem(levelKey)
   }
 
   onMount(()=>{
@@ -35,7 +43,7 @@
         <form bind:this={levelsForm}>
         {#each Level.getKeysWithLabels() as item}
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="level" value={item.key} id={`level-${item.key}`}>
+            <input class="form-check-input" type="radio" name="level" value={item.key} id={`level-${item.key}`} checked={isCurrent(item.key)}>
             <label class="form-check-label" for={`level-${item.key}`}>
               {item.label}
             </label>
