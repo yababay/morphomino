@@ -1,7 +1,9 @@
 <script lang="ts">
     import Instruction from './Instruction.svelte';
     import Deal from './Deal.svelte'
+    import Alert from './Alert.svelte'
     import Flow from './Flow.svelte'
+    import Finish from './Finish.svelte'
     import LevelCurrent from './LevelCurrent.svelte'
     import { GameStages, MorminoItem } from '../../../model'
     import { stage } from '../../../controller/game'
@@ -19,6 +21,7 @@
             if(value === gameSectionId) startGame()
             else breakGame()
         })
+        new Alert({target: document.getElementById('alert')})
     })
 </script>
 
@@ -33,17 +36,17 @@
         <Deal />
         <Flow />
     {:else if $stage === GameStages.BREAK}
-        <p>break</p>
+        <Finish mode={GameStages.BREAK} />
     {:else if $stage === GameStages.HOST_IS_WON}
-        <p>host</p>
+        <Finish mode={GameStages.BREAK} />
     {:else if $stage === GameStages.GUEST_IS_WON}
-        <p>guest</p>
+        <Finish mode={GameStages.GUEST_IS_WON} />
     {:else if $stage === GameStages.DEAD_HEAT}
-        <p>dh</p>
+        <Finish mode={GameStages.DEAD_HEAT} />
     {:else if $stage === GameStages.FULFILLED}
-        <p>full</p>
+        <Finish mode={GameStages.FULFILLED} />
     {:else if $stage === GameStages.TIMEOUT}
-        <p>time</p>
+        <Finish mode={GameStages.TIMEOUT} />
     {:else}
         <div />
     {/if}
