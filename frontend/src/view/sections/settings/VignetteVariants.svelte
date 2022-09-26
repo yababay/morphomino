@@ -13,7 +13,32 @@
         }
         target.style.backgroundColor = 'silver'
         localStorage.setItem(vignetteVariantKey, index + 1)
-    }*/
+    }
+    
+    
+
+    import { onMount } from 'svelte'
+    import Article from '../../components/Article.svelte'
+    import CardDesign from '../../components/CardDesign.svelte'
+    import ColorPicker from './ColorPicker.svelte';
+
+    export let id
+
+    function chooseVignette(e, index) {
+        let {target} = e
+        while(!(target.classList && Array.from(target.classList).includes('card-holder'))){
+            target = target.parentNode  
+        }
+        for(const div of Array.from(target.parentNode.querySelectorAll('.card-holder'))){
+            div.style.backgroundColor = null
+        }
+        target.style.backgroundColor = 'silver'
+        localStorage.setItem(vignetteVariantKey, index + 1)
+    }
+
+    
+    
+    */
 </script>
 
 <!-- h2>Вариант оформления:</h2>

@@ -1,34 +1,19 @@
 <script>
-    /*import { onMount } from 'svelte'
-    import { toStorage } from '../../../controller/util'
+    import { onMount } from 'svelte'
     import { durationInSeconds, durationInMinutes, moviesAmount, ignoreInstruction } from '../../../controller/settings'
-    import { durationMin, durationMax, durationStep, moveAmountMin, moveAmountMax, moveAmountStep, ignoreInstructionKey, durationKey, moveAmountKey, vignetteVariantKey } from '../../../settings.json'
-    import Article from '../../components/Article.svelte'
-    import CardDesign from '../../components/CardDesign.svelte'
-    import ColorPicker from './ColorPicker.svelte';
+    import { durationMin, durationMax, durationStep, moveAmountMin, moveAmountMax, moveAmountStep, ignoreInstructionKey, durationKey, moveAmountKey, vignetteVariantKey } from '../../../../settings.json'
+    import { toStorage } from '../../../controller/util'
 
-    export let id
     let durationInput, moveAmountInput, ignoreInstructionInput
-
-    function chooseVignette(e, index) {
-        let {target} = e
-        while(!(target.classList && Array.from(target.classList).includes('card-holder'))){
-            target = target.parentNode  
-        }
-        for(const div of Array.from(target.parentNode.querySelectorAll('.card-holder'))){
-            div.style.backgroundColor = null
-        }
-        target.style.backgroundColor = 'silver'
-        localStorage.setItem(vignetteVariantKey, index + 1)
-    }
 
     onMount(() => {
         durationInput.value = $durationInSeconds
         moveAmountInput.value = $moviesAmount
         ignoreInstructionInput.checked = $ignoreInstruction
-    })*/
+    })
 </script>
-<!-- div class="card mt-5 settings-holder">
+
+<div class="card mt-5 settings-holder">
     <div class="card-body">
         <div class="input-holder">
             <label for="game-duration" class="form-label"><strong>Время игры:</strong> {$durationInMinutes} мин.</label>
@@ -63,5 +48,4 @@
         </div>
           
     </div>
-</div -->
-
+</div>
