@@ -1,16 +1,20 @@
 <script lang="ts">
     import Instruction from './Instruction.svelte';
+    import Deal from './Deal.svelte'
+    import Flow from './Flow.svelte'
     import LevelCurrent from './LevelCurrent.svelte'
-    import { GameStages } from '../../../model'
+    import { GameStages, MorminoItem } from '../../../model'
     import { stage } from '../../../controller/game'
     import { onMount } from 'svelte';
     import { hash } from '../../../controller/router'
     import { startGame, breakGame } from '../../../controller/game'
     import { gameSectionId } from '../../../../settings.json'
+    import { flow } from '../../../controller/flow'
 
     export let id: string
 
     onMount(() => {
+        flow.set([MorminoItem.getRandomItem()])
         hash.subscribe(value => {
             if(value === gameSectionId) startGame()
             else breakGame()
@@ -23,10 +27,11 @@
 <div class="game-holder">
     {#if $stage === GameStages.INSTRUCTION}
         <Instruction {id} />
-    {:else if $stage === GameStages.SETUP}
-        <p>setup</p>
+    {:else if $stage === GameStages.DEAL}
+        <Deal />
     {:else if $stage === GameStages.FLOW}
-        <p>flow</p>
+        <Deal />
+        <Flow />
     {:else if $stage === GameStages.BREAK}
         <p>break</p>
     {:else if $stage === GameStages.HOST_IS_WON}
@@ -44,7 +49,7 @@
     {/if}
 </div>
 
-<div /><!-- dummy -->>
+<div /><!-- dummy -->
 
 <style>
     .game-holder {

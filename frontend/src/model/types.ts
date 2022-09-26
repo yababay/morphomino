@@ -38,7 +38,7 @@ enum PartsOfSpeech {
 
 enum GameStages {
     INSTRUCTION,
-    SETUP,
+    DEAL,
     FLOW,
     BREAK,
     END,

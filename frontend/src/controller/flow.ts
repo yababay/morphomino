@@ -1,9 +1,15 @@
 import { writable, get, derived } from 'svelte/store'
-import { GamerRoles, MoveStatuses } from '../model'
+import { GamerRoles, MoveStatuses, MorminoItem } from '../model'
+import { minMoveTimeout, dealAmount } from '../../settings.json'
+import { moviesAmount, durationInSeconds } from './settings'
 
-const moves = writable([])
+const moves = writable(getInitialMoves())
 const flow = writable([])
-const role = writable()
+const lastStatus = derived(moves, $moves => $moves.find(el => el !== MoveStatuses.FORTHCOMING) || MoveStatuses.FORTHCOMING)
+const role = writable(GamerRoles.HOST)
+const alert = writable('')
+const deal = writable([])
+
 const scores = derived(moves, $moves => {
     const scores = $moves.filter(el => 
         get(role) === GamerRoles.HOST && el === MoveStatuses.HOST_IS_WON 
@@ -13,4 +19,20 @@ const scores = derived(moves, $moves => {
     return `${scores}/${$moves.length}`
 })
 
-export { moves, flow, role, scores }
+function getInitialMoves(){
+    return new Array(get(moviesAmount)).fill(MoveStatuses.FORTHCOMING)
+}
+
+function setRandomItems(){
+    deal.set(getRandomItems())
+}
+
+function getRandomItems(){
+    return new Array(dealAmount).fill(0).map($=> MorminoItem.getRandomItem())
+} 
+
+function makeMove(item){
+    return false
+}
+
+export { moves, flow, role, scores, deal, setRandomItems, makeMove }
