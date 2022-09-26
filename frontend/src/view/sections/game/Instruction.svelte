@@ -9,13 +9,16 @@
 </script>
 
 <div class="instruction">
-    <div  class="alert alert-primary alert-dismissible fade show text-center" role="alert">
-        <Section {id} {afterFetch} />
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
-    </div>
-    <div class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated w-100" role="progressbar" aria-label="Игра начитается..." 
-            aria-valuenow={75} aria-valuemin={0} aria-valuemax={100}>
+    <div class="card">
+        <img src="assets/img/level-7_1.png" class="card-img-top" alt="Инструкция">
+        <div class="card-body">
+          <h5 class="card-title">Краткая инструкция</h5>
+          <Section {id} {afterFetch} />
+          <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated w-100" role="progressbar" aria-label="Игра начитается..." 
+                    aria-valuenow={75} aria-valuemin={0} aria-valuemax={100}>
+                </div>
+          </div>
         </div>
     </div>
 </div>
@@ -23,6 +26,10 @@
 <style>
     .instruction {
         max-width: 80ch;
+    }
+    .instruction .card {
+        width: 100%;
+        max-width: 640px;
     }
     .instruction .progress {
         width: 100%;

@@ -46,7 +46,8 @@ enum GameStages {
     GUEST_IS_WON,
     DEAD_HEAT,
     FULFILLED,
-    TIMEOUT
+    TIMEOUT,
+    UNDEFINED
 }
 
 enum MoveStatuses {
