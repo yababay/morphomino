@@ -1,7 +1,7 @@
 <script lang="ts">
     import Section from '../Section.svelte'
 
-    export let id
+    export let id: string
 </script>
 
 <Section {id}>

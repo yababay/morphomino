@@ -22,7 +22,7 @@
 
 <style>
   .holder {
-    width: 640px;
+    width: 480px;
     display: flex;
     justify-content: space-between;
     align-items: center;

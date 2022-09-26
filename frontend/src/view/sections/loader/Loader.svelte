@@ -3,7 +3,7 @@
     import { progress, loadAll } from '../../../controller/loader'
     import Section from '../Section.svelte'
 
-    export let id
+    export let id: string
 
     onMount(loadAll)
 </script>
@@ -13,7 +13,7 @@
         <div>
             <div class="progress">
                 <div class="progress-bar progress-bar-striped progress-bar-animated" 
-                    role="progressbar" aria-label="Animated striped example" 
+                    role="progressbar" aria-label="Загрузка слов для игры" 
                     aria-valuenow={$progress}
                     aria-valuemin={0} 
                     aria-valuemax={100}

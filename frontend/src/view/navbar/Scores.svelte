@@ -1,5 +1,4 @@
 <script>
-    import Level from '../components/Level.svelte'
     //import { GameStages } from '../../model';
     //import { breakGame, scores, elapsedTime, stage, startGame } from '../../controller/game'
 </script>
@@ -10,7 +9,6 @@
         <span>{0}</span>
     </li>
 </ul>
-<Level />
 <!--
 <div class="holder">
 <ul class="navbar-nav">

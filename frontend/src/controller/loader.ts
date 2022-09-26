@@ -1,7 +1,7 @@
 import { writable, get } from 'svelte/store'
 import { fulfillSections } from '../view/sections'
 import { processHash, setHashListener, hideAllSections, showSection } from './router'
-import { level, levelFiles } from './level'
+import { level, levelFiles } from './settings'
 import { PartsOfSpeech, PartOfSpeech, MorminoItem } from '../model'
 
 const progress = writable(0)

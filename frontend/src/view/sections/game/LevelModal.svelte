@@ -1,8 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { loadAll } from '../../controller/loader'
-  import { level, getKeysWithLabels } from '../../controller/level'
-  import { levelKey } from '../../../settings.json'
+  import { loadAll } from '../../../controller/loader'
+  import { level } from '../../../controller/settings'
+  import { Level } from '../../../model'
+  import { levelKey } from '../../../../settings.json'
 
   let levelsForm: HTMLFormElement, modal
 
@@ -19,11 +20,11 @@
     modal = new Modal(modal)
   })
 </script>
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#choose-level">
+<a type="link" class="link-primart" data-bs-toggle="modal" data-bs-target="#choose-level" href="#choose-level-link">
   Выбрать уровень
-</button>
+</a>
 
-<div class="modal fade" id="choose-level" tabindex="-1" aria-labelledby="choose-level-label" aria-hidden="true" bind:this={modal}>
+<div class="modal fade text-start" id="choose-level" tabindex="-1" aria-labelledby="choose-level-label" aria-hidden="true" bind:this={modal}>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -32,7 +33,7 @@
       </div>
       <div class="modal-body">
         <form bind:this={levelsForm}>
-        {#each getKeysWithLabels() as item, index}
+        {#each Level.getKeysWithLabels() as item}
           <div class="form-check">
             <input class="form-check-input" type="radio" name="level" value={item.key} id={`level-${item.key}`}>
             <label class="form-check-label" for={`level-${item.key}`}>

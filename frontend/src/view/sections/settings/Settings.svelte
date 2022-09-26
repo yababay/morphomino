@@ -1,11 +1,9 @@
 <script lang="ts">
-    import Section from '../Section.svelte'
-
-    export let id
+    import RateInputs from "./RateInputs.svelte"
+    import VignetteVariants from "./VignetteVariants.svelte"
+    import ColorPicker from "./ColorPicker.svelte"
 </script>
 
-<Section {id}>
-    <svelte:fragment slot="dynamic">
-        {id}
-    </svelte:fragment>
-</Section>
+<RateInputs />
+<VignetteVariants />
+<ColorPicker />

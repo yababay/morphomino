@@ -104,6 +104,11 @@ class Level {
             .filter($ => isNaN(Number($)))
             .filter($ => withoutUndefined && $ !== 'UNDEFINED' || false)
     }
+
+    static getKeysWithLabels(){
+        return Level.getKeyNames().map($=> new Level($)).map($=> ({key: $.key, label: $.description}))
+    }
+
 }
 
 export { Levels, Level }

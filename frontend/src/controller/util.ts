@@ -46,7 +46,12 @@ function numberFromStorage(key: string, byDefault: number) : number {
 }
 
 function fromStorage(key: string, byDefault: string | number | boolean): string | number | boolean{
-    return localStorage.getItem(key) || byDefault
+    let value: string | number | boolean | object = localStorage.getItem(key)
+    if(!['string', 'number', 'boolean'].includes(typeof value)){
+        localStorage.setItem(key, `${byDefault}`)
+        value = byDefault
+    }
+    return value
 }
 
 function getTimeWithUnits(seconds: number): object {
