@@ -1,6 +1,5 @@
-import { writable, get } from 'svelte/store'
 import { delayedAction } from './util'
-import { ignoreInstruction, durationInSeconds } from './settings'
+import { ignoreInstruction } from './settings'
 import { instructionTimeout, setupTimeout, gameSectionId } from '../../settings.json'
 import { startTicker, stopTicker, stage, elapsedTime } from './ticker'
 import { GameStages } from '../model'
@@ -23,19 +22,11 @@ function setFlowWithDelay(){
     return setStageWithDelay(GameStages.FLOW, setupTimeout)
 }
 
-function setGameTimeoutWithDelay(){
-    setStageWithDelay(GameStages.TIMEOUT, get(durationInSeconds) * 1000)
-}
-
 async function startGame(){
     resetGame()
-    await setFirstStage()
+    const result = await setFirstStage()
         .then(ok => setFlowWithDelay())
-    const result = await Promise.any([
-        setGameTimeoutWithDelay(),
-        startTicker()
-    ])
-    if(result === GameStages.TIMEOUT) elapsedTime.set(durationInSeconds)
+        .then(ok => startTicker())
     stopTicker()
 }
 
@@ -45,7 +36,7 @@ function resetGame(){
     elapsedTime.set(0)
 }
 
-function breakTicker(){
+function breakGame(){
     stage.set(GameStages.BREAK)
 }
 
@@ -54,4 +45,4 @@ hash.subscribe(value => {
     else resetGame()
 })
 
-export { stage, startGame, breakTicker }
+export { stage, startGame, breakGame }

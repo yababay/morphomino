@@ -10,14 +10,30 @@
 <LevelCurrent />
 
 <div class="game-holder">
-    {#if $stage === GameStages.UNDEFINED}
-        <div />
-    {:else if $stage === GameStages.INSTRUCTION}
+    {#if $stage === GameStages.INSTRUCTION}
         <Instruction {id} />
+    {:else if $stage === GameStages.SETUP}
+        <p>setup</p>
+    {:else if $stage === GameStages.FLOW}
+        <p>flow</p>
+    {:else if $stage === GameStages.BREAK}
+        <p>break</p>
+    {:else if $stage === GameStages.HOST_IS_WON}
+        <p>host</p>
+    {:else if $stage === GameStages.GUEST_IS_WON}
+        <p>guest</p>
+    {:else if $stage === GameStages.DEAD_HEAT}
+        <p>dh</p>
+    {:else if $stage === GameStages.FULFILLED}
+        <p>full</p>
+    {:else if $stage === GameStages.TIMEOUT}
+        <p>time</p>
     {:else}
-    OK!!!
+        <div />
     {/if}
 </div>
+
+<div /><!-- dummy -->>
 
 <style>
     .game-holder {
