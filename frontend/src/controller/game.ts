@@ -40,9 +40,4 @@ function breakGame(){
     stage.set(GameStages.BREAK)
 }
 
-hash.subscribe(value => {
-    if(value === gameSectionId) startGame()
-    else resetGame()
-})
-
 export { stage, startGame, breakGame }

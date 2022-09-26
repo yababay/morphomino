@@ -3,8 +3,19 @@
     import LevelCurrent from './LevelCurrent.svelte'
     import { GameStages } from '../../../model'
     import { stage } from '../../../controller/game'
+    import { onMount } from 'svelte';
+    import { hash } from '../../../controller/router'
+    import { startGame, breakGame } from '../../../controller/game'
+    import { gameSectionId } from '../../../../settings.json'
 
     export let id: string
+
+    onMount(() => {
+        hash.subscribe(value => {
+            if(value === gameSectionId) startGame()
+            else breakGame()
+        })
+    })
 </script>
 
 <LevelCurrent />
