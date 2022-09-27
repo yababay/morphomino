@@ -37,7 +37,7 @@
 
 <style>
     .mormino-score {
-        margin: 0 6px 6px 0;
+        padding: 0 3px 1px 0;
     }
 
     .progress-holder {

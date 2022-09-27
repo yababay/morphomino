@@ -21,12 +21,13 @@
 
 <style>
     :root{
-        --mormino-flow-width: 1000px;
-        --mormino-flow-card-width: calc(var(--mormino-flow-width) / 3 - 3px);
+        --mormino-flow-max-width: 1000px;
+        --mormino-flow-card-width: calc(var(--mormino-flow-max-width) / 3 - 3px);
+        --mormino-flow-card-height: calc(var(--mormino-flow-card-width) / 1.618)
     }
 
     .flow-control {
-        width: calc((var(--mormino-flow-width) - var(--mormino-flow-card-width)) / 2 - 10px);
+        width: calc((var(--mormino-flow-max-width) - var(--mormino-flow-card-width)) / 2 - 10px);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -34,11 +35,11 @@
 
     .mormino-card {
         width: var(--mormino-flow-card-width);
-        height: calc(var(--mormino-flow-card-width) / 1.618)
+        height: var(--mormino-flow-card-height)
     }
 
     .mormino-flow {
-        width: var(--mormino-flow-width);
+        width: var(--mormino-flow-max-width);
         margin: 3rem auto;
         display: flex;
         justify-content: space-between;

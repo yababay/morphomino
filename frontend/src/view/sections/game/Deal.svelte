@@ -23,17 +23,18 @@
 
 <style>
     :root{
-        --mormino-max-deal-width: 1000px;
-        --mormino-card-width: calc(var(--mormino-max-deal-width) / 4 - 3px);
+        --mormino-deal-max-width: 1000px;
+        --mormino-deal-card-width: calc(var(--mormino-deal-max-width) / 4 - 3px);
+        --mormino-deal-card-height: calc(var(--mormino-card-width) / 1.618);
     }
     .mormino-card {
-        width: var(--mormino-card-width);
-        height: calc(var(--mormino-card-width) / 1.618);
+        width: var(--mormino-deal-card-width);
+        height: var(--mormino-deal-card-height);
         cursor: pointer;
     }
 
     .mormino-deal {
-        max-width: var(--mormino-max-deal-width);
+        max-width: var(--mormino-deal-max-width);
         margin: 3rem auto;
         display: flex;
         flex-wrap: wrap;
