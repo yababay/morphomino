@@ -1,4 +1,7 @@
 {
+    "defaultRed": 0,
+    "defaultGreen": 0,
+    "defaultBlue": 0,
     "dealAmount": 8,
     "durationMin": 60,
     "durationDefault": 100,
@@ -19,6 +22,9 @@
     "durationKey": "mormino.gameDuration",
     "moveAmountKey": "mormino.moveAmount",
     "ignoreInstructionKey": "mormino.ignoreInstruction",
-    "levelKey": "mormino.level"
+    "levelKey": "mormino.level",
+    "redKey": "mormino.red",
+    "greenKey": "mormino.green",
+    "blueKey": "mormino.blue"
 }
 

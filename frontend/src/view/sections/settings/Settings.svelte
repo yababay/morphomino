@@ -3,7 +3,7 @@
     import VignetteVariants from "./VignetteVariants.svelte"
     import ColorPicker from "./ColorPicker.svelte"
 
-    export let id = 'settings'
+    export const id = 'settings'
 </script>
 
 <RateInputs />

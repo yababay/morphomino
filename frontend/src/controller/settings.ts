@@ -2,7 +2,14 @@ import { derived, writable, get } from 'svelte/store'
 import { Level, Levels, PartOfSpeech } from '../model'
 import { numberFromStorage, booleanFromStorage, stringFromStorage } from './util'
 import { ignoreInstruction as ignoreInstr, moveAmountDefault, durationDefault,
-    moveAmountKey, durationKey, ignoreInstructionKey, levelKey } from '../../settings.json'
+    moveAmountKey, durationKey, ignoreInstructionKey, levelKey,
+    defaultRed, defaultGreen, defaultBlue, redKey, greenKey, blueKey
+} from '../../settings.json'
+
+const red = writable(numberFromStorage(redKey, defaultRed))
+const green = writable(numberFromStorage(greenKey, defaultGreen))
+const blue = writable(numberFromStorage(blueKey, defaultBlue))
+const rgb = derived([red, green, blue], ([$red, $green, $blue]) => `rgb(${$red}, ${$green}, ${$blue})`)
 
 const durationInSeconds = writable(numberFromStorage(durationKey, durationDefault))
 const moviesAmount = writable(numberFromStorage(moveAmountKey, moveAmountDefault))
@@ -17,4 +24,4 @@ const levelFiles = derived(levelItem, $item => $item.items.map($=> new PartOfSpe
 )
 
 export { durationInSeconds, durationInMinutes, moviesAmount, ignoreInstruction, 
-            level, levelItem, levelFiles, levelDescription }
+            level, levelItem, levelFiles, levelDescription, red, green, blue, rgb }

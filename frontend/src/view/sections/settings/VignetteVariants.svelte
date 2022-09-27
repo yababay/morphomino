@@ -19,7 +19,7 @@
 <h2>Варианты оформления:</h2>
 <div class="design-holder">
         {#each [1,2,3,4,5,6,7,8,9] as vignette, index }
-            <div on:click={e => chooseVignette(index)} class={'card-holder ' + (index === savedVariant ? 'active' : 'inactive')} >
+            <div on:click={e => chooseVignette(index)} class="card-holder" style:border={index === savedVariant ? '1px dotted grey' : ''} >
                 <CardDesign word="образец" pos="существ." {vignette} />
             </div>
         {/each}
@@ -36,16 +36,17 @@
         width: 250px;
         height: 155px;
         cursor: pointer;
+        padding: 2px;
     }
-
-    .active {
+/*
+    .activу-vignette {
         border: 1px dotted grey;
         margin: 2px;
         background-color:#ddd;
     }
 
-    .inactive {
+    .inactive-vignette {
         border: 0;
         margin: 3px;
-    }
+    }*/
 </style>
