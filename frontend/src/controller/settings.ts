@@ -1,10 +1,17 @@
 import { derived, writable, get } from 'svelte/store'
 import { Level, Levels, PartOfSpeech } from '../model'
-import { numberFromStorage, booleanFromStorage, stringFromStorage } from './util'
+import { numberFromStorage, booleanFromStorage, stringFromStorage, saveObject } from './util'
 import { ignoreInstruction as ignoreInstr, moveAmountDefault, durationDefault,
     moveAmountKey, durationKey, ignoreInstructionKey, levelKey,
-    defaultRed, defaultGreen, defaultBlue, redKey, greenKey, blueKey
+    defaultRed, defaultGreen, defaultBlue, redKey, greenKey, blueKey, achievementsKey
 } from '../../settings.json'
+
+const achievementsString = writable(stringFromStorage(achievementsKey, '[]'))
+const achievements = derived(achievementsString, $achievementsString => JSON.parse($achievementsString))
+
+function addAchievement(achievement: object){
+    saveObject(achievementsKey, [achievement, ...get(achievements)], achievementsString)
+}
 
 const red = writable(numberFromStorage(redKey, defaultRed))
 const green = writable(numberFromStorage(greenKey, defaultGreen))
@@ -24,4 +31,4 @@ const levelFiles = derived(levelItem, $item => $item.items.map($=> new PartOfSpe
 )
 
 export { durationInSeconds, durationInMinutes, moviesAmount, ignoreInstruction, 
-            level, levelItem, levelFiles, levelDescription, red, green, blue, rgb }
+            level, levelItem, levelFiles, levelDescription, red, green, blue, rgb, addAchievement }

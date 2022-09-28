@@ -23,6 +23,7 @@
     "moveAmountKey": "mormino.moveAmount",
     "ignoreInstructionKey": "mormino.ignoreInstruction",
     "levelKey": "mormino.level",
+    "achievementsKey": "mormino.achievements",
     "redKey": "mormino.red",
     "greenKey": "mormino.green",
     "blueKey": "mormino.blue"

@@ -1,9 +1,10 @@
+import { get } from 'svelte/store'
 import { delayedAction } from './util'
-import { ignoreInstruction } from './settings'
-import { instructionTimeout, setupTimeout, gameSectionId } from '../../settings.json'
+import { ignoreInstruction, addAchievement, durationInSeconds } from './settings'
+import { instructionTimeout, setupTimeout } from '../../settings.json'
 import { startTicker, stopTicker, stage, elapsedTime } from './ticker'
 import { GameStages } from '../model'
-import { hash } from './router'
+import { setInitialMoves, scores as scoresRaw } from './flow'
 
 function setStageWithDelay (next: GameStages, delay: number){
     return delayedAction(() => {stage.set(next); return next}, delay)
@@ -11,11 +12,11 @@ function setStageWithDelay (next: GameStages, delay: number){
 
 function setFirstStage(){
     if(ignoreInstruction){
-        stage.set(GameStages.SETUP)
+        stage.set(GameStages.DEAL)
         return Promise.resolve(true)
     }
     stage.set(GameStages.INSTRUCTION)
-    return setStageWithDelay(GameStages.SETUP, instructionTimeout)
+    return setStageWithDelay(GameStages.DEAL, instructionTimeout)
 }
 
 function setFlowWithDelay(){
@@ -24,15 +25,21 @@ function setFlowWithDelay(){
 
 async function startGame(){
     resetGame()
-    const result = await setFirstStage()
+    const reason = await setFirstStage()
         .then(ok => setFlowWithDelay())
         .then(ok => startTicker())
-    stopTicker()
+    stopTicker()    
+    const [scores, moves] = get(scoresRaw).split('/')
+    const time = get(elapsedTime)
+    const timeout = durationInSeconds
+    const date = new Date().getTime()
+    addAchievement({date, time, timeout, scores, moves, reason})
 }
 
 function resetGame(){
     stopTicker()
     stage.set(GameStages.UNDEFINED)
+    setInitialMoves()
     elapsedTime.set(0)
 }
 

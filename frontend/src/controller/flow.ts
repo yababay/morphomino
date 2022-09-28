@@ -23,6 +23,10 @@ function getInitialMoves(){
     return new Array(get(moviesAmount)).fill(MoveStatuses.FORTHCOMING)
 }
 
+function setInitialMoves(){
+    moves.set(getInitialMoves())
+}
+
 function setRandomItems(){
     deal.set(getRandomItems())
 }
@@ -54,4 +58,4 @@ function showAlert(msg){
     setTimeout(() => alert.set(''), 4000)
 }
 
-export { moves, flow, role, scores, deal, alert, setRandomItems, makeMove }
+export { moves, flow, role, scores, deal, alert, setRandomItems, makeMove, setInitialMoves }
