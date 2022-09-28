@@ -24,6 +24,15 @@
         bottom: 32px;
         right: 32px;
       }
+
+    @keyframes fadeIn {
+        0% { opacity: 1; }
+        100% { opacity: 0; }
+    }
+
+    .faded-card {
+        animation: fadeIn 1s;
+    }
     </style>
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="/src/main.ts" defer></script>

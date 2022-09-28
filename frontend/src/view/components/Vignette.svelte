@@ -1,4 +1,6 @@
 <script>
+    import { draw } from 'svelte/transition';
+	import { quintOut } from 'svelte/easing';
     export let variant
 </script>
 

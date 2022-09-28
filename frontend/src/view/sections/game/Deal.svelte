@@ -4,10 +4,17 @@
     import MorminoWord from '../../components/MorminoWord.svelte'
     import { makeMove, deal, setRandomItems } from '../../../controller/flow'
 
-    function checkCard(item, index){
+    function checkCard(event, item, index){
         const status = makeMove(item)
         if(!status) return
-        deal.set([...$deal.filter((_, i) => i < index), MorminoItem.getRandomItem(), ...$deal.filter((_, i) => i > index)])
+        const dealDiv = event.target.closest('.mormino-deal')
+        const cards = dealDiv.querySelectorAll('.mormino-card')
+        cards.forEach(div => div.classList.remove('faded-card'))
+        const card = cards[index]
+        card.classList.add('faded-card')
+        setTimeout(() => {
+            deal.set([...$deal.filter((_, i) => i < index), MorminoItem.getRandomItem(), ...$deal.filter((_, i) => i > index)])
+        }, 900);
     }
 
     onMount($=> setRandomItems())
@@ -15,7 +22,7 @@
 
 <div class="mormino-deal">
     {#each $deal as item, index}
-        <div class="mormino-card" on:click={event => checkCard(item, index)}>
+        <div class="mormino-card" on:click={event => checkCard(event, item, index)}>
             <MorminoWord word={item.word} vignette={1}/>
         </div>
     {/each}
@@ -40,4 +47,5 @@
         flex-wrap: wrap;
         justify-content: space-between;
     }
+
 </style>
