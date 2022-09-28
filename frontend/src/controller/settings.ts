@@ -13,6 +13,10 @@ function addAchievement(achievement: object){
     saveObject(achievementsKey, [achievement, ...get(achievements)], achievementsString)
 }
 
+function removeAchievement(date: number){
+    saveObject(achievementsKey, get(achievements).filter($=> $.date !== date), achievementsString)
+}
+
 const red = writable(numberFromStorage(redKey, defaultRed))
 const green = writable(numberFromStorage(greenKey, defaultGreen))
 const blue = writable(numberFromStorage(blueKey, defaultBlue))
@@ -31,4 +35,5 @@ const levelFiles = derived(levelItem, $item => $item.items.map($=> new PartOfSpe
 )
 
 export { durationInSeconds, durationInMinutes, moviesAmount, ignoreInstruction, 
-            level, levelItem, levelFiles, levelDescription, red, green, blue, rgb, addAchievement }
+            level, levelItem, levelFiles, levelDescription, red, green, blue, rgb, 
+            achievements, addAchievement, removeAchievement }

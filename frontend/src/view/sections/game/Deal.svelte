@@ -15,7 +15,7 @@
 
 <div class="mormino-deal">
     {#each $deal as item, index}
-        <div class="mormino-card" on:click={_=> checkCard(item, index)}>
+        <div class="mormino-card" on:click={event => checkCard(item, index)}>
             <MorminoWord word={item.word} vignette={1}/>
         </div>
     {/each}

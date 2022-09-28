@@ -12,8 +12,9 @@
 
 </script>
 
+<h2>Задействовано частей речи:</h2>
 {#if $progress === 100}
-    <table class="table table-success table-striped pos-statistics">
+    <table class="table table-primary table-striped pos-statistics">
         <thead>
             <tr><th>Часть речи</th><th>Загружено</th></tr>
         </thead>

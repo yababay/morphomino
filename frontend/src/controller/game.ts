@@ -30,10 +30,10 @@ async function startGame(){
         .then(ok => startTicker())
     stopTicker()    
     const [scores, moves] = get(scoresRaw).split('/')
-    const time = get(elapsedTime)
-    const timeout = durationInSeconds
+    const elapsed = get(elapsedTime)
+    const duration = get(durationInSeconds)
     const date = new Date().getTime()
-    addAchievement({date, time, timeout, scores, moves, reason})
+    addAchievement({date, elapsed, duration, scores, moves, reason})
 }
 
 function resetGame(){
