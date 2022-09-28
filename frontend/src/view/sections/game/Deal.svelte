@@ -4,6 +4,8 @@
     import MorminoWord from '../../components/MorminoWord.svelte'
     import { makeMove, deal, setRandomItems } from '../../../controller/flow'
 
+    let audioClick, audioDeal
+
     function checkCard(event, item, index){
         const status = makeMove(item)
         if(!status) return
@@ -12,13 +14,22 @@
         cards.forEach(div => div.classList.remove('faded-card'))
         const card = cards[index]
         card.classList.add('faded-card')
+        audioClick.play()
         setTimeout(() => {
             deal.set([...$deal.filter((_, i) => i < index), MorminoItem.getRandomItem(), ...$deal.filter((_, i) => i > index)])
         }, 900);
     }
 
-    onMount($=> setRandomItems())
+    onMount($=> {audioDeal.play();setRandomItems()})
 </script>
+
+<audio bind:this={audioClick}>
+    <source src="./assets/audio/click.mp3" type="audio/mpeg">
+</audio>
+
+<audio bind:this={audioDeal}>
+    <source src="./assets/audio/deal.mp3" type="audio/mpeg">
+</audio>
 
 <div class="mormino-deal">
     {#each $deal as item, index}
