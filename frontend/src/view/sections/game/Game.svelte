@@ -11,12 +11,11 @@
     import { hash } from '../../../controller/router'
     import { startGame, breakGame } from '../../../controller/game'
     import { gameSectionId } from '../../../../settings.json'
-    import { flow } from '../../../controller/flow'
 
     export let id: string
 
     onMount(() => {
-        flow.set([MorminoItem.getRandomItem()])
+        //flow.set([MorminoItem.getRandomItem()])
         hash.subscribe(value => {
             if(value === gameSectionId) startGame()
             else breakGame()

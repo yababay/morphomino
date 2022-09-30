@@ -25,7 +25,7 @@ const rgb = derived([red, green, blue], ([$red, $green, $blue]) => `rgb(${$red},
 const durationInSeconds = writable(numberFromStorage(durationKey, durationDefault))
 const moviesAmount = writable(numberFromStorage(moveAmountKey, moveAmountDefault))
 const ignoreInstruction = writable(booleanFromStorage(ignoreInstructionKey, ignoreInstr))
-const durationInMinutes = derived(durationInSeconds, $durationInSeconds => $durationInSeconds / 60)
+const durationInMinutes = derived(durationInSeconds, $durationInSeconds => Math.floor($durationInSeconds / 60))
 
 const level = writable(stringFromStorage(levelKey, Levels[Levels.COMMON]))
 const levelItem = derived(level, $level => new Level($level))

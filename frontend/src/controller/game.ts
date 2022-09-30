@@ -3,8 +3,8 @@ import { delayedAction } from './util'
 import { ignoreInstruction, addAchievement, durationInSeconds } from './settings'
 import { instructionTimeout, setupTimeout } from '../../settings.json'
 import { startTicker, stopTicker, stage, elapsedTime } from './ticker'
-import { GameStages } from '../model'
-import { setInitialMoves, scores as scoresRaw } from './flow'
+import { GameStages, MorminoItem } from '../model'
+import { setInitialMoves, scores as scoresRaw, flow } from './flow'
 
 function setStageWithDelay (next: GameStages, delay: number){
     return delayedAction(() => {stage.set(next); return next}, delay)
@@ -38,6 +38,7 @@ async function startGame(){
 
 function resetGame(){
     stopTicker()
+    flow.set([MorminoItem.getRandomItem()])
     stage.set(GameStages.UNDEFINED)
     setInitialMoves()
     elapsedTime.set(0)

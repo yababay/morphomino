@@ -49,6 +49,8 @@
         width: var(--mormino-deal-card-width);
         height: var(--mormino-deal-card-height);
         cursor: pointer;
+        background-color: beige;
+        margin-bottom: 4px;
     }
 
     .mormino-deal {

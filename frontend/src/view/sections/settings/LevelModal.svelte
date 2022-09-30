@@ -28,7 +28,7 @@
     modal = new Modal(modal)
   })
 </script>
-<a type="link" class="link-primart" data-bs-toggle="modal" data-bs-target="#choose-level" href="#choose-level-link">
+<a type="link" class="link-light" data-bs-toggle="modal" data-bs-target="#choose-level" href="#choose-level-link">
   Выбрать уровень
 </a>
 
