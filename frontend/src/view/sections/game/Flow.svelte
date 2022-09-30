@@ -43,6 +43,7 @@
         width: var(--mormino-flow-card-width);
         height: var(--mormino-flow-card-height);
         background-color: beige;
+        padding: 3px;
     }
 
     .mormino-flow {
