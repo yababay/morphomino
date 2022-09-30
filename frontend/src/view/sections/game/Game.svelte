@@ -15,10 +15,15 @@
     export let id: string
 
     onMount(() => {
-        //flow.set([MorminoItem.getRandomItem()])
         hash.subscribe(value => {
-            if(value === gameSectionId) startGame()
-            else breakGame()
+            if(value === gameSectionId) {
+                document.body.classList.add('bg-dark')
+                startGame()
+            }
+            else {
+                document.body.classList.remove('bg-dark')
+                breakGame()
+            }
         })
         new Alert({target: document.getElementById('alert')})
     })
