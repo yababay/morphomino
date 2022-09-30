@@ -1,6 +1,16 @@
 <script lang="ts">
   import Link from './Link.svelte'
+
+  let audioDeal
+
+  function palySound(){
+      audioDeal.play();
+  }
 </script>
+
+<audio bind:this={audioDeal}>
+    <source src="./assets/audio/deal.mp3" type="audio/mpeg" on:click={palySound}>
+</audio>
 
 <div class="d-flex justify-content-between align-items-center right-items-holder">
   <Link label="Правила" href="#intro" />
