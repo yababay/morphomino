@@ -1,6 +1,7 @@
 import { writable, get } from 'svelte/store'
 import { level } from './settings'
 import { Level, PartOfSpeech, MorminoItem } from '../model'
+import { setupRouter } from './router'
 
 const progress = writable(1)
 
@@ -28,7 +29,7 @@ async function loadLevel(){
         PartOfSpeech.setStatistics(dict.map(el => el.pos).sort(el => 1 - Math.random()))
         progress.set(95)
     })
-    .then(() => delayedAction(() => progress.set(100), 2000))
+    .then(() => delayedAction(() => {progress.set(100);setupRouter()}, 2000))
     .catch(err => console.log(err))
 }
 

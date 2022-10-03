@@ -1,9 +1,8 @@
 import Navbar from './view/navbar/Navbar.svelte'
 import { setSvelteComponent } from './controller/util'
-import { setupRouter } from './controller/router'
+import { setupLoader } from './controller/router'
 
 setSvelteComponent(Navbar, 'scores')
-setupRouter()
+setupLoader()
 
 export default null
-
