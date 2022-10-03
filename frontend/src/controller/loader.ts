@@ -1,45 +1,35 @@
 import { writable, get } from 'svelte/store'
-import { fulfillSections } from '../view/sections'
-import { processHash, setHashListener, hideAllSections, showSection } from './router'
-import { level, levelFiles } from './settings'
-import { PartsOfSpeech, PartOfSpeech, MorminoItem } from '../model'
+import { level } from './settings'
+import { Level, PartOfSpeech, MorminoItem } from '../model'
 
-const progress = writable(0)
-let firstTime = true
+const progress = writable(1)
 
-function afterLoad(){
-    progress.set(100)
-    if(firstTime){
-        fulfillSections()
-        setHashListener()
-        firstTime = false
-    }
-    processHash()
+function delayedAction (func: CallableFunction, delay: number){
+    return new Promise((yep) => setTimeout(() => yep(func()), delay))
 }
 
-async function loadAll($level: string = get(level)){
-    hideAllSections()
-    showSection('loader')
-    const fileNames = get(levelFiles)
+async function loadLevel(){
+    const {fileNames} = new Level(`${get(level)}`)
     const { length } = fileNames
-    await Promise.all(fileNames.map(($, i)=> {
-        const [key, fileName] = $
-        return fetch(fileName)
+    await Promise.all(fileNames.map(({pos, path}, i) => {
+        return fetch(path)
             .then(res => res.text())
             .then(txt => {
                 progress.set(100 * i / length)
-                return txt.split('\n').map($=> $.trim()).filter($=> !!$ && $.length < 13)
-                    .map(word=> ({pos: PartsOfSpeech[key], word}))
+                return txt.split('\n')
+                    .map($=> $.trim())
+                    .filter($=> $ && $.length < 13)
+                    .map(word => ({pos, word}))
             })
     }))
     .then(arr => {
         const dict = arr.reduce((acc, curr) => [...acc, ...curr], [])
         MorminoItem.setDictionary(dict)   
         PartOfSpeech.setStatistics(dict.map(el => el.pos).sort(el => 1 - Math.random()))
-        progress.set(100)
-        setTimeout(afterLoad, 2000)
+        progress.set(95)
     })
+    .then(() => delayedAction(() => progress.set(100), 2000))
     .catch(err => console.log(err))
 }
 
-export { progress, loadAll }
+export { progress, loadLevel }

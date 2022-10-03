@@ -1,11 +1,11 @@
 <script lang="ts">
-    import RateInputs from "./RateInputs.svelte"
-    import VignetteVariants from "./VignetteVariants.svelte"
-    import ColorPicker from "./ColorPicker.svelte"
-
-    export const id = 'settings'
+    //import RateInputs from "./RateInputs.svelte"
+    //import VignetteVariants from "./VignetteVariants.svelte"
+    //import ColorPicker from "./ColorPicker.svelte"
 </script>
+settings
 
+<!--
 <RateInputs />
 <VignetteVariants />
-<ColorPicker />
+<ColorPicker /-->

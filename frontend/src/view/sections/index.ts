@@ -1,36 +1,15 @@
+/* Match ids with proxies here, and nothing more! */
+
 import Game       from './game/Game.svelte'
 import Intro      from './intro/Intro.svelte'
+import Loader     from './loader/Loader.svelte'
 import Settings   from './settings/Settings.svelte'
 import Statistics from './statistics/Statistics.svelte'
-import { setComponent } from '../../controller/util'
 
-const proxies = [Game, Intro, Settings, Statistics]
-
-function findProxy(id){
-  return proxies.find(section => section.name === getProxyName(id))
+export default {
+    game: Game,
+    intro: Intro,
+    loader: Loader,
+    settings: Settings,
+    statistics: Statistics
 }
-
-function getProxyName(id){
-  return  `Proxy<${id.split('').map((ch, i) => i === 0 ? ch.toUpperCase() : ch).join('')}>`  
-}
-
-const sections = Array.from(document.querySelectorAll('main > section'))
-
-function fulfillSections(){
-    sections.map(el => el.id).filter($=> $ !== 'loader').forEach(id => {
-      const target = sections.find(section => section.id === id)
-      const args = {target, props: {id}}
-      switch(id){
-        case 'game': return new Game(args)
-        case 'intro': return new Intro(args)
-        case 'settings': return new Settings(args)
-        case 'statistics': return new Statistics(args)
-        default: return null
-      }
-      //const Constructor = findProxy(id)
-      //setComponent(Constructor, id, {id})
-    })
-}
-
-export { sections, fulfillSections }
-

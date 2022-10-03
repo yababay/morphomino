@@ -1,4 +1,5 @@
-<script lang="ts">
+game
+<!-- script lang="ts">
     import Instruction from './Instruction.svelte';
     import Deal from './Deal.svelte'
     import Alert from './Alert.svelte'
@@ -56,7 +57,7 @@
     {/if}
 </div>
 
-<div /><!-- dummy -->
+<div />
 
 <style>
     .game-holder {
@@ -65,4 +66,4 @@
         justify-content: center;
         align-items: center;
     }
-</style>
+</style -->

@@ -1,39 +1,42 @@
-import { derived, writable, get } from 'svelte/store'
-import { Level, Levels, PartOfSpeech } from '../model'
-import { numberFromStorage, booleanFromStorage, stringFromStorage, saveObject } from './util'
-import { ignoreInstruction as ignoreInstr, moveAmountDefault, durationDefault,
-    moveAmountKey, durationKey, ignoreInstructionKey, levelKey,
-    defaultRed, defaultGreen, defaultBlue, redKey, greenKey, blueKey, achievementsKey
-} from '../../settings.json'
+import { writable } from 'svelte/store'
+import type { Writable } from 'svelte/types/runtime/store'
+import { moveAmountKey, durationKey, ignoreInstructionKey, levelKey, achievementsKey, rgbKey} from '../../settings.json'
+import { moveAmountDefault, durationDefault, ignoreInstructionDefault, levelDefault, rgbDefault} from '../../settings.json'
 
-const achievementsString = writable(stringFromStorage(achievementsKey, '[]'))
-const achievements = derived(achievementsString, $achievementsString => JSON.parse($achievementsString))
+const achievements = wrapSetting(achievementsKey, [])
+const moveAmount = wrapSetting(moveAmountKey, moveAmountDefault)
+const duration = wrapSetting(durationKey, durationDefault)
+const ignoreInstruction = wrapSetting(ignoreInstructionKey, ignoreInstructionDefault)
+const level = wrapSetting(levelKey, levelDefault)
+const rgb = wrapSetting(rgbKey, rgbDefault)
 
-function addAchievement(achievement: object){
-    saveObject(achievementsKey, [achievement, ...get(achievements)], achievementsString)
+function prepareForStorage(value: string | boolean | number | object): string{
+    return typeof value === 'object' ? JSON.stringify(value) : `${value}`
 }
 
-function removeAchievement(date: number){
-    saveObject(achievementsKey, get(achievements).filter($=> $.date !== date), achievementsString)
+function wrapSetting(key: string, byDefault: string | number | boolean | object): Writable<string | number | boolean | object>{
+    let value: string | number | boolean | object = localStorage.getItem(key)
+    if(!value){
+        localStorage.setItem(key, prepareForStorage(byDefault))
+        value = byDefault
+    }
+    else {
+        switch (typeof byDefault) {
+            case 'number':
+                value = parseFloat(value)
+                break
+            case 'boolean':
+                value = value === 'true'
+                break
+            case 'object':
+                value = JSON.parse(value)
+        }
+    }
+    let writer = writable(value)
+    writer.subscribe($value => {
+        localStorage.setItem(key, prepareForStorage($value)) 
+    })
+    return writer
 }
 
-const red = writable(numberFromStorage(redKey, defaultRed))
-const green = writable(numberFromStorage(greenKey, defaultGreen))
-const blue = writable(numberFromStorage(blueKey, defaultBlue))
-const rgb = derived([red, green, blue], ([$red, $green, $blue]) => `rgb(${$red}, ${$green}, ${$blue})`)
-
-const durationInSeconds = writable(numberFromStorage(durationKey, durationDefault))
-const moviesAmount = writable(numberFromStorage(moveAmountKey, moveAmountDefault))
-const ignoreInstruction = writable(booleanFromStorage(ignoreInstructionKey, ignoreInstr))
-const durationInMinutes = derived(durationInSeconds, $durationInSeconds => Math.floor($durationInSeconds / 60))
-
-const level = writable(stringFromStorage(levelKey, Levels[Levels.COMMON]))
-const levelItem = derived(level, $level => new Level($level))
-const levelDescription = derived(level, $level => new Level($level).description)
-const levelFiles = derived(levelItem, $item => $item.items.map($=> new PartOfSpeech($).key)
-    .map($=> [$, `./assets/linguo/${get(level).replace('CLASS_', 'level-').toLowerCase()}/${$.toLowerCase()}.txt`])
-)
-
-export { durationInSeconds, durationInMinutes, moviesAmount, ignoreInstruction, 
-            level, levelItem, levelFiles, levelDescription, red, green, blue, rgb, 
-            achievements, addAchievement, removeAchievement }
+export { moveAmount, duration, ignoreInstruction, achievements, level, rgb }

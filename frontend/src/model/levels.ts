@@ -1,3 +1,4 @@
+import PartOfSpeech from "./pos"
 import { PartsOfSpeech } from "./types"
 
 enum Levels {
@@ -93,22 +94,28 @@ class Level {
     get value(){return this.#value}
     get items(){return this.#items}
     get description(){return this.#description}
+    get path(){
+        return `./assets/linguo/${this.#key.replace('CLASS_', 'level-').toLowerCase()}`
+    }
+    get fileNames(){
+        const {path} = this
+        return this.items.map(pos => ({pos, path: `${path}/${PartsOfSpeech[pos].toLowerCase()}.txt`}))
+    }
 
     static getDescriptions(withoutUndefined: boolean = true): string[] {
         return Level.getKeyNames(withoutUndefined)
             .map($=> new Level($).description)
     }
 
-    static getKeyNames(withoutUndefined: boolean = true): string[] {
+    static getKeyNames(withUndefined: boolean = false): string[] {
         return Object.keys(Levels)
             .filter($ => isNaN(Number($)))
-            .filter($ => withoutUndefined && $ !== 'UNDEFINED' || false)
+            .filter($ => withUndefined || $ !== 'UNDEFINED')
     }
 
     static getKeysWithLabels(){
-        return Level.getKeyNames().map($=> new Level($)).map($=> ({key: $.key, label: $.description}))
+        return Level.getKeyNames().map($=> new Level($)).map(({key, description})=> ({key, label: description}))
     }
-
 }
 
 export { Levels, Level }

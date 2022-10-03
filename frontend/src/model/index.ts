@@ -1,4 +1,5 @@
 import { PartsOfSpeech, MoveStatuses, GamerRoles, GameStages } from './types'
+import type { ShowAndHide, SectionWithEffects } from './types'
 import { Levels, Level } from './levels'
 import PartOfSpeech from './pos'
 import MorminoItem from './mormino'
@@ -14,5 +15,8 @@ function getStageDescription(stage: GameStages): string{
         default: return "Игра закончилась по неизвестной причине."
     }
 }
+
 export { PartsOfSpeech, PartOfSpeech, MoveStatuses, GamerRoles, 
     GameStages, MorminoItem, Levels, Level, getStageDescription }
+
+export type { ShowAndHide, SectionWithEffects }

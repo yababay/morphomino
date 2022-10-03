@@ -2,7 +2,8 @@
     import Showdown from 'showdown'
     const converter = new Showdown.Converter()
 
-    export let id: string, afterFetch: CallableFunction
+    export let id: string
+    export let afterFetch: CallableFunction = (html: string) => html
 
     async function getHtml() {
         const url = `${`./assets/sections/${id}.md`}?r=${Math.random()}`

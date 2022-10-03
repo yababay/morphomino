@@ -1,12 +1,26 @@
+/* No imports here, please! */
+
+function assureElement(element: string | Element): Element {
+    return typeof element === 'string' ? document.getElementById(element) : element
+}
+
+function getMainSections(): Element[]{
+    return Array.from(document.querySelectorAll('main > section'))
+}
+
 function saveObject(key: string, value: object, writable = null){
     const str = JSON.stringify(value)
     localStorage.setItem(key, str)
     if(writable) writable.set(str)
 }
 
-function setComponent(Component, id: string, props: object = {}): void{
-//    Reflect.construct(Component, [{target: document.getElementById(id), props}])
-    return new Component({target: document.getElementById(id), props})
+function setSvelteComponent(Component: any, id: string | Element, props: object = {}): void{
+    getSvelteComponent(Component, id, props)
+}
+
+function getSvelteComponent(Component: any, target: string | Element, props: object = {}): any{
+    if(typeof target === 'string') target = document.getElementById(target)
+    return Reflect.construct(Component, [{target, props}])
 }
 
 function delayedAction (func: CallableFunction, delay: number){
@@ -96,5 +110,6 @@ function getTimeWithUnits(seconds: number): object {
 
 export { getTimeWithUnits, toStorage, numberFromStorage, 
     booleanFromStorage, stringFromStorage, fromStorage, getRandomIndex,
-    delayedAction, setComponent, saveObject 
+    delayedAction, setSvelteComponent, getSvelteComponent, saveObject,
+    getMainSections, assureElement 
 }

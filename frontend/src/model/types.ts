@@ -68,4 +68,15 @@ enum GamerRoles {
     ROBOT
 }
 
+interface ShowHide {
+    onShow: CallableFunction
+    onHide: CallableFunction
+}
+
+interface SectionWithEffects {
+    section: Element
+    effects: ShowHide
+}
+
 export { PartsOfSpeech, MoveStatuses, GamerRoles, GameStages }
+export type { SectionWithEffects, ShowHide }

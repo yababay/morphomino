@@ -1,7 +1,7 @@
 {
-    "defaultRed": 0,
-    "defaultGreen": 0,
-    "defaultBlue": 0,
+    "ignoreInstructionDefault": false,
+    "levelDefault": "COMMON", 
+    "rgbDefault": "#000",
     "dealAmount": 8,
     "durationMin": 60,
     "durationDefault": 100,
@@ -24,8 +24,6 @@
     "ignoreInstructionKey": "mormino.ignoreInstruction",
     "levelKey": "mormino.level",
     "achievementsKey": "mormino.achievements",
-    "redKey": "mormino.red",
-    "greenKey": "mormino.green",
-    "blueKey": "mormino.blue"
+    "rgbKey": "mormino.rgb"
 }
 
