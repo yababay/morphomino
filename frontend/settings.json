@@ -12,7 +12,7 @@
     "moveAmountMax": 100,
     "moveAmountStep": 10,
     "instructionTimeout": 5000,
-    "setupTimeout": 2000,
+    "dealTimeout": 2000,
     "minMoveTimeout": 5000,
     "ignoreInstruction": false,
     "withLoader": true,

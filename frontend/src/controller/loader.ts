@@ -2,12 +2,9 @@ import { writable, get } from 'svelte/store'
 import { level } from './settings'
 import { Level, PartOfSpeech, MorminoItem } from '../model'
 import { setupRouter } from './router'
+import { delayedAction } from './util'
 
 const progress = writable(1)
-
-function delayedAction (func: CallableFunction, delay: number){
-    return new Promise((yep) => setTimeout(() => yep(func()), delay))
-}
 
 async function loadLevel(){
     const {fileNames} = new Level(`${get(level)}`)

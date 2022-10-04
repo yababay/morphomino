@@ -1,34 +1,33 @@
 import { writable, get, derived } from 'svelte/store'
 import { GameStages } from '../model'
-import { durationInSeconds } from './settings'
+import { duration } from './settings'
 
 let ticker = null
 
 const stage = writable(GameStages.UNDEFINED)
-const elapsedTime = writable(0)
-const gameOver = derived(elapsedTime, $elapsedTime => $elapsedTime > get(durationInSeconds))
+const elapsed = writable(0)
+const endings = [GameStages.BREAK, GameStages.FULFILLED, 
+    GameStages.DEAD_HEAT, GameStages.GUEST_IS_WON, GameStages.HOST_IS_WON]
 
-function startTicker (){
+function tickerIterations (): Promise<GameStages>{
     return new Promise((yep, nop)=> {
-        ticker = setInterval($=> {
-            const seconds = get(elapsedTime)
-            if(get(gameOver)) stage.set(GameStages.TIMEOUT)
+        ticker = setInterval(()=> {
             const $stage = get(stage)
-            if([
-                GameStages.BREAK, 
-                GameStages.TIMEOUT, 
-                GameStages.FULFILLED, 
-                GameStages.DEAD_HEAT, 
-                GameStages.GUEST_IS_WON, 
-                GameStages.HOST_IS_WON
-            ].includes($stage)) return yep($stage)
-            elapsedTime.set(seconds + 1)
+            if(endings.includes($stage)) return yep($stage)
+            const seconds = get(elapsed)
+            elapsed.set(seconds + 1)
         }, 1000)
     })
 }
 
 function stopTicker(){
-    if(ticker) clearInterval(ticker)
+    if(ticker) {
+        clearInterval(ticker)
+        const d = get(duration)
+        if(typeof d === 'boolean' || typeof d === 'string' || typeof d === 'object') return 
+        const e = get(elapsed) 
+        if(e > d) elapsed.set(d) 
+    }
 }
 
-export { startTicker, stopTicker, stage, elapsedTime }
+export { tickerIterations, stopTicker, stage, elapsed }

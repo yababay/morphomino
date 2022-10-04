@@ -5,26 +5,11 @@ const sections = Array.from(document.querySelectorAll('main > section'))
 const showHides: Map<Element, ShowHide> = new Map()
 const hash = writable(idFromHash())
 let lastURL: string
-
-function idFromHash(){
-  let id = window.location.hash 
-  const hashes = Array.from(showHides.keys()).map($=> `#${$.id}`)
-  if(!hashes.includes(id)) id = '#intro'
-  return id.substring(1).trim()
-}
-
-function processHash(): void {
-  const id = idFromHash()
-  if(id === get(hash)) navigateSection(id)
-  else hash.set(id)
-}
-
-function navigateSection(id: string){
-  hideAll(true)
-  showSection(id)
-}
+let firstTime = true
 
 function setupRouter(): void{
+  processHash()
+  if(!firstTime) return
   setupOthers()
   window.addEventListener('hashchange', function (event) {
     Object.defineProperty(event, 'oldURL', {
@@ -40,8 +25,26 @@ function setupRouter(): void{
     lastURL = document.URL
     processHash()
   })
-  processHash()
   hash.subscribe(navigateSection)
+  firstTime = false
+}
+
+function processHash(): void {
+  const id = idFromHash()
+  if(id === get(hash)) navigateSection(id)
+  else hash.set(id)
+}
+
+function idFromHash(){
+  let id = window.location.hash 
+  const hashes = Array.from(showHides.keys()).map($=> `#${$.id}`)
+  if(!hashes.includes(id)) id = '#intro'
+  return id.substring(1).trim()
+}
+
+function navigateSection(id: string){
+  hideAll()
+  showSection(id)
 }
 
 function showLoader(){
@@ -49,12 +52,8 @@ function showLoader(){
   showSection('loader')
 }
 
-function hideAll(includingLoader = false): void{
-  Array.from(showHides.keys()).filter($=> includingLoader || $.id !== 'loader').forEach(section => hideSection(section))
-}
-
-function hideLoader(){
-  hideSection('loader')
+function hideAll(): void{
+  Array.from(showHides.keys()).forEach(section => hideSection(section))
 }
 
 function hideSection(section: string | Element): void{

@@ -1,51 +1,45 @@
-import { get } from 'svelte/store'
+import { derived, get } from 'svelte/store'
 import { delayedAction } from './util'
-import { ignoreInstruction, addAchievement, durationInSeconds } from './settings'
-import { instructionTimeout, setupTimeout } from '../../settings.json'
-import { startTicker, stopTicker, stage, elapsedTime } from './ticker'
-import { GameStages, MorminoItem } from '../model'
-import { setInitialMoves, scores as scoresRaw, flow } from './flow'
+import { tickerIterations, stopTicker, stage, elapsed } from './ticker'
+import { GameStages } from '../model'
+import { instructionTimeout, dealTimeout } from '../../settings.json'
+import { ignoreInstruction, duration } from './settings'
 
-function setStageWithDelay (next: GameStages, delay: number){
-    return delayedAction(() => {stage.set(next); return next}, delay)
+async function startGame(){
+    elapsed.set(0)
+    const result = await Promise.any([
+        stageIterations(),
+        tickerIterations()
+    ])
+    stopGame(result)
+}
+
+function stopGame(result: GameStages){
+    stopTicker()
+    stage.set(result)
+}
+
+function stageIterations(): Promise<GameStages>{
+    return setFirstStage()
+        .then(() => delayedAction(() => stage.set(GameStages.FLOW), dealTimeout))
+        .then(() => delayedAction(() => stage.set(GameStages.TIMEOUT), get(gameDuration)))
+        .then(() => Promise.resolve(GameStages.TIMEOUT))
 }
 
 function setFirstStage(){
     if(ignoreInstruction){
         stage.set(GameStages.DEAL)
-        return Promise.resolve(true)
-    }
+        return Promise.resolve()
+    } 
     stage.set(GameStages.INSTRUCTION)
-    return setStageWithDelay(GameStages.DEAL, instructionTimeout)
+    return delayedAction(() => stage.set(GameStages.DEAL), instructionTimeout)
 }
 
-function setFlowWithDelay(){
-    return setStageWithDelay(GameStages.FLOW, setupTimeout)
-}
+const gameDuration = derived(duration, $duration => {
+    if(typeof $duration === 'boolean') return -1
+    if(typeof $duration === 'string')  return -1
+    if(typeof $duration === 'object')  return -1
+    return $duration * 1000
+})
 
-async function startGame(){
-    resetGame()
-    const reason = await setFirstStage()
-        .then(ok => setFlowWithDelay())
-        .then(ok => startTicker())
-    stopTicker()    
-    const [scores, moves] = get(scoresRaw).split('/')
-    const elapsed = get(elapsedTime)
-    const duration = get(durationInSeconds)
-    const date = new Date().getTime()
-    addAchievement({date, elapsed, duration, scores, moves, reason})
-}
-
-function resetGame(){
-    stopTicker()
-    flow.set([MorminoItem.getRandomItem()])
-    stage.set(GameStages.UNDEFINED)
-    setInitialMoves()
-    elapsedTime.set(0)
-}
-
-function breakGame(){
-    stage.set(GameStages.BREAK)
-}
-
-export { stage, startGame, breakGame }
+export { startGame, stopGame }
