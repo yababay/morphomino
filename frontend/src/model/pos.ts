@@ -55,7 +55,7 @@ const descriptions: object = {
     [PartsOfSpeech.UNION_P]:        ["союз подчинительный", "союзов подчинительных", "союз подч.", "союз п."],
     [PartsOfSpeech.UNION_S]:        ["союз сочинительный", "союзов сочинительных", "союз соч.", "союз с."],
     [PartsOfSpeech.UNIONS]:         ["союз", "союзов", "союз", "союз"],
-    [PartsOfSpeech.ADJECTIVES_KR]:  ["", "", "", ""],
+    /*[PartsOfSpeech.ADJECTIVES_KR]:  ["", "", "", ""],
     [PartsOfSpeech.ADJECTIVES_PL]:  ["", "", "", ""],
     [PartsOfSpeech.NOUNS_1]:        ["", "", "", ""],
     [PartsOfSpeech.NOUNS_2]:        ["", "", "", ""],
@@ -107,7 +107,7 @@ const descriptions: object = {
     [PartsOfSpeech.VERBS_NE]:       ["", "", "", ""],
     [PartsOfSpeech.VERBS_PE]:       ["", "", "", ""],
     [PartsOfSpeech.VERBS_PN]:       ["", "", "", ""],
-    [PartsOfSpeech.VERBS_UN]:       ["", "", "", ""],
+    [PartsOfSpeech.VERBS_UN]:       ["", "", "", ""],*/
     [PartsOfSpeech.UNDEFINED]:      ["", "", "", ""]
 }
 
