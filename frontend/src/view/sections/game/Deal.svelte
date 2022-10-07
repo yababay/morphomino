@@ -2,7 +2,7 @@
     import { onMount } from 'svelte'
     import { MorminoItem } from '../../../model'
     import MorminoWord from '../../components/MorminoWord.svelte'
-    import { makeMove, deal, setRandomItems } from '../../../controller/flow'
+    import { makeMove, deal } from '../../../controller/flow'
 
     let audioClick
 
@@ -23,9 +23,9 @@
         }, 900);
     }
 
-    onMount($=> {
-        setRandomItems()
-    })
+    //onMount($=> {
+//        dealRandom()
+    //})
 </script>
 
 <audio bind:this={audioClick}>

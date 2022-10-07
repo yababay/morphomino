@@ -14,13 +14,12 @@ const elapsedWithUnits = derived(elapsed, $elapsed => getGameTime($elapsed, true
 function getGameTime($elapsed: number, shorten: boolean = false){
     const [minutes, seconds, minUnitCase, secUnitCase] = getTimeWithUnits($elapsed, shorten)
     const mins = minutes > 0 ? `${minutes} ${minUnitCase} ` : ''
-    const secs = `${seconds} ${secUnitCase}`
+    const secs = seconds > 0 ? `${seconds} ${secUnitCase}`  : ''
     return `${mins}${secs}`
 }
 
 function isGameEnded(): boolean{
     const $stage = get(stage)
-    console.log(GAME_ENDINGS, $stage)
     return GAME_ENDINGS.includes($stage)
 }
 

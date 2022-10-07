@@ -17,9 +17,7 @@ const scores = derived(moves, $moves => {
         ).length
     return [scores, $moves.length]
 })
-
 const scoresVerbose = derived(scores, ([won, all]) => `${won} заданий из ${all}`)
-
 const isFullfilled = derived(moves, $moves => $moves.filter($=> $ !== MoveStatuses.FORTHCOMING).length === $moves.length)
 
 function makeMove(item: MorminoItem, $role = get(role)): boolean {
@@ -35,7 +33,7 @@ function makeMove(item: MorminoItem, $role = get(role)): boolean {
     const lastIndex = $flow.length - 1
     moves.set([...$moves.slice(0, lastIndex), status, ...$moves.slice(lastIndex + 1)])
     flow.set([...$flow, item])
-    if(isFullfilled) setFullfilled()
+    if(get(isFullfilled)) setFullfilled()
     if($role === GamerRoles.HOST) return status === MoveStatuses.HOST_IS_WON 
     return status === MoveStatuses.GUEST_IS_WON
 }
@@ -45,10 +43,14 @@ function showAlert(msg){
     setTimeout(() => alert.set(''), 3000)
 }
 
-function resetFlow(){
-    moves.set(new Array(get(movesAmount)).fill(MoveStatuses.FORTHCOMING))
-    flow.set([MorminoItem.getRandomItem()])
+function dealRandom(){
     deal.set(new Array(dealAmount).fill(0).map($=> MorminoItem.getRandomItem()))
 }
 
-export { resetFlow, showAlert, makeMove, scores, isFullfilled, scoresVerbose }
+function resetFlow(){
+    moves.set(new Array(get(movesAmount)).fill(MoveStatuses.FORTHCOMING))
+    flow.set([MorminoItem.getRandomItem()])
+    dealRandom()
+}
+
+export { resetFlow, showAlert, makeMove, scores, deal, flow, role, moves, alert, isFullfilled, scoresVerbose, dealRandom }

@@ -1,7 +1,7 @@
 <script type="ts">
-    import Section from '../Section.svelte'
+    import Article from '../../components/Article.svelte'
 
-    export let id: string
+    let id = 'game'
 
     function afterFetch(txt: string): string {
         return txt.replace('<p>', '<span>').replace('</p>', '</span>')
@@ -13,7 +13,7 @@
         <img src="assets/img/level-7_1.png" class="card-img-top" alt="Инструкция">
         <div class="card-body">
           <h5 class="card-title">Краткая инструкция</h5>
-          <Section {id} {afterFetch} />
+          <Article {id} {afterFetch} />
           <div class="progress">
                 <div class="progress-bar progress-bar-striped progress-bar-animated w-100" role="progressbar" aria-label="Игра начитается..." 
                     aria-valuenow={75} aria-valuemin={0} aria-valuemax={100}>

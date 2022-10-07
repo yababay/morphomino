@@ -1,8 +1,14 @@
 <script lang="ts">
-    import { startGame, breakGame } from "../../../controller/game";
-    import { gameOver } from "../../../controller/tickers";
+    import { onMount } from "svelte"
+    import { startGame, breakGame } from "../../../controller/game"
+    import { gameOver, stage } from "../../../controller/tickers"
+    import { GameStages } from "../../../model"
     import CurrentLevel from "./CurrentLevel.svelte"
+    import Deal from "./Deal.svelte"
+    import Flow from "./Flow.svelte"
+    import Instruction from "./Instruction.svelte"
     import Finish from "./Finish.svelte"
+    import Alert from "./Alert.svelte"
 
     let busy = false
 
@@ -15,11 +21,22 @@
         breakGame()
         document.body.style.backgroundImage = null
     }
+
+    onMount(() => {
+        new Alert({target: document.getElementById('alert')})
+    })    
 </script>
 <div class="game-holder">
     <CurrentLevel />
     {#if $gameOver}
         <Finish />
+    {:else if $stage === GameStages.INSTRUCTION}
+        <Instruction />
+    {:else if $stage === GameStages.DEAL}
+        <Deal />
+    {:else if $stage === GameStages.FLOW}
+        <Deal />
+        <Flow />
     {/if}
     <div>&nbsp;</div>
 </div>

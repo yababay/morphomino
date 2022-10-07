@@ -78,8 +78,8 @@ function fromStorage(key: string, byDefault: string | number | boolean): string 
 function getTimeWithUnits(seconds: number, abbreviated: boolean = false): any[] {
     const minutes = Math.floor(seconds / 60)
     seconds = seconds - minutes * 60
-    const minRest = minutes % 10
-    const secRest = seconds % 10
+    const minRest = minutes % 20
+    const secRest = seconds % 20
     let minUnitCase: string, secUnitCase: string
     switch(secRest){
         case 1: 
