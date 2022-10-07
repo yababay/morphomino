@@ -1,6 +1,11 @@
 <script lang="ts">
-    import { removeAchievement } from '../../../controller/settings'
+    import { achievements } from '../../../controller/settings'
     export let date: number
+
+    function removeAchievement(date){
+        const current = $achievements
+        if(Array.isArray(current)) achievements.set(current.filter(ach => ach.date !== date))
+    }
 </script>
 
 <div class="remove-achievement" on:click={e => removeAchievement(date)}>

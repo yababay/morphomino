@@ -25,14 +25,15 @@
             <strong>{$elapsedWithUnits}</strong>
         </li>
     </ul>
+
+    <ul class="navbar-nav navbar-ul-long-fixed-width">
+        <li class="nav-item  text-light">
+            <span>Правильных ответов:</span>
+            <strong>{$scoresSlashed}</strong>
+        </li>
+    </ul>
 {/if}
 
-<ul class="navbar-nav navbar-ul-long-fixed-width">
-    <li class="nav-item  text-light">
-        <span>Правильных ответов:</span>
-        <strong>{$scoresSlashed}</strong>
-    </li>
-</ul>
 <ChangeLevel label="Сменить уровень" />
 
 <audio bind:this={audioDeal}>

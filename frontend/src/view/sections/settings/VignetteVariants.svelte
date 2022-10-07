@@ -1,28 +1,18 @@
 <script lang="ts">
     import CardDesign from "../../components/CardDesign.svelte"
-    import { vignetteVariantKey } from '../../../../settings.json'
+    import { vignette as vignetteStore } from '../../../controller/settings'
 
-    function getVariant(): number{
-        let variant = localStorage.getItem(vignetteVariantKey)
-        if(!variant) return Math.floor(Math.random() * 9)
-        return parseInt(variant) - 1
-    }
+    $: savedVariant = $vignetteStore
 
-    let savedVariant = getVariant()
-
-    function chooseVignette(index: number) {
-        savedVariant = index
-        localStorage.setItem(vignetteVariantKey, `${index + 1}`)
-    }
 </script>
 
-<h2>Варианты оформления:</h2>
+<h2 class="fs-3">Варианты оформления:</h2>
 <div class="design-holder">
-        {#each [1,2,3,4,5,6,7,8,9] as vignette, index }
-            <div on:click={e => chooseVignette(index)} class="card-holder" style:border={index === savedVariant ? '1px dotted grey' : ''} >
-                <CardDesign word="образец" pos="существ." {vignette} />
-            </div>
-        {/each}
+    {#each [1,2,3,4,5,6,7,8,9] as vignette }
+        <div on:click={e => vignetteStore.set(vignette)} class="card-holder" style:border={vignette === savedVariant ? '1px dotted grey' : ''} >
+            <CardDesign word="образец" pos="существ." {vignette} />
+        </div>
+    {/each}
 </div>
 
 <style>
@@ -38,15 +28,4 @@
         cursor: pointer;
         padding: 2px;
     }
-/*
-    .activу-vignette {
-        border: 1px dotted grey;
-        margin: 2px;
-        background-color:#ddd;
-    }
-
-    .inactive-vignette {
-        border: 0;
-        margin: 3px;
-    }*/
 </style>

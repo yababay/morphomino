@@ -1,6 +1,6 @@
 import { Level } from '../model'
 import { derived, writable } from 'svelte/store'
-import { moveAmountKey, durationKey, ignoreInstructionKey, levelKey, achievementsKey, rgbKey} from '../../settings.json'
+import { moveAmountKey, durationKey, ignoreInstructionKey, levelKey, achievementsKey, rgbKey, vignetteVariantKey } from '../../settings.json'
 import { moveAmountDefault, durationDefault, ignoreInstructionDefault, levelDefault, rgbDefault} from '../../settings.json'
 import type { Writable } from 'svelte/types/runtime/store/index'
 
@@ -10,6 +10,7 @@ const duration = wrapSetting(durationKey, durationDefault)
 const ignoreInstruction = wrapSetting(ignoreInstructionKey, ignoreInstructionDefault)
 const level = wrapSetting(levelKey, levelDefault)
 const rgb = wrapSetting(rgbKey, rgbDefault)
+const vignette = wrapSetting(vignetteVariantKey, 1)
 const levelDescription = derived(level, ($level: string) => new Level($level).description)
 
 function prepareForStorage(value: string | boolean | number | object): string{
@@ -41,4 +42,4 @@ function wrapSetting(key: string, byDefault: string | number | boolean | object)
     return writer
 }
 
-export { movesAmount, duration, ignoreInstruction, achievements, level, rgb, levelDescription }
+export { movesAmount, duration, ignoreInstruction, achievements, level, rgb, levelDescription, vignette }

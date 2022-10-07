@@ -1,8 +1,7 @@
 <script lang="ts">
-    import { achievements, removeAchievement } from '../../../controller/settings'
+    import { achievements } from '../../../controller/settings'
     import RemoveAchievement from './RemoveAchievement.svelte'
     import { getStageDescription } from '../../../model';
-
 
     function formatDate(ts: number): string{
         return new Intl.DateTimeFormat('ru-RU', {
@@ -28,7 +27,7 @@
         </tr>
     </thead>
     <tbody>
-        {#each $achievements as row }
+        {#each Array.isArray($achievements) && $achievements || [] as row }
             <tr>
                 <td>{formatDate(row.date)}</td>
                 <td>{row.elapsed} сек.</td>
