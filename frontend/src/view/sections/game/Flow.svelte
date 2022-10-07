@@ -4,8 +4,8 @@
     import { flow, dealRandom } from '../../../controller/flow'
 
     let audioDeal
-    let word = $flow.at(-1).word
-    let pos = $flow.at(-1).nextShortName
+    $: word = $flow.at(-1).word
+    $: pos = $flow.at(-1).nextShortName
 </script>
 
 <audio bind:this={audioDeal}>
