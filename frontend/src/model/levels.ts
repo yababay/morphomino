@@ -2,6 +2,11 @@ import PartOfSpeech from "./pos"
 import { PartsOfSpeech } from "./types"
 
 enum Levels {
+    CLASS_5_1,
+    CLASS_5_2,
+    CLASS_5_3,
+    CLASS_6_1,
+    CLASS_6_2,
     CLASS_7_1,
     CLASS_7_2,
     COMMON,
@@ -10,9 +15,95 @@ enum Levels {
 
 const LevelDescriptions = {
     [Levels.UNDEFINED]: {
-        description: 'Выберите уровень',
+        description: 'Выберите уровень:',
         items: []
+    },   
+    [Levels.CLASS_5_1]: {
+            description: '5 класс, уровень 1',
+            items: [
+            PartsOfSpeech.ADJECTIVES,
+            PartsOfSpeech.ADVERBS,
+            PartsOfSpeech.NOUNS,
+            PartsOfSpeech.NUMERALS,
+            PartsOfSpeech.PARTICLES,
+            PartsOfSpeech.PREPOSITIONS,
+            PartsOfSpeech.PRONOUNS,
+            PartsOfSpeech.UNIONS,
+            PartsOfSpeech.VERBS
+        ]
     },
+    [Levels.CLASS_5_2]: {
+        description: '5 класс, уровень 2',
+        items: [
+            PartsOfSpeech.ADJECTIVES_KR,
+            PartsOfSpeech.ADJECTIVES_PL,
+            PartsOfSpeech.ADVERBS,
+            PartsOfSpeech.NOUNS_1,
+            PartsOfSpeech.NOUNS_2,
+            PartsOfSpeech.NOUNS_3,
+            PartsOfSpeech.VERBS_BVR,
+            PartsOfSpeech.VERBS_NVR,
+            PartsOfSpeech.VERBS_PVR        ]
+    },
+    [Levels.CLASS_5_3]: {
+        description: '5 класс, уровень 3',
+        items: [
+            PartsOfSpeech.ADVERBS,
+            PartsOfSpeech.NOUNS_1_PP,
+            PartsOfSpeech.NOUNS_1_RP,
+            PartsOfSpeech.NOUNS_2_DP,
+            PartsOfSpeech.NOUNS_2_PP,
+            PartsOfSpeech.NOUNS_2_RP,
+            PartsOfSpeech.NOUNS_3_RP,
+            PartsOfSpeech.NOUNS_TE,
+            PartsOfSpeech.NOUNS_TM,
+            PartsOfSpeech.VERBS_1_LE,
+            PartsOfSpeech.VERBS_1_LM,
+            PartsOfSpeech.VERBS_2_LE,
+            PartsOfSpeech.VERBS_2_LM,
+            PartsOfSpeech.VERBS_3_LE,
+            PartsOfSpeech.VERBS_3_LM      ]
+    },        
+    [Levels.CLASS_6_1]: {
+        description: '6 класс, уровень 1',
+        items: [
+            PartsOfSpeech.ADJECTIVES_KA,
+            PartsOfSpeech.ADJECTIVES_OT,
+            PartsOfSpeech.ADJECTIVES_PPS,
+            PartsOfSpeech.ADJECTIVES_PR,
+            PartsOfSpeech.ADJECTIVES_PSS,
+            PartsOfSpeech.ADJECTIVES_SPS,
+            PartsOfSpeech.ADJECTIVES_SSS,
+            PartsOfSpeech.NOUNS_NS,
+            PartsOfSpeech.NOUNS_OR,
+            PartsOfSpeech.NOUNS_RS,
+            PartsOfSpeech.NUMERALS_DR,
+            PartsOfSpeech.NUMERALS_KO,
+            PartsOfSpeech.NUMERALS_PO,
+            PartsOfSpeech.NUMERALS_SO,
+            PartsOfSpeech.VERBS_IN,
+            PartsOfSpeech.VERBS_RS,
+            PartsOfSpeech.VERBS_VZ        ]
+    },        
+    [Levels.CLASS_6_2]: {
+        description: '6 класс, уровень 2',
+        items: [
+            PartsOfSpeech.PRONOUNS_LI,
+            PartsOfSpeech.PRONOUNS_NE,
+            PartsOfSpeech.PRONOUNS_OPR,
+            PartsOfSpeech.PRONOUNS_OTN,
+            PartsOfSpeech.PRONOUNS_OTR,
+            PartsOfSpeech.PRONOUNS_PR,
+            PartsOfSpeech.PRONOUNS_UK,
+            PartsOfSpeech.PRONOUNS_VO,
+            PartsOfSpeech.PRONOUNS_VZ,
+            PartsOfSpeech.VERBS_BL,
+            PartsOfSpeech.VERBS_NE,
+            PartsOfSpeech.VERBS_PE,
+            PartsOfSpeech.VERBS_PN,
+            PartsOfSpeech.VERBS_UN
+        ]
+    },        
     [Levels.CLASS_7_1]: {
         description: '7 класс, уровень 1',
         items: [
