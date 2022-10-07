@@ -2,11 +2,13 @@
     import { derived } from 'svelte/store'
     import { duration, movesAmount, ignoreInstruction } from '../../../controller/settings'
     import { durationMin, durationMax, durationStep, moveAmountMin, moveAmountMax, moveAmountStep, ignoreInstructionKey, durationKey, moveAmountKey, vignetteVariantKey } from '../../../../settings.json'
-
+    import Subheader from '../../components/Subheader.svelte'
+    
     const durationInMinutes = derived(duration, $duration => Math.floor($duration / 60))
 </script>
 
-<h2 class="fs-3">Основные настройки</h2>
+<Subheader title="Основные настройки" />
+
 <div class="card mt-5 settings-holder">
     <div class="card-body">
         <div class="input-holder">

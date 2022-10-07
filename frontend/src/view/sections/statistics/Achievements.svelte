@@ -1,6 +1,7 @@
 <script lang="ts">
     import { achievements } from '../../../controller/settings'
     import RemoveAchievement from './RemoveAchievement.svelte'
+    import Subheader from '../../components/Subheader.svelte'
     import { getStageDescription } from '../../../model';
 
     function formatDate(ts: number): string{
@@ -13,7 +14,8 @@
     }
 </script>
 
-<h2>Ваши достижения</h2>
+<Subheader title="Ваши достижения" />
+
 <table class="table table-success table-striped pos-statistics">
     <thead>
         <tr>

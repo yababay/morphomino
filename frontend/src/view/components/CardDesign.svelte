@@ -16,7 +16,7 @@
             <text text-anchor="middle"  x="50%" y="16.5" style={`font-size:4px;fill:${$rgb}`}>{word}</text>
             {#if withCartouche }
                 <text 
-                    text-anchor="middle"  x="47.5" y="15.5" style={`font-size:3px;fill:${$rgb}`}
+                    text-anchor="middle"  x="47.5" y="15.5" style={`font-size:2.5px;fill:${$rgb}`}
                     transform="rotate(-90 47.5 15.5)">{pos}</text>
             {/if}
     

@@ -1,6 +1,7 @@
 <script>
     import { progress } from '../../../controller/loader'
     import PartOfSpeech from '../../../model/pos'
+    import Subheader from '../../components/Subheader.svelte'
 
     function getRows() {
         return PartOfSpeech.getKeyNames()
@@ -12,7 +13,7 @@
 
 </script>
 
-<h2>Задействовано частей речи:</h2>
+<Subheader title="Задействовано частей речи:" />
 {#if $progress === 100}
     <table class="table table-primary table-striped pos-statistics">
         <thead>

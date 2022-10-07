@@ -1,12 +1,14 @@
 <script lang="ts">
     import { rgb } from '../../../controller/settings'
+    import Subheader from '../../components/Subheader.svelte'
 
     function saveColor(color){
         rgb.set(color)
     }
 </script>
 
-<h2 class="fs-3">Выбор цвета карточек</h2>
+
+<Subheader title="Выбор цвета карточек" />
 <div class="color-chooser w-100">
     <svg viewBox="0 0 22 22" on:click={e => saveColor("#800000")}>
         <use xlink:href="./assets/img/colors.svg#brown" />
