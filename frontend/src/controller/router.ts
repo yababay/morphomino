@@ -7,16 +7,25 @@ import { loadLevel } from './loader'
 const sections = Array.from(document.querySelectorAll('main > section'))
 const showHides: Map<Element, ShowHide> = new Map()
 const hash = writable(idFromHash())
+const noop = ()=> {}
+
 let lastURL: string
 
-function isReady(){
-  return Array.from(showHides.keys()).length > 1
-}
-
 function setupRouter(): void{
-  if(isReady()) return
+  if(isReady()){
+    processHash()
+    return
+  }
+  hash.subscribe($hash => {
+    if(!isReady()) return
+    navigateSection($hash)
+  })
+  level.subscribe($level => {
+    if(!isReady()) return
+    breakGame()
+    showLoader()
+  })
   setupOthers()
-  processHash()
   window.addEventListener('hashchange', function (event) {
     Object.defineProperty(event, 'oldURL', {
       enumerable: true,
@@ -31,13 +40,11 @@ function setupRouter(): void{
     lastURL = document.URL
     processHash()
   })
-  hash.subscribe(navigateSection)
-  level.subscribe(async $level => {
-    breakGame()
-    showLoader()
-    await loadLevel()
-    processHash()
-  })
+  processHash()
+}
+
+function isReady(){
+  return Array.from(showHides.keys()).length > 1
 }
 
 function processHash(): void {
@@ -110,8 +117,6 @@ function getOnShow(obj: object): CallableFunction{
 function getOnHide(obj: object): CallableFunction{
   return getCallable(obj, 'onHide')
 }
-
-const noop = ()=> {}
 
 function getCallable(obj: object, key: string): CallableFunction{
   const prop = Reflect.get(obj, key)

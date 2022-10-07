@@ -1,36 +1,38 @@
 import { writable, get, derived } from 'svelte/store'
-import { GameStages } from '../model'
+import { GameStages, GAME_ENDINGS } from '../model'
 import { duration } from './settings'
+import { getTimeWithUnits } from './util'
 
 let flowTicker = null
 let elapsedTicker = null
 
 const stage = writable(GameStages.UNDEFINED)
 const elapsed = writable(0)
-const endings = [GameStages.BREAK, GameStages.FULFILLED]
+const gameOver = derived(stage, $stage => GAME_ENDINGS.includes($stage))
+const elapsedWithUnits = derived(elapsed, $elapsed => getGameTime($elapsed, true))
 
-const gameOver = derived(stage, $stage => 
-    [
-        GameStages.UNDEFINED, 
-        GameStages.BREAK, 
-        GameStages.TIMEOUT, 
-        GameStages.FULFILLED, 
-        GameStages.DEAD_HEAT, 
-        GameStages.GUEST_IS_WON, 
-        GameStages.HOST_IS_WON
-    ].includes($stage)
-)
+function getGameTime($elapsed: number, shorten: boolean = false){
+    const [minutes, seconds, minUnitCase, secUnitCase] = getTimeWithUnits($elapsed, shorten)
+    const mins = minutes > 0 ? `${minutes} ${minUnitCase} ` : ''
+    const secs = `${seconds} ${secUnitCase}`
+    return `${mins}${secs}`
+}
 
-function flowTickerPromise (): Promise<GameStages>{
+function isGameEnded(): boolean{
+    const $stage = get(stage)
+    console.log(GAME_ENDINGS, $stage)
+    return GAME_ENDINGS.includes($stage)
+}
+
+async function flowTickerPromise (): Promise<GameStages>{
     return new Promise((yep, nop)=> {
         flowTicker = setInterval(()=> {
-            const $stage = get(stage)
-            if(endings.includes($stage)) return yep($stage)
+            if(isGameEnded()) return yep(get(stage))
         }, 100)
     })
 }
 
-function elapsedTickerPromise (): Promise<GameStages>{
+async function elapsedTickerPromise (): Promise<GameStages>{
     return new Promise((yep, nop)=> {
         elapsedTicker = setInterval(()=> {
             const seconds = get(elapsed)
@@ -47,14 +49,12 @@ function elapsedTickerPromise (): Promise<GameStages>{
 }
 
 function stopTickers(){
-    if(!!flowTicker && !!elapsedTicker) {
-        clearInterval(flowTicker)
-        clearInterval(elapsedTicker)
-    }
+    if(!!flowTicker) clearInterval(flowTicker)
+    if(!!elapsedTicker) clearInterval(elapsedTicker) 
 }
 
 function stopGame(result: GameStages){
-    if(!endings.includes(result)) return
+    if(!GAME_ENDINGS.includes(result)) return
     stopTickers()
     stage.set(result)
 }
@@ -67,5 +67,5 @@ function setFullfilled(){
     stopGame(GameStages.FULFILLED)
 }
 
-export { elapsedTickerPromise, flowTickerPromise, stopTickers, 
-    breakGame, setFullfilled, stage, elapsed, gameOver }
+export { elapsedTickerPromise, flowTickerPromise, stopTickers, elapsedWithUnits, getGameTime, 
+    breakGame, setFullfilled, stage, elapsed, gameOver, isGameEnded }

@@ -1,5 +1,5 @@
 import { PartsOfSpeech, MoveStatuses, GamerRoles, GameStages } from './types'
-import type { ShowAndHide, SectionWithEffects } from './types'
+import type { ShowHide, SectionWithEffects } from './types'
 import { Levels, Level } from './levels'
 import PartOfSpeech from './pos'
 import MorminoItem from './mormino'
@@ -16,7 +16,9 @@ function getStageDescription(stage: GameStages): string{
     }
 }
 
-export { PartsOfSpeech, PartOfSpeech, MoveStatuses, GamerRoles, 
-    GameStages, MorminoItem, Levels, Level, getStageDescription }
+const GAME_ENDINGS = [GameStages.BREAK, GameStages.FULFILLED, GameStages.TIMEOUT]
 
-export type { ShowAndHide, SectionWithEffects }
+export { PartsOfSpeech, PartOfSpeech, MoveStatuses, GamerRoles, 
+    GameStages, MorminoItem, Levels, Level, getStageDescription, GAME_ENDINGS }
+
+export type { ShowHide, SectionWithEffects }

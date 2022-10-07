@@ -18,6 +18,8 @@ const scores = derived(moves, $moves => {
     return [scores, $moves.length]
 })
 
+const scoresVerbose = derived(scores, ([won, all]) => `${won} заданий из ${all}`)
+
 const isFullfilled = derived(moves, $moves => $moves.filter($=> $ !== MoveStatuses.FORTHCOMING).length === $moves.length)
 
 function makeMove(item: MorminoItem, $role = get(role)): boolean {
@@ -49,4 +51,4 @@ function resetFlow(){
     deal.set(new Array(dealAmount).fill(0).map($=> MorminoItem.getRandomItem()))
 }
 
-export { resetFlow, showAlert, makeMove, scores, isFullfilled }
+export { resetFlow, showAlert, makeMove, scores, isFullfilled, scoresVerbose }

@@ -1,10 +1,14 @@
 <script lang="ts">
     import { startGame, breakGame } from "../../../controller/game";
+    import { gameOver } from "../../../controller/tickers";
     import CurrentLevel from "./CurrentLevel.svelte"
+    import Finish from "./Finish.svelte"
 
-    export const onShow = () => {
+    let busy = false
+
+    export const onShow = async () => {
         document.body.style.backgroundImage = 'url(./assets/img/background.png)'
-        startGame()
+        await startGame()
     }
 
     export const onHide = () => {
@@ -14,11 +18,15 @@
 </script>
 <div class="game-holder">
     <CurrentLevel />
+    {#if $gameOver}
+        <Finish />
+    {/if}
     <div>&nbsp;</div>
 </div>
 
 <style>
     .game-holder {
+        min-height: var(--main-min-height); 
         display: flex;
         flex-direction: column;
         align-items: center;

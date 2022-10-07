@@ -1,17 +1,9 @@
 <script type="ts">
     import { derived } from 'svelte/store';
     import { scores } from '../../controller/flow'
-    import { gameOver, breakGame, elapsed } from '../../controller/tickers'
-    import { getTimeWithUnits } from '../../controller/util'
+    import { gameOver, breakGame, elapsed, elapsedWithUnits } from '../../controller/tickers'
     import { startGame } from '../../controller/game'
     import ChangeLevel from './ChangeLevel.svelte';
-
-    const elapsedWithUnits = derived(elapsed, $elapsed => {
-        const [minutes, seconds, minUnitCase, secUnitCase] = getTimeWithUnits($elapsed, true)
-        const mins = minutes > 0 ? `${minutes} ${minUnitCase} ` : ''
-        const secs = `${seconds} ${secUnitCase}`
-        return `${mins}${secs}`
-    })
 
     const scoresSlashed = derived(scores, ([won, all]) => `${won}/${all}`)
 </script>
