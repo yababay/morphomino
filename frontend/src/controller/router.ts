@@ -1,16 +1,22 @@
 import { writable, get } from 'svelte/store'
 import proxies from '../view/sections'
+import { level } from './settings'
+import { breakGame } from './tickers'
+import { loadLevel } from './loader'
 
 const sections = Array.from(document.querySelectorAll('main > section'))
 const showHides: Map<Element, ShowHide> = new Map()
 const hash = writable(idFromHash())
 let lastURL: string
-let firstTime = true
+
+function isReady(){
+  return Array.from(showHides.keys()).length > 1
+}
 
 function setupRouter(): void{
-  processHash()
-  if(!firstTime) return
+  if(isReady()) return
   setupOthers()
+  processHash()
   window.addEventListener('hashchange', function (event) {
     Object.defineProperty(event, 'oldURL', {
       enumerable: true,
@@ -26,7 +32,12 @@ function setupRouter(): void{
     processHash()
   })
   hash.subscribe(navigateSection)
-  firstTime = false
+  level.subscribe(async $level => {
+    breakGame()
+    showLoader()
+    await loadLevel()
+    processHash()
+  })
 }
 
 function processHash(): void {
@@ -123,4 +134,4 @@ interface ShowHide {
   onHide: CallableFunction
 }
 
-export { hash, setupLoader, setupRouter }
+export { hash, setupLoader, setupRouter, showLoader, isReady, processHash }

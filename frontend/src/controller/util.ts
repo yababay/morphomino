@@ -75,7 +75,7 @@ function fromStorage(key: string, byDefault: string | number | boolean): string 
     return value
 }
 
-function getTimeWithUnits(seconds: number): object {
+function getTimeWithUnits(seconds: number, abbreviated: boolean = false): any[] {
     const minutes = Math.floor(seconds / 60)
     seconds = seconds - minutes * 60
     const minRest = minutes % 10
@@ -105,7 +105,11 @@ function getTimeWithUnits(seconds: number): object {
         default: 
             minUnitCase = 'минут'
     }
-    return {minutes, seconds, minUnitCase, secUnitCase}
+    if(abbreviated){
+        minUnitCase = 'мин.'
+        secUnitCase = 'сек.'
+    }
+    return [minutes, seconds, minUnitCase, secUnitCase]
 }
 
 export { getTimeWithUnits, toStorage, numberFromStorage, 

@@ -1,4 +1,30 @@
-game
+<script lang="ts">
+    import { startGame, breakGame } from "../../../controller/game";
+    import CurrentLevel from "./CurrentLevel.svelte"
+
+    export const onShow = () => {
+        document.body.style.backgroundImage = 'url(./assets/img/background.png)'
+        startGame()
+    }
+
+    export const onHide = () => {
+        breakGame()
+        document.body.style.backgroundImage = null
+    }
+</script>
+<div class="game-holder">
+    <CurrentLevel />
+    <div>&nbsp;</div>
+</div>
+
+<style>
+    .game-holder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+</style>
 <!-- script lang="ts">
     import Instruction from './Instruction.svelte';
     import Deal from './Deal.svelte'

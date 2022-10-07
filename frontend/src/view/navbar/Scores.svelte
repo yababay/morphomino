@@ -1,51 +1,36 @@
 <script type="ts">
-    import { derived } from 'svelte/store'
-    import { GameStages } from '../../model'
+    import { derived } from 'svelte/store';
     import { scores } from '../../controller/flow'
-    import { elapsedTime, stage } from '../../controller/ticker'
-    import { startGame, breakGame } from '../../controller/game'
+    import { gameOver, breakGame, elapsed } from '../../controller/tickers'
+    import { getTimeWithUnits } from '../../controller/util'
+    import { startGame } from '../../controller/game'
+    import ChangeLevel from './ChangeLevel.svelte';
 
-    const gameOver = derived(stage, $stage => 
-        [
-            GameStages.UNDEFINED, 
-            GameStages.BREAK, 
-            GameStages.TIMEOUT, 
-            GameStages.FULFILLED, 
-            GameStages.DEAD_HEAT, 
-            GameStages.GUEST_IS_WON, 
-            GameStages.HOST_IS_WON
-        ].includes($stage)
-    )
+    const elapsedWithUnits = derived(elapsed, $elapsed => {
+        const [minutes, seconds, minUnitCase, secUnitCase] = getTimeWithUnits($elapsed, true)
+        const mins = minutes > 0 ? `${minutes} ${minUnitCase} ` : ''
+        const secs = `${seconds} ${secUnitCase}`
+        return `${mins}${secs}`
+    })
+
+    const scoresSlashed = derived(scores, ([won, all]) => `${won}/${all}`)
 </script>
 
-<div class="holder">
-    <ul class="navbar-nav">
-        <li class="nav-item text-light">
-            <strong>Время игры:</strong>
-            <span>{$elapsedTime}</span>
-        </li>
-    </ul>
-    <ul class="navbar-nav">
-        <li class="nav-item  text-light">
-            <strong>Правильных ответов:</strong>
-            <span>{$scores}</span>
-        </li>
-    </ul>
-    {#if $gameOver }
-        <button class="btn btn-success fixed-width" on:click={startGame}>Новая игра</button>
-    {:else}    
-        <button class="btn btn-secondary fixed-width" on:click={breakGame}>Прервать игру</button>
-    {/if}
-</div>
-
-<style>
-    .holder {
-        width: 640px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .fixed-width {
-        width: 10rem;
-    }
-</style>
+<ul class="navbar-nav navbar-ul-long-fixed-width">
+    <li class="nav-item text-light">
+        <span>Время игры:</span>
+        <strong>{$elapsedWithUnits}</strong>
+    </li>
+</ul>
+<ul class="navbar-nav navbar-ul-long-fixed-width">
+    <li class="nav-item  text-light">
+        <span>Правильных ответов:</span>
+        <strong>{$scoresSlashed}</strong>
+    </li>
+</ul>
+<ChangeLevel label="Сменить уровень" />
+{#if $gameOver }
+    <button class="btn btn-success navbar-button-fixed-width" on:click={startGame}>Новая игра</button>
+{:else}    
+    <button class="btn btn-secondary navbar-button-fixed-width" on:click={breakGame}>Прервать игру</button>
+{/if}

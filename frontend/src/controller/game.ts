@@ -1,29 +1,25 @@
-import { derived, get } from 'svelte/store'
+import { derived } from 'svelte/store'
 import { delayedAction } from './util'
-import { tickerIterations, stopTicker, stage, elapsed } from './ticker'
+import { elapsedTickerPromise, flowTickerPromise, stopTickers, breakGame, stage, elapsed } from './tickers'
 import { GameStages } from '../model'
 import { instructionTimeout, dealTimeout } from '../../settings.json'
 import { ignoreInstruction, duration } from './settings'
+import { resetFlow } from './flow'
 
 async function startGame(){
+    resetFlow()
     elapsed.set(0)
-    const result = await Promise.any([
-        stageIterations(),
-        tickerIterations()
+    await Promise.any([
+        stageControlPromise(),
+        flowTickerPromise()
     ])
-    stopGame(result)
+    stopTickers()
 }
 
-function stopGame(result: GameStages){
-    stopTicker()
-    stage.set(result)
-}
-
-function stageIterations(): Promise<GameStages>{
+function stageControlPromise(): Promise<GameStages>{
     return setFirstStage()
         .then(() => delayedAction(() => stage.set(GameStages.FLOW), dealTimeout))
-        .then(() => delayedAction(() => stage.set(GameStages.TIMEOUT), get(gameDuration)))
-        .then(() => Promise.resolve(GameStages.TIMEOUT))
+        .then(elapsedTickerPromise)
 }
 
 function setFirstStage(){
@@ -42,4 +38,4 @@ const gameDuration = derived(duration, $duration => {
     return $duration * 1000
 })
 
-export { startGame, stopGame }
+export { startGame, breakGame }

@@ -1,14 +1,16 @@
-import { writable } from 'svelte/store'
-import type { Writable } from 'svelte/types/runtime/store'
+import { Level } from '../model'
+import { derived, writable } from 'svelte/store'
 import { moveAmountKey, durationKey, ignoreInstructionKey, levelKey, achievementsKey, rgbKey} from '../../settings.json'
 import { moveAmountDefault, durationDefault, ignoreInstructionDefault, levelDefault, rgbDefault} from '../../settings.json'
+import type { Writable } from 'svelte/types/runtime/store/index'
 
 const achievements = wrapSetting(achievementsKey, [])
-const moveAmount = wrapSetting(moveAmountKey, moveAmountDefault)
+const movesAmount = wrapSetting(moveAmountKey, moveAmountDefault)
 const duration = wrapSetting(durationKey, durationDefault)
 const ignoreInstruction = wrapSetting(ignoreInstructionKey, ignoreInstructionDefault)
 const level = wrapSetting(levelKey, levelDefault)
 const rgb = wrapSetting(rgbKey, rgbDefault)
+const levelDescription = derived(level, ($level: string) => new Level($level).description)
 
 function prepareForStorage(value: string | boolean | number | object): string{
     return typeof value === 'object' ? JSON.stringify(value) : `${value}`
@@ -39,4 +41,4 @@ function wrapSetting(key: string, byDefault: string | number | boolean | object)
     return writer
 }
 
-export { moveAmount, duration, ignoreInstruction, achievements, level, rgb }
+export { movesAmount, duration, ignoreInstruction, achievements, level, rgb, levelDescription }

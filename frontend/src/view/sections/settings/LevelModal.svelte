@@ -1,26 +1,23 @@
 <script lang="ts">
   import { get } from 'svelte/store';
   import { onMount } from 'svelte'
-  import { startGame } from '../../../controller/game'
-  import { hash } from '../../../controller/router'
-  import { loadAll } from '../../../controller/loader'
   import { level } from '../../../controller/settings'
   import { Level } from '../../../model'
-  import { levelKey, gameSectionId } from '../../../../settings.json'
+  import { breakGame }  from '../../../controller/tickers'
+  import { showLoader, processHash } from '../../../controller/router'
+  import { loadLevel } from '../../../controller/loader'
 
   let levelsForm: HTMLFormElement, modal
+  export let id: string
 
   function saveLevel(){
     const { value } = levelsForm.level
-    localStorage.setItem(levelKey, value)
     level.set(value)
     modal.hide()
-    loadAll()
-    if(get(hash) === gameSectionId) startGame()
   }
 
-  function isCurrent(level){
-    return level === localStorage.getItem(levelKey)
+  function isCurrent($level){
+    return $level === get(level)
   }
 
   onMount(()=>{
@@ -28,11 +25,10 @@
     modal = new Modal(modal)
   })
 </script>
-<a type="link" class="link-light" data-bs-toggle="modal" data-bs-target="#choose-level" href="#choose-level-link">
-  Выбрать уровень
-</a>
 
-<div class="modal fade text-start" id="choose-level" tabindex="-1" aria-labelledby="choose-level-label" aria-hidden="true" bind:this={modal}>
+<slot name="button" />
+
+<div class="modal fade text-start" id={`choose-level-${id}`} tabindex="-1" aria-labelledby="choose-level-label" aria-hidden="true" bind:this={modal}>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
