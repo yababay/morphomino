@@ -20,10 +20,11 @@ function setupRouter(): void{
     if(!isReady()) return
     navigateSection($hash)
   })
-  level.subscribe($level => {
+  level.subscribe(async $level => {
     if(!isReady()) return
     breakGame()
     showLoader()
+    await loadLevel()
   })
   setupOthers()
   window.addEventListener('hashchange', function (event) {
@@ -96,10 +97,11 @@ function setupOthers(): void {
   sections.filter($=> $.id !== 'loader').forEach(section => setupSection(section))
 }
 
-function setupLoader():  void{
+async function setupLoader(){
   const loader = findSection('loader')
   setupSection(loader)
   showLoader()
+  await loadLevel()
 }
 
 function setupSection(target: Element): void{

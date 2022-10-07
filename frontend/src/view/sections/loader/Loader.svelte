@@ -1,7 +1,6 @@
 <script lang="ts">
-    import { progress, loadLevel } from '../../../controller/loader'
+    import { progress } from '../../../controller/loader'
     const message = 'Идет загрузка словарей...'
-    export const onShow = loadLevel
 </script>
 
 <div>
