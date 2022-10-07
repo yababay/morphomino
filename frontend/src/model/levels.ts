@@ -2,11 +2,11 @@ import PartOfSpeech from "./pos"
 import { PartsOfSpeech } from "./types"
 
 enum Levels {
-    /*CLASS_5_1,
+    CLASS_5_1,
     CLASS_5_2,
     CLASS_5_3,
     CLASS_6_1,
-    CLASS_6_2,*/
+    CLASS_6_2,
     CLASS_7_1,
     CLASS_7_2,
     COMMON,

@@ -33,7 +33,7 @@ enum PartsOfSpeech {
     UNION_S,
     UNIONS,
     VERBS,
-    /*ADJECTIVES_KR,
+    ADJECTIVES_KR,
     ADJECTIVES_PL,
     NOUNS_1,
     NOUNS_2,
@@ -85,7 +85,7 @@ enum PartsOfSpeech {
     VERBS_NE,
     VERBS_PE,
     VERBS_PN,
-    VERBS_UN,*/
+    VERBS_UN,
     UNDEFINED
 }
 
