@@ -2,7 +2,7 @@
     import { level } from '../../../controller/settings'
     import { progress } from '../../../controller/loader'
     const message = 'Идет загрузка словарей...'
-    const src=`./assets/img/${($level + '').replace('CLASS_', 'level-')}.png`
+    $: src=`./assets/img/${($level + '').replace('CLASS_', 'level-')}.png`
 </script>
 
 <div class="level-loader">
