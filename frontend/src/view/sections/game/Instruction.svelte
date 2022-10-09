@@ -8,7 +8,11 @@
     }
 </script>
 
-<div class="instruction">
+<div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+    <Article {id} {afterFetch} />
+</div>
+
+<!-- div class="instruction">
     <div class="card">
         <img src="assets/img/level-7_1.png" class="card-img-top" alt="Инструкция">
         <div class="card-body">
@@ -21,9 +25,9 @@
           </div>
         </div>
     </div>
-</div>
+</div -->
 
-<style>
+<!-- style>
     .instruction {
         max-width: 80ch;
     }
@@ -34,4 +38,4 @@
     .instruction .progress {
         width: 100%;
     }
-</style>
+</style -->
