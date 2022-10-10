@@ -2,6 +2,7 @@
     import MorminoCard from '../../components/MorminoCard.svelte'
     import Progress from './Progress.svelte'
     import { flow, dealRandom } from '../../../controller/flow'
+    import { rgb } from '../../../controller/settings'
 
     let audioDeal
     $: word = $flow.at(-1).word
@@ -16,7 +17,7 @@
     <div class="flow-control">
         <Progress />
     </div>
-    <div class="mormino-card">
+    <div class="mormino-card" style:background-color={$rgb + ''}>
         <MorminoCard {word} {pos} vignette={1} />
     </div>
     <div class="flow-control" on:click={dealRandom} style="cursor: pointer; filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7));">
@@ -30,7 +31,7 @@
 <style>
     :root{
         --mormino-flow-max-width: 1000px;
-        --mormino-flow-card-width: calc(var(--mormino-flow-max-width) / 3 - 3px);
+        --mormino-flow-card-width: calc(var(--mormino-flow-max-width) / 2.5);
         --mormino-flow-card-height: calc(var(--mormino-flow-card-width) / 1.618)
     }
 
@@ -44,8 +45,10 @@
     .mormino-card {
         width: var(--mormino-flow-card-width);
         height: var(--mormino-flow-card-height);
-        background-color: beige;
+        border-radius: 30px;
         padding: 3px;
+        margin: 3px;
+        box-shadow: 2px 2px 3px black;
     }
 
     .mormino-flow {

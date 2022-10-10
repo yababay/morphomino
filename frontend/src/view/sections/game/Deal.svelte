@@ -1,8 +1,8 @@
 <script>
-    import { onMount } from 'svelte'
     import { MorminoItem } from '../../../model'
     import MorminoWord from '../../components/MorminoWord.svelte'
     import { makeMove, deal } from '../../../controller/flow'
+    import { rgb } from '../../../controller/settings'
 
     let audioClick
 
@@ -22,10 +22,6 @@
             deal.set([...$deal.filter((_, i) => i < index), MorminoItem.getRandomItem(), ...$deal.filter((_, i) => i > index)])
         }, 900);
     }
-
-    //onMount($=> {
-//        dealRandom()
-    //})
 </script>
 
 <audio bind:this={audioClick}>
@@ -34,7 +30,7 @@
 
 <div class="mormino-deal">
     {#each $deal as item, index}
-        <div class="mormino-card" on:click={event => checkCard(event, item, index)}>
+        <div class="mormino-card" on:click={event => checkCard(event, item, index)} style:background-color={$rgb + ''}>
             <MorminoWord word={item.word} vignette={1}/>
         </div>
     {/each}
@@ -43,15 +39,16 @@
 <style>
     :root{
         --mormino-deal-max-width: 1000px;
-        --mormino-deal-card-width: calc(var(--mormino-deal-max-width) / 4 - 3px);
+        --mormino-deal-card-width: calc(var(--mormino-deal-max-width) / 4 - 10px);
         --mormino-deal-card-height: calc(var(--mormino-card-width) / 1.618);
     }
     .mormino-card {
         width: var(--mormino-deal-card-width);
         height: var(--mormino-deal-card-height);
         cursor: pointer;
-        background-color: beige;
-        margin-bottom: 4px;
+        margin: 5px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 2px black;
     }
 
     .mormino-deal {

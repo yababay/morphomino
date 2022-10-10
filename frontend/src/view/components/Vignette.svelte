@@ -1,14 +1,13 @@
 <script>
-    import { draw } from 'svelte/transition';
-	import { quintOut } from 'svelte/easing';
     export let variant
+    export let withCartouche = false
+    const transform = `translate(${withCartouche ? "-2" : "0"} 0)`
 </script>
 
 <svg class="swell-up" viewBox="0 0 50 31">
     <use xlink:href={`./assets/img/vignettes.svg#vignette-${variant}`}
-    transform="translate(-1.2 0)"
+    {transform}
     ></use>
-    <slot name="cartouche" />
     <slot name="textes" />
 </svg>
 
