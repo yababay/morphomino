@@ -19,7 +19,6 @@
     {#each items.filter(({level})=> level.startsWith('7_')) as item}
       <li><a class="dropdown-item" href={`#game?level=${item.level}`}>{item.label}</a></li>
     {/each}
-    <!-- li><a class="dropdown-item" href="#game?level=7_2">7 класс, уровень 2</a></li -->
   </ul>
 </div>
 
