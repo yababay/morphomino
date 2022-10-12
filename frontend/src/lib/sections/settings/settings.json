@@ -1,0 +1,19 @@
+{
+    "moveAmountMin": 10,
+    "moveAmountMax": 100,
+    "moveAmountStep": 10,
+    "durationMin": 60,
+    "durationMax": 600,
+    "durationStep": 10,
+    "vignetteVariantKey": "mormino.vignette-variant",
+    "backgroundColorKey": "mormino.background-color",
+    "backgroundColorDefault": "#000000",
+    "levelKey": "mormino.level",
+    "levelDefault": "5_1",
+    "ignoreInstructionKey": "mormino.ignore-instruction",
+    "durationKey": "mormino.game-duration",
+    "durationDefault": 100,
+    "moveAmountKey": "mormino.move-amount",
+    "moveAmountDefault": 20,
+    "achievementsKey": "mormino.achievements"
+}

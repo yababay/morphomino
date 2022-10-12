@@ -15,7 +15,6 @@ export default async function loadLevel(level){
     }))
     .then(arr => {
         const dict = arr.reduce((acc, curr) => [...acc, ...curr], [])
-        console.log(dict)
         MorminoItem.setDictionary(dict)   
         PartOfSpeech.setStatistics(dict.map($ => $.pos).sort(el => 1 - Math.random()))
     })
