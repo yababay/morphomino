@@ -3,60 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="./assets/img/logo.svg" />
-    <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="./assets/css/hmf.css" />
-    <style>
-      h1, h2 {
-        font-size: 2rem;
-        text-align: center;
-        margin-top: 2rem;
-        margin-bottom: 1rem;
-      }
-      h2 { font-size: 1.5rem; }
-      #intro, #settings {max-width: 80ch}
-      #statistics {max-width: 1200px}
-      #loader, #game {
-        min-height: var(--main-min-height); 
-        width: 100%; 
-        display: flex; 
-        justify-content: center; 
-        flex-direction: column;
-      }
-      #game {
-        justify-content: space-between; 
-        /*background-image: url(./assets/img/background.png);*/
-      }
-      #alert {
-        position: absolute;
-        bottom: 32px;
-        right: 32px;
-      }
-
-    @keyframes fadeIn {
-        0% { opacity: 1; }
-        100% { opacity: 0; }
-    }
-
-    .faded-card {
-        animation: fadeIn 1s;
-    }
-
-    .navbar-button-fixed-width {
-      width: 11rem;
-      margin-left: 1rem;
-    }
-
-    .navbar-ul-long-fixed-width {
-      width: 16rem;
-    }
-
-    .navbar-ul-fixed-width {
-      width: 7rem;
-    }
-    </style>
-    <script src="./assets/js/bootstrap.bundle.min.js"></script>
-    <script type="module" src="/src/main.ts" defer></script>
+    <link rel="icon" href="./img/logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="/src/main.ts" type="module" defer></script>
     <title>Мормино: морфологическое домино</title>
   </head>
   <body>
@@ -64,25 +14,58 @@
         <nav class="navbar navbar-dark bg-dark">
           <div class="container-fluid">
             <a class="navbar-brand" href="#">
-              <img src="./assets/img/logo.svg" alt="Мормино" height="24">
+              <img src="./img/logo.svg" alt="Мормино" height="32">
               <span>Мормино</span>
             </a>
-            <div class="d-flex align-items-center justify-content-between" id="scores"></div>
+            <div class="d-flex align-items-center justify-content-between" id="links"></div>
           </div>
         </nav>
     </header>
 
     <main>
-      <section id="loader"     class="container"></section>
-      <section id="intro"      class="container d-none"></section>
-      <section id="game"       class="container d-none"></section>
-      <section id="settings"   class="container d-none"></section>
-      <section id="statistics" class="container d-none"></section>
+      <section class="container d-none" id="intro">
+<article>            <h1 id="">Об игре</h1>
+            <p>Игра <strong>&laquo;Мормино&raquo;</strong> (морфологическое домино) - очень легкий, простой и захватывающий способ научиться автоматически узнавать части речи, чтобы одолеть премудрости грамотности. Это поможет искоренить все ошибки - ведь появляются они именно из-за путаницы в восприятии частей речи.</p>
+            <h2 id="-1">Правила</h2>
+            <p>ИГРА С КОМПЬЮТЕРОМ</p>
+            <p>Это игра с компьютером - выбери
+            1) уровень (1 - простой, 2 - усложнённый),
+            2) дизайн и цвет костяшки, которой будешь играть,
+            3) продолжительность игры (от .?.? до .?.?),
+            4) количество костяшек в сете (от .?.? до 100)</p>
+            <p>Первая «костяшка» выбирается случайно и устанавливается в центре игрового поля. Сверху 10 карточек - это банк слов. На центральной «костяшке» вертикально написано, какую часть речи ищем. Нужно найти в банке «костяшку» с подходящим примером, кликнуть по ней. Далее так же – часть речи (вертикально) является заданием: так попадают «костяшки» на поле. Например, в «костяшке» по горизонтали дано слово КОФЕ, по вертикали – ГЛАГОЛ. Игрок выкладывает «костяшку» с горизонтально написанным словом ОБСУДИЛИ (или любой другой глагол). По вертикали – МЕСТОИМЕНИЕ. Следующий ход забирает тот, кто скорее найдет «косточку» со словом-примером местоимения.</p>
+            <p>Если нужного слова не находится, нужно обновить поле, нажав кнопку ОБНОВИТЬ (справа от центральной "костяшки").</p>
+            <p>Компьютер следит за правильностью ответов. Если «костяшка» выбирается ошибочно, ход не засчитывается, а рядом возникает красная карточка, сигнализируающая об ошибке. Нужно выбрать верное слово. Таким образом, игра продолжается.</p>
+            <p>Партия заканчивается по истечении заданного отрезка времени или количества "костяшек". В любой момент игру можно прервать и начать заново. ЦЕЛЬ ИГРЫ - дать как можно большее количество правильных ответов (первая не считается).
+            Процент правильных ответов - баллы:
+            1-10 % - 1 б.
+            11-25 % - 2 б.
+            26-50 % - 3 б.
+            51-75 % - 4 б.
+            76-100 % - 5 б.</p>
+            <p>Информация о победах фиксируется в личном кабинете и положительно влияет на рейтинг игрока.</p></article>
+      </section>
+      <section class="container d-none" data-proxy="game" data-force="true"></section>
+      <section class="container d-none" data-proxy="settings"></section>
+      <section class="container d-none" data-proxy="statistics"></section>
     </main>
 
-    <div id="alert"></div>
-    <div id="level"></div>
-
     <footer class="footer text-center">(C) 2022</footer>
+
+    <div id="alert"></div>
+    <div class="container d-none" id="loader" style="height: 100vh">
+      <div class="card" style="max-width: 640px; margin: auto">
+          <div class="card-body">
+            <img src="./img/logo.svg" class="card-img-top" alt="Уровень игры" style="width: 100%">
+            <p class="mt-1 mb-1">Идет загрузка словарей...</p>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated w-100" 
+                  role="progressbar" aria-label="Идет загрузка словарей..." 
+                  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                  style:width='100%'>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
   </body>
-</html>

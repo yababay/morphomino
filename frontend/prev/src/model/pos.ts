@@ -111,7 +111,7 @@ const descriptions: object = {
      [PartsOfSpeech.UNDEFINED]: ["", "", "", ""]
 }
 
-let statistics: PartsOfSpeech[] = null
+let statistics: PartsOfSpeech[]
 
 export default class PartOfSpeech {
 

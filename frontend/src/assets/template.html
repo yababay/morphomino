@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./img/logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="/src/main.ts" type="module" defer></script>
+    <title>Мормино: морфологическое домино</title>
+  </head>
+  <body>
+    <header>
+        <nav class="navbar navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+              <img src="./img/logo.svg" alt="Мормино" height="32">
+              <span>Мормино</span>
+            </a>
+            <div class="d-flex align-items-center justify-content-between" id="links"></div>
+          </div>
+        </nav>
+    </header>
+
+    <main>
+      <section class="container d-none" id="intro"></section>
+      <section class="container d-none" data-proxy="game" data-force="true"></section>
+      <section class="container d-none" data-proxy="settings"></section>
+      <section class="container d-none" data-proxy="statistics"></section>
+    </main>
+
+    <footer class="footer text-center">(C) 2022</footer>
+
+    <div id="alert"></div>
+    <div class="container d-none" id="loader" style="height: 100vh">
+      <div class="card" style="max-width: 640px; margin: auto">
+          <div class="card-body">
+            <img src="./img/logo.svg" class="card-img-top" alt="Уровень игры" style="width: 100%">
+            <p class="mt-1 mb-1">Идет загрузка словарей...</p>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated w-100" 
+                  role="progressbar" aria-label="Идет загрузка словарей..." 
+                  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                  style:width='100%'>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
