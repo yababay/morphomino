@@ -17,11 +17,15 @@ async function startTickers(){
     ])
 }
 
+function gameOver(): boolean{
+    return GAME_ENDINGS.includes(get(stage))
+}
+
 async function flowTickerPromise(): Promise<GameStages>{
     return new Promise((yep)=> {
         const ticker = setInterval(()=> {
             if(get(isFullfilled)) stage.set(GameStages.FULFILLED)
-            if(!GAME_ENDINGS.includes(get(stage))) yep(get(stage))
+            if(gameOver()) yep(get(stage))
         }, 100)
         tickers.push(ticker)
     })
@@ -55,4 +59,4 @@ function stopTickers(){
     tickers = []
 }
 
-export { stage, elapsed, elapsedWithUnits, startTickers, stopTickers, getGameTime }
+export { stage, elapsed, elapsedWithUnits, startTickers, stopTickers, getGameTime, gameOver }
