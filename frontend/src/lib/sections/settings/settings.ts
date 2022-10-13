@@ -19,7 +19,7 @@ const level = wrapSetting(levelKey, levelDefault)
 const backgroundColor = wrapSetting(backgroundColorKey, backgroundColorDefault)
 const vignetteVariant = wrapSetting(vignetteVariantKey, 1)
 
-const levelDescription = derived(level, ($level: string) => new Level($level).description)
+const levelDescription = derived(level, ($level: string) => new Level(`CLASS_${$level}`).description)
 
 export { 
     achievements, 

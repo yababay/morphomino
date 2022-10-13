@@ -1,7 +1,7 @@
 <script lang="ts">
     import { derived } from "svelte/store";
     import { stage, elapsed, elapsedWithUnits } from '../sections/game/tickers'
-    import startGame from '../sections/game/game'
+    import { startGame } from '../sections/game/game'
     import { scores } from '../sections/game/flow'
     import { GameStages, GAME_ENDINGS } from '../types'
     import Levels from './Levels.svelte'
