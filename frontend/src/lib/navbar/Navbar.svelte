@@ -1,13 +1,11 @@
-<script>
-   //import { hash } from '../../controller/router';
-   // import Scores from './Scores.svelte'
+<script type="ts">
+    import { isGame } from '../sections/game/game'
+    import Scores from './Scores.svelte'
     import Links from './Links.svelte'
 </script>
 
-<Links />
-
-<!--{#if $hash === "game"}
+{#if $isGame }
     <Scores />
 {:else}
     <Links />
-{/if} -->
+{/if}

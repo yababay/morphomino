@@ -1,4 +1,7 @@
 {
+    "dealAmount": 8,
+    "instructionTimeout": 4, 
+    "dealTimeout": 1,
     "moveAmountMin": 10,
     "moveAmountMax": 100,
     "moveAmountStep": 10,

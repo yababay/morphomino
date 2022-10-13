@@ -22,7 +22,44 @@ function getRandomIndex(arr: any[]){
     return Math.floor(Math.random() * arr.length)
 }
 
-export { delayedAction, setSvelteComponent, assureElement, getRandomIndex }
+function getTimeWithUnits(seconds: number, abbreviated: boolean = false): any[] {
+    const minutes = Math.floor(seconds / 60)
+    seconds = seconds - minutes * 60
+    const minRest = minutes % 20
+    const secRest = seconds % 20
+    let minUnitCase: string, secUnitCase: string
+    switch(secRest){
+        case 1: 
+            secUnitCase = 'секунду'
+            break
+        case 2: 
+        case 3: 
+        case 4: 
+            secUnitCase = 'секунды'
+            break 
+        default: 
+            secUnitCase = 'секунд' 
+    }
+    switch(minRest){
+        case 1: 
+            minUnitCase = 'минуту'
+            break
+        case 2: 
+        case 3: 
+        case 4: 
+            minUnitCase = 'минуты'
+            break 
+        default: 
+            minUnitCase = 'минут'
+    }
+    if(abbreviated){
+        minUnitCase = 'мин.'
+        secUnitCase = 'сек.'
+    }
+    return [minutes, seconds, minUnitCase, secUnitCase]
+}
+
+export { delayedAction, setSvelteComponent, assureElement, getRandomIndex, getTimeWithUnits }
 
 /*
 
@@ -79,43 +116,6 @@ function fromStorage(key: string, byDefault: string | number | boolean): string 
         value = byDefault
     }
     return value
-}
-
-function getTimeWithUnits(seconds: number, abbreviated: boolean = false): any[] {
-    const minutes = Math.floor(seconds / 60)
-    seconds = seconds - minutes * 60
-    const minRest = minutes % 20
-    const secRest = seconds % 20
-    let minUnitCase: string, secUnitCase: string
-    switch(secRest){
-        case 1: 
-            secUnitCase = 'секунду'
-            break
-        case 2: 
-        case 3: 
-        case 4: 
-            secUnitCase = 'секунды'
-            break 
-        default: 
-            secUnitCase = 'секунд' 
-    }
-    switch(minRest){
-        case 1: 
-            minUnitCase = 'минуту'
-            break
-        case 2: 
-        case 3: 
-        case 4: 
-            minUnitCase = 'минуты'
-            break 
-        default: 
-            minUnitCase = 'минут'
-    }
-    if(abbreviated){
-        minUnitCase = 'мин.'
-        secUnitCase = 'сек.'
-    }
-    return [minutes, seconds, minUnitCase, secUnitCase]
 }
 
 export { getTimeWithUnits, toStorage, numberFromStorage, 

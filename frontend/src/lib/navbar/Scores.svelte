@@ -1,46 +1,42 @@
-<script type="ts">
+<script lang="ts">
     import { derived } from "svelte/store";
-    import { scores } from "../../controller/flow";
-    import {
-        gameOver,
-        breakGame,
-        elapsed,
-        elapsedWithUnits,
-    } from "../../controller/tickers";
-    import { startGame } from "../../controller/game";
-    import ChangeLevel from "./Levels.svelte";
+    import { stage, elapsed, elapsedWithUnits } from '../sections/game/tickers'
+    import startGame from '../sections/game/game'
+    import { scores } from '../sections/game/flow'
+    import { GameStages, GAME_ENDINGS } from '../types'
+    import Levels from './Levels.svelte'
+
     const scoresSlashed = derived(scores, ([won, all]) => `${won}/${all}`);
-    let audioDeal;
+    let audioDeal: HTMLAudioElement
 
     function playSound() {
         audioDeal.play();
     }
-
 </script>
+
+<audio bind:this={audioDeal}>
+    <source src="./audio/deal.mp3" type="audio/mpeg" />
+</audio>
 
 {#if $elapsed > 0}
     <ul class="navbar-nav navbar-ul-long-fixed-width">
         <li class="nav-item text-light">
-            <span>Время игры:</span>
+            <span>Прошло &nbsp;</span>
             <strong>{$elapsedWithUnits}</strong>
         </li>
     </ul>
 
     <ul class="navbar-nav navbar-ul-long-fixed-width">
         <li class="nav-item  text-light">
-            <span>Правильных ответов:</span>
+            <span>Решено &nbsp;</span>
             <strong>{$scoresSlashed}</strong>
         </li>
     </ul>
 {/if}
 
-<ChangeLevel label="Сменить уровень" />
+<Levels label="Сменить уровень" />
 
-<audio bind:this={audioDeal}>
-    <source src="./assets/audio/deal.mp3" type="audio/mpeg" />
-</audio>
-
-{#if $gameOver}
+{#if GAME_ENDINGS.includes($stage)}
     <button
         class="btn btn-success navbar-button-fixed-width"
         on:click={async e => {playSound();await startGame()}}>Новая игра</button
@@ -48,6 +44,6 @@
 {:else}
     <button
         class="btn btn-secondary navbar-button-fixed-width"
-        on:click={breakGame}>Прервать игру</button
+        on:click={$=> stage.set(GameStages.BREAK)}>Прервать игру</button
     >
 {/if}
