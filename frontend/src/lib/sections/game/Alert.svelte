@@ -1,5 +1,5 @@
 <script>
-    import { alert } from '../../../controller/flow'
+    import { alert } from './flow'
 </script>
 
 <div style:display={$alert ? 'block' : 'none'} class="alert-holder">

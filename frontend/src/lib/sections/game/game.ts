@@ -24,7 +24,7 @@ const isGame = derived(hashWithParams, $hash => {
 })
 
 isGame.subscribe(yes => {
-    document.body.style.backgroundImage = yes ? 'url(./assets/img/background.png)' : null
+    document.body.style.backgroundImage = yes ? 'url(./img/background.png)' : null
 })
 
 async function startGame() {

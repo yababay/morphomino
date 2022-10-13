@@ -52,4 +52,5 @@ function showAlert(msg){
     setTimeout(() => alert.set(''), 3000)
 }
 
-export { scores, resetFlow, isFullfilled, scoresVerbose, deal, makeMove, flow, dealRandom, moves, role }
+export { scores, resetFlow, isFullfilled, scoresVerbose, 
+    deal, makeMove, flow, dealRandom, moves, role, alert }

@@ -1,6 +1,7 @@
 import './assets/hmf.css'
 import './assets/index.css'
 import Navbar from './lib/navbar/Navbar.svelte'
+import Alert from './lib/sections/game/Alert.svelte'
 import { setSvelteComponent } from './lib/util'
 import { hash as hashStore, hashWithParams, idFromHash, setupRouter, showSection } from '@yababay67/svelte-hash-router-ts'
 import proxies from './lib/sections'
@@ -16,6 +17,7 @@ hashWithParams.subscribe($ => {
 })
 
 setSvelteComponent(Navbar, 'links')
+setSvelteComponent(Alert, 'alert')
 setupRouter(proxies, selector)
 
 let {hash} = window.location
