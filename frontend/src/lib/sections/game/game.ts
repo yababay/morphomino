@@ -28,11 +28,15 @@ isGame.subscribe(yes => {
 })
 
 async function startGame() {
+    elapsed.set(0)
     resetFlow()
     if(!get(ignoreInstruction)) await showInstruction()
     await showDealing()
     const cause = await startTickers()
     stopTickers()
+    const d = get(duration)
+    const e = get(elapsed)
+    if(e > d) elapsed.set(d)
     stage.set(cause)
     const [won, all] = get(scores)
     const date = new Date().getTime()
