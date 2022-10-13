@@ -1,7 +1,7 @@
 {
     "dealAmount": 8,
-    "instructionTimeout": 4, 
-    "dealTimeout": 1,
+    "instructionTimeout": 4000, 
+    "dealTimeout": 1000,
     "moveAmountMin": 10,
     "moveAmountMax": 100,
     "moveAmountStep": 10,
@@ -15,8 +15,8 @@
     "levelDefault": "5_1",
     "ignoreInstructionKey": "mormino.ignore-instruction",
     "durationKey": "mormino.game-duration",
-    "durationDefault": 100,
+    "durationDefault": 300,
     "moveAmountKey": "mormino.move-amount",
-    "moveAmountDefault": 20,
+    "moveAmountDefault": 50,
     "achievementsKey": "mormino.achievements"
 }

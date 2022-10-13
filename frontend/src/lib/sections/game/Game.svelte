@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { get } from 'svelte/store'
+    import { onMount } from 'svelte'
     import { hideElement, showElement } from '@yababay67/svelte-hash-router-ts'
     import { delayedAction } from '../../util'
     import { level as levelStore } from '../settings/settings'
@@ -6,16 +8,12 @@
     import { startGame } from './game'
     import { GameStages, GAME_ENDINGS } from '../../types'
     import loadLevel from './loader'
-    import CurrentLevel from '../../navbar/CurrentLevel.svelte'
     import Finish from './Finish.svelte'
     import Instruction from './Instruction.svelte'
     import Deal from './Deal.svelte'
     import Flow from './Flow.svelte'
 
     export let level: string = ""
-
-    if(!level) level = `${$levelStore}`
-    else levelStore.set(level)
 
     const loaderCard = document.querySelector('#loader .card')
     const loaderImage = loaderCard.querySelector('img')
@@ -29,10 +27,19 @@
         await delayedAction(2000)
         startGame()
     }
+
+    onMount(async ()=> {
+        if(level){
+            levelStore.set(level)
+            return
+        }
+        const $level = get(levelStore)
+        if(typeof $level === 'string') level = $level
+        await loader()
+    })
 </script>
 
 <div class="game-holder">
-    <!-- CurrentLevel / -->
     {#if GAME_ENDINGS.includes($stage)}
         <Finish />
     {:else if $stage === GameStages.INSTRUCTION}

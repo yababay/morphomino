@@ -21,7 +21,6 @@ const isFullfilled = derived(moves, $moves => $moves.filter($=> $ !== MoveStatus
 
 function resetFlow(){
     const emptyMoves = new Array(get(movesAmount)).fill(MoveStatuses.FORTHCOMING)
-    console.log('moves', emptyMoves)
     moves.set(emptyMoves)
     flow.set([MorminoItem.getRandomItem()])
     dealRandom()

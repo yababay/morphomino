@@ -4,8 +4,7 @@ import { duration } from '../settings/settings'
 import { getTimeWithUnits } from '../../util'
 import { isFullfilled } from './flow'
 
-let flowTicker = null
-let elapsedTicker = null
+let tickers = []
 
 const stage = writable(GameStages.UNDEFINED)
 const elapsed = writable(0)
@@ -20,12 +19,12 @@ async function startTickers(){
 
 async function flowTickerPromise(): Promise<GameStages>{
     return new Promise((yep)=> {
-        flowTicker = setInterval(()=> {
+        const ticker = setInterval(()=> {
             if(get(isFullfilled)) stage.set(GameStages.FULFILLED)
             if(!GAME_ENDINGS.includes(get(stage))) return
-            clearInterval(flowTicker)
             yep(get(stage))
         }, 100)
+        tickers.push(ticker)
     })
 }
 
@@ -38,24 +37,24 @@ function getGameTime($elapsed: number, shorten: boolean = false){
 
 async function elapsedTickerPromise(): Promise<GameStages>{
     return new Promise((yep)=> {
-        elapsedTicker = setInterval(()=> {
+        const ticker = setInterval(()=> {
             const seconds = get(elapsed)
             const d = get(duration)
             if(typeof d === 'boolean' || typeof d === 'string' || typeof d === 'object') return 
             const e = get(elapsed) 
             if(e > d){
                 elapsed.set(d) 
-                clearInterval(elapsedTicker)
                 yep(GameStages.TIMEOUT)
             }
             elapsed.set(seconds + 1)
         }, 1000)
+        tickers.push(ticker)
     })
 }
 
 function stopTickers(){
-    if(!!flowTicker) clearInterval(flowTicker)
-    if(!!elapsedTicker) clearInterval(elapsedTicker) 
+    tickers.forEach(clearInterval)
+    tickers = []
 }
 
 export { stage, elapsed, elapsedWithUnits, startTickers, stopTickers, getGameTime }
