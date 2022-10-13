@@ -21,8 +21,7 @@ async function flowTickerPromise(): Promise<GameStages>{
     return new Promise((yep)=> {
         const ticker = setInterval(()=> {
             if(get(isFullfilled)) stage.set(GameStages.FULFILLED)
-            if(!GAME_ENDINGS.includes(get(stage))) return
-            yep(get(stage))
+            if(!GAME_ENDINGS.includes(get(stage))) yep(get(stage))
         }, 100)
         tickers.push(ticker)
     })
@@ -40,11 +39,10 @@ async function elapsedTickerPromise(): Promise<GameStages>{
         const ticker = setInterval(()=> {
             const seconds = get(elapsed)
             const d = get(duration)
-            if(typeof d === 'boolean' || typeof d === 'string' || typeof d === 'object') return 
             const e = get(elapsed) 
-            if(e > d){
-                elapsed.set(d) 
+            if(typeof d === 'number' && e > d){
                 yep(GameStages.TIMEOUT)
+                return
             }
             elapsed.set(seconds + 1)
         }, 1000)
