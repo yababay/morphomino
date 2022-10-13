@@ -1,6 +1,5 @@
 <script lang="ts">
     import { get } from 'svelte/store'
-    import { onMount } from 'svelte'
     import { hideElement, showElement } from '@yababay67/svelte-hash-router-ts'
     import { delayedAction } from '../../util'
     import { level as levelStore } from '../settings/settings'
@@ -19,6 +18,8 @@
     const loaderImage = loaderCard.querySelector('img')
 
     export const loader = async ()=> {
+        if(!level) level = `${get(levelStore)}`
+        else levelStore.set(level)
         hideElement(loaderCard)
         loaderImage.setAttribute('src', `./img/level-${level}.png`)        
         await delayedAction(200)
@@ -27,16 +28,6 @@
         await delayedAction(2000)
         startGame()
     }
-
-    onMount(async ()=> {
-        if(level){
-            levelStore.set(level)
-            return
-        }
-        const $level = get(levelStore)
-        if(typeof $level === 'string') level = $level
-        await loader()
-    })
 </script>
 
 <div class="game-holder">
@@ -62,4 +53,3 @@
         justify-content: space-between;
     }
 </style>
-
