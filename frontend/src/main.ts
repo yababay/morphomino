@@ -12,7 +12,7 @@ import proxies from './lib/sections'
 const selector = 'main > section'
 
 async function setup(){
-    const $level = get(level)
+    const $level = `${get(level)}`
     await loadLevel($level)
     hashWithParams.subscribe($ => {
         if(typeof $ === 'string') return

@@ -9,7 +9,14 @@ import {
     levelKey, levelDefault,
     backgroundColorKey, backgroundColorDefault,
     vignetteVariantKey,
+    version, versionKey
 } from './settings.json'
+
+const localVersion = localStorage.getItem(versionKey)
+if(!localVersion || localVersion !== version){
+    localStorage.clear()
+    localStorage.setItem(versionKey, version)
+}
 
 const achievements = wrapSetting(achievementsKey, [])
 const movesAmount = wrapSetting(moveAmountKey, moveAmountDefault)

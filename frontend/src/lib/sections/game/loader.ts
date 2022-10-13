@@ -1,8 +1,7 @@
 import { Level, PartOfSpeech, MorminoItem } from '../../types'
 
-export default async function loadLevel(level){
+export default async function loadLevel(level: string){
     const {fileNames} = new Level(`CLASS_${level}`)
-    const { length } = fileNames
     await Promise.all(fileNames.map(({pos, path}) => {
         return fetch(path)
             .then(res => res.text())

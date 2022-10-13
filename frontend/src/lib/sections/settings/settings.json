@@ -1,4 +1,6 @@
 {
+    "version": "1.0.0",
+    "versionKey": "mormino.version",
     "dealAmount": 8,
     "instructionTimeout": 4000, 
     "dealTimeout": 1000,
