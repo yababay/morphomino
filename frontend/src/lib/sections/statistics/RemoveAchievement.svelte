@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { achievements } from '../../../controller/settings'
+    import { achievements } from '../settings/settings'
     export let date: number
 
     function removeAchievement(date){

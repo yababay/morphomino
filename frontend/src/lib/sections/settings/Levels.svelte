@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { get } from "svelte/store";
-  import { onMount } from "svelte";
   import { level } from "./settings";
   import { Level } from "../../types";
 
@@ -56,7 +54,7 @@
       {/each}
     </div>
     <div class="single-level">
-      {#each items.filter( ({key}) => key.startsWith("6_") ) as item}
+      {#each items.filter( ({key}) => key.startsWith("7_") ) as item}
         <div class="form-check">
           <input
             on:change={saveLevel}

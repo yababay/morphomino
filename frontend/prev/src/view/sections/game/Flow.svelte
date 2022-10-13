@@ -10,7 +10,7 @@
 </script>
 
 <audio bind:this={audioDeal}>
-    <source src="./assets/audio/deal.mp3" type="audio/mpeg">
+    <source src="./audio/deal.mp3" type="audio/mpeg">
 </audio>
 
 <div class="mormino-flow">

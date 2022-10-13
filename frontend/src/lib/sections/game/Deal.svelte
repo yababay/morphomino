@@ -25,7 +25,7 @@
 </script>
 
 <audio bind:this={audioClick}>
-    <source src="./assets/audio/click.mp3" type="audio/mpeg">
+    <source src="./audio/click.mp3" type="audio/mpeg">
 </audio>
 
 <div class="mormino-deal">

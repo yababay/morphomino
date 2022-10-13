@@ -1,4 +1,4 @@
-<script>
+<script type="ts">
     import { derived } from 'svelte/store'
     import { moves, role } from './flow'
     import { GamerRoles, MoveStatuses } from '../../types'
@@ -6,9 +6,9 @@
     import ProgressDown from './ProgressDown.svelte';
     import ProgressUp from './ProgressUp.svelte';
 
-    const reversed = derived(moves, _moves => {
-        const future = _moves.filter(el => el === MoveStatuses.FORTHCOMING)
-        const past = _moves.filter(el => el !== MoveStatuses.FORTHCOMING).reverse()
+    const reversed = derived(moves, $moves => {
+        const future = $moves.filter(el => el === MoveStatuses.FORTHCOMING)
+        const past = $moves.filter(el => el !== MoveStatuses.FORTHCOMING).reverse()
         return [...past, ...future]
     })
 

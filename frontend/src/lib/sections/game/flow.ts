@@ -20,7 +20,9 @@ const scoresVerbose = derived(scores, ([won, all]) => `${won} заданий и�
 const isFullfilled = derived(moves, $moves => $moves.filter($=> $ !== MoveStatuses.FORTHCOMING).length === $moves.length)
 
 function resetFlow(){
-    moves.set(new Array(get(movesAmount)).fill(MoveStatuses.FORTHCOMING))
+    const emptyMoves = new Array(get(movesAmount)).fill(MoveStatuses.FORTHCOMING)
+    console.log('moves', emptyMoves)
+    moves.set(emptyMoves)
     flow.set([MorminoItem.getRandomItem()])
     dealRandom()
 }
