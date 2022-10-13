@@ -5,6 +5,7 @@
     import { scores } from '../sections/game/flow'
     import { GameStages, GAME_ENDINGS } from '../types'
     import Levels from './Levels.svelte'
+    import CurrentLevel from './CurrentLevel.svelte'
 
     const scoresSlashed = derived(scores, ([won, all]) => `${won}/${all}`);
     let audioDeal: HTMLAudioElement
@@ -34,6 +35,7 @@
     </ul>
 {/if}
 
+<CurrentLevel />
 <Levels label="Сменить уровень" />
 
 {#if GAME_ENDINGS.includes($stage)}

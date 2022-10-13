@@ -6,7 +6,7 @@
     import { startGame } from './game'
     import { GameStages, GAME_ENDINGS } from '../../types'
     import loadLevel from './loader'
-    import CurrentLevel from './CurrentLevel.svelte'
+    import CurrentLevel from '../../navbar/CurrentLevel.svelte'
     import Finish from './Finish.svelte'
     import Instruction from './Instruction.svelte'
     import Deal from './Deal.svelte'
@@ -32,7 +32,7 @@
 </script>
 
 <div class="game-holder">
-    <CurrentLevel />
+    <!-- CurrentLevel / -->
     {#if GAME_ENDINGS.includes($stage)}
         <Finish />
     {:else if $stage === GameStages.INSTRUCTION}

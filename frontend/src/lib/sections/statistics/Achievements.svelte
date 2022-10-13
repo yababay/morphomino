@@ -3,6 +3,7 @@
     import RemoveAchievement from './RemoveAchievement.svelte'
     import Subheader from '../../components/Subheader.svelte'
     import { getStageDescription } from '../../types';
+    import { getGameTime } from '../../sections/game/tickers'
 
     function formatDate(ts: number): string{
         return new Intl.DateTimeFormat('ru-RU', {
@@ -32,8 +33,8 @@
         {#each Array.isArray($achievements) && $achievements || [] as row }
             <tr>
                 <td>{formatDate(row.date)}</td>
-                <td>{row.elapsed} сек.</td>
-                <td>{row.duration} сек.</td>
+                <td>{getGameTime(row.elapsed, true)}</td>
+                <td>{getGameTime(row.duration, true)}</td>
                 <td>{row.scores}</td>
                 <td>{row.moves}</td>
                 <td>{getStageDescription(row.reason)}</td>
