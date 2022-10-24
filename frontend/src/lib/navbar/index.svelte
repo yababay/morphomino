@@ -1,10 +1,11 @@
 <script type="ts">
-    import { isGame } from '../sections/game/game'
+    import type { Writable } from 'svelte/store';
     import Scores from './Scores.svelte'
     import Links from './Links.svelte'
+    export let hash: Writable<string>
 </script>
 
-{#if $isGame }
+{#if $hash.startsWith('#game')}
     <Scores />
 {:else}
     <Links />

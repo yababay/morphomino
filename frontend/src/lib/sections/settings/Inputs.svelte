@@ -1,13 +1,13 @@
 <script>
     import { derived } from 'svelte/store'
-    import { duration, movesAmount, ignoreInstruction } from './settings'
+    import { duration, movesAmount, ignoreInstruction } from '.'
     import { 
         durationMin, durationMax, durationStep,
         moveAmountMin, moveAmountMax, moveAmountStep,
-    } from './settings.json'
+    } from '../../../../settings.json'
     import Levels from './Levels.svelte'
     
-    const durationInMinutes = derived(duration, $duration => Math.floor($duration / 60))
+    const durationInMinutes = derived(duration, $duration => typeof $duration === 'number' && Math.floor($duration / 60))
 </script>
 
 <div class="card settings-holder">
@@ -22,7 +22,7 @@
                 id="game-duration" 
                 type="range" class="form-range" 
                 min={durationMin} max={durationMax} step={durationStep} 
-                on:change={e => duration.set(e.target.value)}
+                on:change={e => e.target instanceof HTMLInputElement && duration.set(e.target.value)}
                 value={$duration}
             >
         </div>
@@ -33,7 +33,7 @@
                 type="range" 
                 class="form-range" 
                 min={moveAmountMin} max={moveAmountMax} step={moveAmountStep} 
-                on:change={e => movesAmount.set(e.target.value)}
+                on:change={e => movesAmount.set(e.target instanceof HTMLInputElement && e.target.value)}
             >
         </div>
         <div class="form-check form-switch mt-3">
@@ -41,7 +41,7 @@
                 id="ignore-instruction" 
                 class="form-check-input" 
                 type="checkbox" role="switch" aria-checked={!!$ignoreInstruction}
-                on:change={e => ignoreInstruction.set(e.target.checked)}
+                on:change={e => e.target instanceof HTMLInputElement && ignoreInstruction.set(e.target.checked)}
             >
             <label class="form-check-label" for="ignore-instruction">Игнорировать начальную инструкцию</label>
         </div>

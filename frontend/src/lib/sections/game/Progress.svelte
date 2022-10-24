@@ -6,11 +6,6 @@
     import ProgressDown from './ProgressDown.svelte';
     import ProgressUp from './ProgressUp.svelte';
 
-    const reversed = derived(moves, $moves => {
-        const future = $moves.filter(el => el === MoveStatuses.FORTHCOMING)
-        const past = $moves.filter(el => el !== MoveStatuses.FORTHCOMING).reverse()
-        return [...past, ...future]
-    })
 
     function getMoveColor(move){
         switch(move){

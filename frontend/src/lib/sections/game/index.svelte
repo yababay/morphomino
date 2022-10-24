@@ -1,4 +1,46 @@
 <script lang="ts">
+    import { onMount } from 'svelte'
+    import { level as levelStore } from '../../store'
+    import { GameStages } from '../../types';
+    import { stage, ignoreInstruction, instructionTimeout, dealTimeout } from '../../store'
+    import { delayedAction } from '../../util'
+    import loadLevel from '../loader';
+    import Finish from './Finish.svelte'
+    import Instruction from './Instruction.svelte'
+
+    export let level: string = ''
+    if(!level && typeof $levelStore === 'string') level = $levelStore
+    else levelStore.set(level)
+
+    onMount(async () => {
+        stage.set(GameStages.LOADING)
+        await loadLevel()
+        if(!$ignoreInstruction){
+            stage.set(GameStages.INSTRUCTION)
+            await delayedAction(instructionTimeout)
+        }
+        stage.set(GameStages.DEAL)
+        await delayedAction(dealTimeout)
+        stage.set(GameStages.FLOW)    
+    })
+
+</script>
+
+<div class="game-holder text-light">
+    {#if [GameStages.LOADING, GameStages.UNDEFINED].includes($stage) }
+        <p></p>
+    {:else if $stage === GameStages.INSTRUCTION}
+        <Instruction />
+    {:else if $stage === GameStages.DEAL}
+        <p class="text-light">deal</p>
+    {:else if $stage === GameStages.FLOW}
+        <p class="text-light">flow</p>
+    {:else}
+        <Finish />
+    {/if}
+</div>
+<!-- 
+<script lang="ts">
     import { get } from 'svelte/store'
     import { hideElement, showElement } from '@yababay67/svelte-hash-router-ts'
     import { delayedAction } from '../../util'
@@ -53,3 +95,4 @@
         justify-content: space-between;
     }
 </style>
+-->

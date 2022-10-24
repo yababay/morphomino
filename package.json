@@ -25,8 +25,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@fontsource/fira-mono": "^4.5.0",
-		"@yababay67/svelte-hash-router-ts": "^1.1.7",
+		"@yababay67/svelte-hash-router-ts": "^3.0.2",
 		"showdown": "^2.1.0"
 	}
 }

@@ -1,18 +1,20 @@
 <script lang="ts">
-    import { derived } from "svelte/store";
-    import { stage, elapsed, elapsedWithUnits } from '../sections/game/tickers'
-    import { startGame } from '../sections/game/game'
-    import { scores } from '../sections/game/flow'
-    import { GameStages, GAME_ENDINGS } from '../types'
+    import { gameOver, GameStages } from '../types'
     import Levels from './Levels.svelte'
     import CurrentLevel from './CurrentLevel.svelte'
+    import { scoresSlashed, elapsed, elapsedWithUnits, stage } from '../store'
 
-    const scoresSlashed = derived(scores, ([won, all]) => `${won}/${all}`);
     let audioDeal: HTMLAudioElement
 
-    function playSound() {
+    function startGame(){
         audioDeal.play();
+        stage.set(GameStages.LOADING)
     }
+
+    function breakGame(){
+        stage.set(GameStages.BROKEN)
+    }
+
 </script>
 
 <audio bind:this={audioDeal}>
@@ -20,32 +22,43 @@
 </audio>
 
 {#if $elapsed > 0}
-    <ul class="navbar-nav navbar-ul-long-fixed-width">
-        <li class="nav-item text-light">
-            <span>Прошло &nbsp;</span>
-            <strong>{$elapsedWithUnits}</strong>
-        </li>
-    </ul>
+    <div class="ms-3">
+        <ul class="navbar-nav ms-3">
+            <li class="nav-item text-light">
+                <span>Прошло &nbsp;</span>
+                <strong>{$elapsedWithUnits}</strong>
+            </li>
+        </ul>
+    </div>
 
-    <ul class="navbar-nav navbar-ul-long-fixed-width">
-        <li class="nav-item  text-light">
-            <span>Решено &nbsp;</span>
-            <strong>{$scoresSlashed}</strong>
-        </li>
-    </ul>
+    <div class="ms-3">
+        <ul class="navbar-nav ms-3">
+            <li class="nav-item  text-light">
+                <span>Решено &nbsp;</span>
+                <strong>{$scoresSlashed}</strong>
+            </li>
+        </ul>
+    </div>
 {/if}
 
-<CurrentLevel />
-<Levels label="Сменить уровень" />
+<div class="ms-3">
+    <CurrentLevel />
+</div>
 
-{#if GAME_ENDINGS.includes($stage)}
-    <button
-        class="btn btn-success navbar-button-fixed-width"
-        on:click={async e => {playSound();await startGame()}}>Новая игра</button
-    >
+<div class="ms-3">
+    <Levels label="Сменить уровень" />
+</div>
+
+{#if gameOver($stage)}
+    <div class="ms-3">
+        <button
+            class="btn btn-success navbar-button-fixed-width"
+            on:click={startGame}>Новая игра</button>
+    </div>
 {:else}
-    <button
-        class="btn btn-secondary navbar-button-fixed-width"
-        on:click={$=> stage.set(GameStages.BREAK)}>Прервать игру</button
-    >
+    <div class="ms-3">
+        <button
+            class="btn btn-secondary navbar-button-fixed-width"
+            on:click={breakGame}>Прервать игру</button>
+    </div>
 {/if}

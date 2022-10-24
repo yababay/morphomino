@@ -1,6 +1,6 @@
-import Game from './game/Game.svelte'
-import Statistics from './statistics/Statistics.svelte'
-import Settings from './settings/Settings.svelte'
+import Game       from './game/index.svelte'
+import Statistics from './statistics/index.svelte'
+import Settings   from './settings/index.svelte'
 
 export default {
     game: Game,

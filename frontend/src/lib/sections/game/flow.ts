@@ -1,23 +1,15 @@
-import { writable, get, derived } from 'svelte/store'
-import { MoveStatuses, MorminoItem, GamerRoles } from '../../types'
-import { movesAmount } from '../settings/settings'
-import { dealAmount } from '../settings/settings.json'
+import { GameStages } from '../../types'
+import { stage } from '../../store'
 
-const moves = writable([])
-const flow  = writable([])
-const deal  = writable([])
-const role  = writable(GamerRoles.HOST)
-const alert = writable('')
-const scores = derived(moves, $moves => {
-    const scores = $moves.filter(el => 
-        get(role) === GamerRoles.HOST && el === MoveStatuses.HOST_IS_WON 
-        || 
-        get(role) === GamerRoles.GUEST && el === MoveStatuses.GUEST_IS_WON 
-        ).length
-    return [scores, $moves.length]
-})
-const scoresVerbose = derived(scores, ([won, all]) => `${won} заданий из ${all}`)
-const isFullfilled = derived(moves, $moves => $moves.filter($=> $ !== MoveStatuses.FORTHCOMING).length === $moves.length)
+export function breakGame(){
+    stage.set(GameStages.BROKEN)
+}
+
+/*import { writable, get } from 'svelte/store'
+import { MoveStatuses, MorminoItem, GamerRoles } from '../../types'
+import { movesAmount } from '../settings'
+import { dealAmount } from '../../../settings/settings.json'
+
 
 function resetFlow(){
     const emptyMoves = new Array(get(movesAmount)).fill(MoveStatuses.FORTHCOMING)
@@ -53,5 +45,8 @@ function showAlert(msg){
     setTimeout(() => alert.set(''), 3000)
 }
 
-export { scores, resetFlow, isFullfilled, scoresVerbose, 
-    deal, makeMove, flow, dealRandom, moves, role, alert }
+export { scores, resetFlow, scoresVerbose, 
+    deal, makeMove, flow, dealRandom, moves, role, alert,
+    breakGame, stage
+}
+*/

@@ -1,7 +1,7 @@
 <script type="ts">
-    import { GameStages, getStageDescription } from '../../types';
-    import { scoresVerbose } from './flow'
-    import { elapsed, stage, getGameTime } from './tickers'
+    import { getStageDescription } from '../../types';
+    import { elapsed, scoresVerbose, stage } from '../../store'
+    import { getGameTime } from '../../util'
 </script>
 
 <div class="alert alert-success alert-dismissible fade show text-center" role="alert">

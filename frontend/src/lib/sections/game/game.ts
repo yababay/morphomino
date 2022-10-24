@@ -1,13 +1,29 @@
-import { derived, get } from 'svelte/store'
-import { hashWithParams } from '@yababay67/svelte-hash-router-ts'
-import { stage, startTickers, stopTickers, elapsed } from './tickers'
-import { delayedAction } from '../../util'
+export default null
+/*import { get, writable } from "svelte/store"
+import { startTicker, gameOver, elapsed } from "./ticker"
+import { resetFlow, stage, scores } from "./flow"
+import { GameStages } from "src/lib/types"
+import { achievements, duration, level } from '../settings/settings'
+import loadLevel from './loader'
+import { delayedAction, hashWithParams } from '../../router'
 import { instructionTimeout, dealTimeout } from '../settings/settings.json'
-import { ignoreInstruction, duration, achievements } from '../settings/settings'
-import { GameStages } from '../../types'
-import { resetFlow, scores } from './flow'
+import { ignoreInstruction } from '../settings/settings'
+
+export const progress = writable(0)
+
+export async function startGame(){
+    stage.set(GameStages.UNDEFINED)
+    resetFlow()
+    progress.set(0)
+    startTicker()
+    stage.set(GameStages.LOADING)
+    await loadLevel(`${get(level)}`, progress)
+    await showInstruction()
+    await showDealing()
+}
 
 async function showInstruction(){
+    if(ignoreInstruction) return
     stage.set(GameStages.INSTRUCTION)
     await delayedAction(instructionTimeout)
 }
@@ -17,33 +33,4 @@ async function showDealing(){
     await delayedAction(dealTimeout)
     stage.set(GameStages.FLOW)
 }
-
-const isGame = derived(hashWithParams, $hash => {
-    const value = typeof $hash !== 'string' && Reflect.get($hash, 'hash') || $hash
-    return value === '#game' 
-})
-
-isGame.subscribe(yes => {
-    document.body.style.backgroundImage = yes ? 'url(./img/background.png)' : null
-})
-
-async function startGame() {
-    stopTickers()
-    elapsed.set(0)
-    resetFlow()
-    if(!get(ignoreInstruction)) await showInstruction()
-    await showDealing()
-    const cause = await startTickers()
-    stopTickers()
-    const d = get(duration)
-    const e = get(elapsed)
-    if(typeof d === 'number' && e > d) elapsed.set(d)
-    stage.set(cause)
-    const [won, all] = get(scores)
-    const date = new Date().getTime()
-    const achievement = {date, elapsed: get(elapsed), duration: get(duration), scores: won, moves: all, reason: get(stage)}
-    const currentAchievements = get(achievements)
-    if(Array.isArray(currentAchievements)) achievements.set([achievement, ...currentAchievements])
-}
-
-export { isGame, startGame }
+*/

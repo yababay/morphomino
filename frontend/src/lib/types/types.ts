@@ -90,10 +90,11 @@ enum PartsOfSpeech {
 }
 
 enum GameStages {
+    LOADING,
     INSTRUCTION,
     DEAL,
     FLOW,
-    BREAK,
+    BROKEN,
     END,
     HOST_IS_WON,
     GUEST_IS_WON,

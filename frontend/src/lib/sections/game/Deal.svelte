@@ -1,7 +1,7 @@
 <script>
     import { MorminoItem } from '../../types'
     import { makeMove, deal } from './flow'
-    import { backgroundColor } from '../settings/settings'
+    import { backgroundColor } from '../settings'
     import MorminoWord from '../../components/MorminoWord.svelte'
 
     let audioClick

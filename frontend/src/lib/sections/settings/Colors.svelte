@@ -1,6 +1,5 @@
 <script lang="ts">
-    import { backgroundColor } from './settings'
-    import Subheader from '../../components/Subheader.svelte'
+    import { backgroundColor } from '.'
 
     function saveColor(color){
         backgroundColor.set(color)
@@ -8,22 +7,22 @@
 </script>
 
 <div class="color-chooser w-100 mb-3">
-    <svg viewBox="0 0 22 22" on:click={e => saveColor("#800000")}>
+    <svg viewBox="0 0 22 22" on:click={e => saveColor("#800000")} on:keyup={()=>{}}>
         <use xlink:href="./img/colors.svg#brown" />
     </svg>
-    <svg viewBox="0 0 22 22" on:click={e => saveColor("#0000ff")}>
+    <svg viewBox="0 0 22 22" on:click={e => saveColor("#0000ff")} on:keyup={()=>{}}>
         <use xlink:href="./img/colors.svg#blue" />
     </svg>
-    <svg viewBox="0 0 22 22" on:click={e => saveColor("#008000")}>
+    <svg viewBox="0 0 22 22" on:click={e => saveColor("#008000")} on:keyup={()=>{}}>
         <use xlink:href="./img/colors.svg#green" />
     </svg>
-    <svg viewBox="0 0 22 22" on:click={e => saveColor("#d45500")}>
+    <svg viewBox="0 0 22 22" on:click={e => saveColor("#d45500")} on:keyup={()=>{}}>
         <use xlink:href="./img/colors.svg#orange" />
     </svg>
-    <svg viewBox="0 0 22 22" on:click={e => saveColor("#d4aa00")}>
+    <svg viewBox="0 0 22 22" on:click={e => saveColor("#d4aa00")} on:keyup={()=>{}}>
         <use xlink:href="./img/colors.svg#yellow" />
     </svg>
-    <svg viewBox="0 0 22 22" on:click={e => saveColor("#800080")}>
+    <svg viewBox="0 0 22 22" on:click={e => saveColor("#800080")} on:keyup={()=>{}}>
         <use xlink:href="./img/colors.svg#purple" />
     </svg>
 </div>

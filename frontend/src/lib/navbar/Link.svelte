@@ -1,10 +1,10 @@
 <script lang="ts">
     export let label: string, href: string
 
-    function toggleActive(e){
+    function toggleActive(e: Event){
       const {target} = e
       if(!(target instanceof HTMLElement)) return
-      const ul = target.closest('#links')
+      const ul = target.closest('#navbar-links')
       const links = Array.from(ul.querySelectorAll('a'))
       for(const link of links){
         link.classList.remove('active')

@@ -1,9 +1,9 @@
 {
-    "version": "1.0.0",
+    "version": "1.0.2",
     "versionKey": "mormino.version",
     "dealAmount": 8,
     "instructionTimeout": 4000, 
-    "dealTimeout": 1000,
+    "dealTimeout": 3000,
     "moveAmountMin": 10,
     "moveAmountMax": 100,
     "moveAmountStep": 10,

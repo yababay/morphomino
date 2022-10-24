@@ -1,7 +1,6 @@
 <script lang="ts">
     import CardDesign from "../../components/CardDesign.svelte"
-    import { vignetteVariant } from './settings'
-    import { backgroundColor } from './settings'
+    import { vignetteVariant, backgroundColor } from '.'
 
     $: savedVariant = $vignetteVariant
 
@@ -9,7 +8,7 @@
 
 <div class="design-holder">
     {#each [1,2,3,4,5,6,7,8,9] as vignette }
-        <div on:click={e => vignetteVariant.set(vignette)} class="card-holder" 
+        <div on:click={e => vignetteVariant.set(vignette)} on:keyup={()=>{}} class="card-holder" 
             style:opacity={vignette === savedVariant ? 1 : .4} 
             style:background-color={`${$backgroundColor}`}
         >

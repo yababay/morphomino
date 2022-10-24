@@ -6,8 +6,8 @@ const output = []
 
 lineReader.eachLine('./src/assets/template.html', function(line, last) {
   if(last){
-    console.log('Writing index.html...')
     writeFileSync('index.html', output.join('\n'))
+    console.log('Файл index.html успешно создан из шаблона.')
   }  
   if(!/<section[^>]+><\/section>/.test(line)) {
     output.push(line)
@@ -34,7 +34,7 @@ lineReader.eachLine('./src/assets/template.html', function(line, last) {
 
 function getContent(id, spaces){
   const fn = `./src/assets/${id}.md`
-  if(!existsSync(fn)) throw 'Не найден файл для секции ' + id
+  if(!existsSync(fn)) return //throw 'Не найден файл для секции ' + id
   const lines = readFileSync(fn, 'utf8')
   const article = converter.makeHtml(lines).trim().split('\n').map($=> `${spaces}${spaces}${parseLine($)}`).join('\n')
   return `<article>${article}</article>`

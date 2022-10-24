@@ -32,16 +32,3 @@ h1, h2 {
 .faded-card {
     animation: fadeIn 1s;
 }
-
-.navbar-button-fixed-width {
-  width: 11rem;
-  margin-left: 1rem;
-}
-
-.navbar-ul-long-fixed-width {
-  width: 16rem;
-}
-
-.navbar-ul-fixed-width {
-  width: 7rem;
-}

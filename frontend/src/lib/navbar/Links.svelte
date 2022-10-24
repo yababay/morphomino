@@ -1,11 +1,20 @@
 <script lang="ts">
-  import Link from './Link.svelte'
-  import Levels from './Levels.svelte'
+  import Link from "./Link.svelte";
+  import Levels from "./Levels.svelte";
 </script>
 
-<Link label="Правила" href="#intro" />
-<Link label="Настройки" href="#settings" />
-<Link label="Статистика" href="#statistics" />
-<Levels />
-<a class="btn btn-primary navbar-button-fixed-width" href="#game">Начать игру</a>
-
+<div class="ms-3">
+  <Link label="Правила" href="#intro" />
+</div>
+<div class="ms-3">
+  <Link label="Настройки" href="#settings" />
+</div>
+<div class="ms-3">
+  <Link label="Статистика" href="#statistics" />
+</div>
+<div class="ms-3">
+  <Levels />
+</div>
+<div class="ms-3">
+  <a class="btn btn-primary" href="#game">Начать игру</a>
+</div>

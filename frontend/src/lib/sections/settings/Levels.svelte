@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { level } from "./settings";
+  import { level } from ".";
   import { Level } from "../../types";
 
   let levelsForm: HTMLFormElement;
