@@ -1,5 +1,5 @@
 import { get, derived, writable } from "svelte/store"
-import { level } from '../sections/settings'
+import { level } from '../components/sections/settings'
 import { getGameTime } from '../util'
 import { GamerRoles, MoveStatuses, Level, GameStages } from '../types'
 
@@ -33,7 +33,7 @@ export const reversed = derived(moves, $moves => {
 
 export const scoresSlashed = derived(scores, ([won, all]) => `${won}/${all}`);
 export const scoresVerbose = derived(scores, ([won, all]) => `${won} заданий из ${all}`)
-export const isFullfilled = derived(moves, $moves => $moves.filter($=> $ !== MoveStatuses.FORTHCOMING).length === $moves.length)
+export const isFullfilled = derived(moves, $moves => $moves.length > 0 && $moves.filter($=> $ !== MoveStatuses.FORTHCOMING).length === $moves.length)
 
 export const levelClass = derived(level, $level => typeof $level === 'string' && $level.split('_')[0])
 export const levelNumber = derived(level, $level => typeof $level === 'string' && $level.split('_')[1])

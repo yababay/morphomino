@@ -1,6 +1,6 @@
 <script lang="ts">
     import Inputs from "./Inputs.svelte"
-    import Subheader from "../../components/Subheader.svelte"
+    import Subheader from "../../Subheader.svelte"
     import VignetteVariants from "./VignetteVariants.svelte"
     import Colors from "./Colors.svelte"
 </script>

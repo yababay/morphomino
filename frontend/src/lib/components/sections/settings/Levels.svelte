@@ -1,6 +1,6 @@
 <script lang="ts">
   import { level } from ".";
-  import { Level } from "../../types";
+  import { Level } from "../../../types";
 
   let levelsForm: HTMLFormElement;
   const items = Level.getKeysWithLabels().map(({key, label})=> ({key: key.replace('CLASS_', ''), label}))

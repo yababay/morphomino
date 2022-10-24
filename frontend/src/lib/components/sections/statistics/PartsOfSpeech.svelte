@@ -1,6 +1,6 @@
 <script>
-    import PartOfSpeech from '../../types/pos'
-    import Subheader from '../../components/Subheader.svelte'
+    import PartOfSpeech from '../../../types/pos'
+    import Subheader from '../../Subheader.svelte'
 
     function getRows() {
         return PartOfSpeech.getKeyNames()

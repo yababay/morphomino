@@ -1,7 +1,7 @@
 import { get } from 'svelte/store'
-import { progress, level } from '../../store'
+import { progress, level, deal, moves, flow, dealAmount, movesAmount } from '../../store'
 import { delayedAction } from '../../util'
-import { Level, PartOfSpeech, MorminoItem } from '../../types'
+import { Level, PartOfSpeech, MorminoItem, MoveStatuses } from '../../types'
 
 const headerMainFooter = Array.from(document.querySelectorAll('header, main, footer'))
 const loaderSection = document.getElementById('loader')
@@ -39,8 +39,15 @@ export default async function loadLevel(){
     })
     .catch(err => console.log(err))
     progress.set(75)
+    await delayedAction(500)
+    dealRandom()
+    moves.set(new Array(get(movesAmount)).fill(MoveStatuses.FORTHCOMING))
+    flow.set([MorminoItem.getRandomItem()])
+    progress.set(500)
     await delayedAction(1000)
-    progress.set(100)
-    await delayedAction(2000)
     hideLoader()
+}
+
+export function dealRandom(){
+    deal.set(new Array(dealAmount).fill(0).map(()=> MorminoItem.getRandomItem()))
 }

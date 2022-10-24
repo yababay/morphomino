@@ -1,7 +1,7 @@
 <script type="ts">
-    import { getStageDescription } from '../../types';
-    import { elapsed, scoresVerbose, stage } from '../../store'
-    import { getGameTime } from '../../util'
+    import { getStageDescription } from '../../../types';
+    import { elapsed, scoresVerbose, stage } from '../../../store'
+    import { getGameTime } from '../../../util'
 </script>
 
 <div class="finish-holder d-flex justify-space-around align-items-center">

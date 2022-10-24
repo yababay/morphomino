@@ -1,34 +1,24 @@
-import { get, type Readable, type Writable } from "svelte/store"
-import { setup as setupTicker } from '../sections/game/ticker'
-import { GameStages, gameOver, MoveStatuses, MorminoItem } from '../types'
-import { elapsed, stage, isFullfilled, scores, moves, flow, deal } from './derivatives'
-import { duration, achievements, movesAmount, dealAmount } from '../sections/settings'
-import Game from '../sections/game/index.svelte'
-import { setSvelteComponent } from "../util"
+import { get, derived, type Readable, type Writable } from "svelte/store"
+import { setup as setupTicker } from '../components/sections/game/ticker'
+import { GameStages, gameOver } from '../types'
+import { elapsed, stage, isFullfilled, scores } from './derivatives'
+import { duration, achievements } from '.'
 
 const stopTicker = setupTicker(elapsed)
+let isGame: Readable<boolean>
 
-export function randomDeal(){
-    deal.set(new Array(dealAmount).fill(0).map(()=> MorminoItem.getRandomItem()))
+export function getIsGame(){
+    return isGame
 }
 
-export default function(hash: Writable<string>, props: Readable<any>){
+export default function(hash: Writable<string>){
 
-    props.subscribe($props => {
-        stopTicker()
-        const {target, props} = $props
-        if(target.getAttribute('id') !== 'game') {
-            return
-        }
-        target.innerHTML = ''
-        setSvelteComponent(Game, target, props)
-    })
+    isGame = derived(hash, $hash => $hash.startsWith('#game'))
 
-    hash.subscribe(($hash: string) => {
-        const isGame = $hash.startsWith('#game')
+    isGame.subscribe((yes: boolean) => {
         const footer = document.querySelector('footer')
-        document.body.style.backgroundImage = isGame ? 'url(./img/background.png)' : null
-        if(isGame) footer.classList.add('text-light')
+        document.body.style.backgroundImage = yes ? 'url(./img/background.png)' : null
+        if(yes) footer.classList.add('text-light')
         else footer.classList.remove('text-light')
     })
 
@@ -43,12 +33,7 @@ export default function(hash: Writable<string>, props: Readable<any>){
     isFullfilled.subscribe($yes => {if($yes) stage.set(GameStages.FULFILLED)})
 
     stage.subscribe($stage => {
-        if($stage === GameStages.DEAL){
-            moves.set(new Array(get(movesAmount)).fill(MoveStatuses.FORTHCOMING))
-            flow.set([MorminoItem.getRandomItem()])
-            randomDeal()
-        }
-        if(gameOver($stage)) {
+        if(gameOver($stage) && $stage !== GameStages.UNDEFINED) {
             stopTicker()
             const [won, all] = get(scores)
             const date = new Date().getTime()

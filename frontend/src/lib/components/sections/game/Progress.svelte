@@ -1,7 +1,6 @@
 <script type="ts">
-    import { derived } from 'svelte/store'
-    import { moves, role } from '../../store'
-    import { GamerRoles, MoveStatuses } from '../../types'
+    import { moves, role } from '../../../store'
+    import { GamerRoles, MoveStatuses } from '../../../types'
     import ProgressForth from './ProgressForth.svelte'
     import ProgressDown from './ProgressDown.svelte';
     import ProgressUp from './ProgressUp.svelte';

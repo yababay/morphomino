@@ -1,5 +1,5 @@
 <script type="ts">
-  import { Level } from '../types'
+  import { Level } from '../../types'
   const items = Level.getKeysWithLabels().map(({key, label}) => ({level: key.replace('CLASS_', ''), label}))
 
   export let label = "Выбрать уровень"

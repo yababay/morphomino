@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store'
-import type { Writable } from 'svelte/types/runtime/store/index'
+import type { Writable } from 'svelte/store'
 
 function prepareForStorage(value: string | boolean | number | object): string{
     return typeof value === 'object' ? JSON.stringify(value) : `${value}`

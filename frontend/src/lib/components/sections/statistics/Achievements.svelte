@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { achievements } from '../settings'
+    import { achievements } from '../../../store'
     import RemoveAchievement from './RemoveAchievement.svelte'
-    import Subheader from '../../components/Subheader.svelte'
-    import { getStageDescription } from '../../types';
-    import { getGameTime } from '../../util'
+    import Subheader from '../../Subheader.svelte'
+    import { getStageDescription } from '../../../types';
+    import { getGameTime } from '../../../util'
 
     function formatDate(ts: number): string{
         return new Intl.DateTimeFormat('ru-RU', {

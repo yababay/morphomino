@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { levelClass, levelNumber } from '../store'
+    import { levelClass, levelNumber } from '../../store'
 </script>
 
 <ul class="navbar-nav navbar-ul-long-fixed-width">

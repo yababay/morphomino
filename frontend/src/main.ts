@@ -1,21 +1,12 @@
-import './assets/hmf.css'
 import './assets/index.css'
+import setupComponents from './lib/components'
+import setupRouter from '@yababay67/svelte-hash-router-ts'
+import setupGameSection from './lib/components/sections/game'
+import subscribeAll from './lib/store/subscriptions'
 
-import setup from './lib/router'
-import { setSvelteComponent } from './lib/util'
-import NavBar from './lib/navbar/index.svelte'
-import Settings from './lib/sections/settings/index.svelte'
-import Statistics from './lib/sections/statistics/index.svelte'
-import Loader from './lib/sections/loader/index.svelte'
-import Alert from './lib/components/Alert.svelte'
-import subscribe from './lib/store/subscriptions'
-
-setSvelteComponent(Loader, 'loader')
-const {hash, props} = setup()
-setSvelteComponent(Alert, 'alert')
-setSvelteComponent(Settings, 'settings')
-setSvelteComponent(Statistics, 'statistics')
-setSvelteComponent(NavBar, 'navbar-links', {hash})
-subscribe(hash, props)
+const {hash, props} = setupRouter() 
+subscribeAll(hash)
+setupGameSection(props)
+setupComponents()
 
 export default null

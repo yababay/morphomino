@@ -4,7 +4,8 @@
     import { 
         durationMin, durationMax, durationStep,
         moveAmountMin, moveAmountMax, moveAmountStep,
-    } from '../../../../settings.json'
+    } from '../../../../../settings.json'
+    
     import Levels from './Levels.svelte'
     
     const durationInMinutes = derived(duration, $duration => typeof $duration === 'number' && Math.floor($duration / 60))

@@ -1,6 +1,5 @@
-import * as settings from '../sections/settings'
+import * as settings from '../components/sections/settings'
 import * as derivatives from './derivatives'
-import { randomDeal } from './subscriptions'
 
 const {
     version,
@@ -101,5 +100,4 @@ export {
     progress,
     levelClass,
     levelNumber,
-    randomDeal
 }

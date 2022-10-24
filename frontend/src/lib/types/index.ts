@@ -16,7 +16,7 @@ export function getStageDescription(stage: GameStages): string{
     }
 }
 
-export const endings = [GameStages.BROKEN, GameStages.FULFILLED, GameStages.TIMEOUT]
+export const endings = [GameStages.UNDEFINED, GameStages.BROKEN, GameStages.FULFILLED, GameStages.TIMEOUT]
 
 export function gameOver(stage: GameStages){
     return endings.includes(stage)

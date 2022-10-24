@@ -1,5 +1,5 @@
 <script lang="ts">
-    import CardDesign from "../../components/CardDesign.svelte"
+    import CardDesign from "../../CardDesign.svelte"
     import { vignetteVariant, backgroundColor } from '.'
 
     $: savedVariant = $vignetteVariant

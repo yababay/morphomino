@@ -1,20 +1,15 @@
 <script lang="ts">
-    import { gameOver, GameStages } from '../types'
+    import { gameOver, GameStages } from '../../types'
     import Levels from './Levels.svelte'
     import CurrentLevel from './CurrentLevel.svelte'
-    import { scoresSlashed, elapsed, elapsedWithUnits, stage } from '../store'
+    import { scoresSlashed, elapsed, elapsedWithUnits, stage } from '../../store'
+    import { startGame } from '../sections/game'
 
     let audioDeal: HTMLAudioElement
-
-    function startGame(){
-        audioDeal.play();
-        stage.set(GameStages.LOADING)
-    }
 
     function breakGame(){
         stage.set(GameStages.BROKEN)
     }
-
 </script>
 
 <audio bind:this={audioDeal}>

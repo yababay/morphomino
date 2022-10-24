@@ -21,7 +21,7 @@ import {
     durationDefault,
     moveAmountKey,
     moveAmountDefault,
-    achievementsKey} from '../../../../settings.json'
+    achievementsKey} from '../../../../../settings.json'
 
 const localVersion = localStorage.getItem(versionKey)
 if(!localVersion || localVersion !== version){

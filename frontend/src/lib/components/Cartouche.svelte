@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { backgroundColor } from '../sections/settings'
+    import { backgroundColor } from './sections/settings'
     export let pos: string
 </script>
 

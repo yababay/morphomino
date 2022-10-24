@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { progress, level } from '../../store'
+    import { progress, level } from '../../store/'
     $: width = `${$progress}%`
 </script>
 
