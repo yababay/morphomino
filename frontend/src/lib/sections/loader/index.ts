@@ -28,7 +28,7 @@ export default async function loadLevel(){
             .then(txt => {
                 return txt.split('\n')
                     .map($=> $.trim())
-                    .filter($=> $ && $.length < 13)
+                    .filter($=> $ && !$.startsWith('#') && $.length < 13)
                     .map(word => ({pos, word}))
             })
     }))
