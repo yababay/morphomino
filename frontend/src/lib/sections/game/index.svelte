@@ -33,12 +33,10 @@
 {#await loadGame() then }
 
     <div class="game-holder text-light">
-        {#if [GameStages.LOADING, GameStages.UNDEFINED].includes($stage) }
+        {#if [GameStages.LOADING, GameStages.UNDEFINED, GameStages.DEAL].includes($stage) }
             <p></p>
         {:else if $stage === GameStages.INSTRUCTION}
             <Instruction />
-        {:else if $stage === GameStages.DEAL}
-            <Deal />
         {:else if $stage === GameStages.FLOW}
             <Deal />
             <Flow />
