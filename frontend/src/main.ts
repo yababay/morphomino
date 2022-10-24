@@ -7,18 +7,15 @@ import NavBar from './lib/navbar/index.svelte'
 import Settings from './lib/sections/settings/index.svelte'
 import Statistics from './lib/sections/statistics/index.svelte'
 import Loader from './lib/sections/loader/index.svelte'
-import loadLevel from './lib/sections/loader'
+import Alert from './lib/components/Alert.svelte'
 import subscribe from './lib/store/subscriptions'
-import { delayedAction } from './lib/util'
 
 setSvelteComponent(Loader, 'loader')
-loadLevel()
-    .then(() => {
-        const {hash, props} = setup()
-        setSvelteComponent(Settings, 'settings')
-        setSvelteComponent(Statistics, 'statistics')
-        setSvelteComponent(NavBar, 'navbar-links', {hash})
-        subscribe(hash, props)
-    })
+const {hash, props} = setup()
+setSvelteComponent(Alert, 'alert')
+setSvelteComponent(Settings, 'settings')
+setSvelteComponent(Statistics, 'statistics')
+setSvelteComponent(NavBar, 'navbar-links', {hash})
+subscribe(hash, props)
 
 export default null

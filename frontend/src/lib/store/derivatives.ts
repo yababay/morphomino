@@ -2,16 +2,15 @@ import { get, derived, writable } from "svelte/store"
 import { level } from '../sections/settings'
 import { getGameTime } from '../util'
 import { GamerRoles, MoveStatuses, Level, GameStages } from '../types'
-//import { hashWithParams } from '../router'
 
+export const alert    = writable('')
 export const elapsed  = writable(0)
 export const progress = writable(0)
-export const flow     = writable([])
-export const deal     = writable([])
-export const alert    = writable('')
-export const moves    = writable([])
 export const role     = writable(GamerRoles.HOST)
 export const stage    = writable(GameStages.UNDEFINED)
+export const flow     = writable([])
+export const deal     = writable([])
+export const moves    = writable([])
 
 export const elapsedWithUnits = derived(elapsed, $elapsed => getGameTime($elapsed, true))
 

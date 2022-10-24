@@ -1,6 +1,7 @@
 <script>
     import { MorminoItem } from '../../types'
-    import { makeMove, deal } from './flow'
+    import { makeMove } from '.'
+    import { deal } from '../../store'
     import { backgroundColor } from '../settings'
     import MorminoWord from '../../components/MorminoWord.svelte'
 
@@ -30,7 +31,7 @@
 
 <div class="mormino-deal">
     {#each $deal as item, index}
-        <div class="mormino-card" on:click={event => checkCard(event, item, index)} style:background-color={$backgroundColor + ''}>
+        <div class="mormino-card" on:keyup={()=>{}} on:click={event => checkCard(event, item, index)} style:background-color={$backgroundColor + ''}>
             <MorminoWord word={item.word} vignette={1}/>
         </div>
     {/each}

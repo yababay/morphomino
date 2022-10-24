@@ -3,7 +3,7 @@
     import RemoveAchievement from './RemoveAchievement.svelte'
     import Subheader from '../../components/Subheader.svelte'
     import { getStageDescription } from '../../types';
-    import { getGameTime } from '../game/ticker'
+    import { getGameTime } from '../../util'
 
     function formatDate(ts: number): string{
         return new Intl.DateTimeFormat('ru-RU', {

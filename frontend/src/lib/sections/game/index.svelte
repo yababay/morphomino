@@ -4,8 +4,11 @@
     import { GameStages } from '../../types';
     import { stage, ignoreInstruction, instructionTimeout, dealTimeout } from '../../store'
     import { delayedAction } from '../../util'
+    import { startTicker } from './ticker';
     import loadLevel from '../loader';
     import Finish from './Finish.svelte'
+    import Deal from './Deal.svelte'
+    import Flow from './Flow.svelte'
     import Instruction from './Instruction.svelte'
 
     export let level: string = ''
@@ -21,7 +24,8 @@
         }
         stage.set(GameStages.DEAL)
         await delayedAction(dealTimeout)
-        stage.set(GameStages.FLOW)    
+        stage.set(GameStages.FLOW) 
+        startTicker()   
     })
 
 </script>
@@ -32,9 +36,10 @@
     {:else if $stage === GameStages.INSTRUCTION}
         <Instruction />
     {:else if $stage === GameStages.DEAL}
-        <p class="text-light">deal</p>
+        <Deal />
     {:else if $stage === GameStages.FLOW}
-        <p class="text-light">flow</p>
+        <Deal />
+        <Flow />
     {:else}
         <Finish />
     {/if}
@@ -85,6 +90,7 @@
     {/if}
     <div>&nbsp;</div>
 </div>
+-->
 
 <style>
     .game-holder {
@@ -95,4 +101,3 @@
         justify-content: space-between;
     }
 </style>
--->

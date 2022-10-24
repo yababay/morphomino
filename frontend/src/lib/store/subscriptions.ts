@@ -1,12 +1,16 @@
 import { get, type Readable, type Writable } from "svelte/store"
 import { setup as setupTicker } from '../sections/game/ticker'
-import { GameStages, gameOver } from '../types'
-import { elapsed, stage, isFullfilled, scores } from './derivatives'
-import { duration, achievements } from '../sections/settings'
+import { GameStages, gameOver, MoveStatuses, MorminoItem } from '../types'
+import { elapsed, stage, isFullfilled, scores, moves, flow, deal } from './derivatives'
+import { duration, achievements, movesAmount, dealAmount } from '../sections/settings'
 import Game from '../sections/game/index.svelte'
 import { setSvelteComponent } from "../util"
 
 const stopTicker = setupTicker(elapsed)
+
+export function randomDeal(){
+    deal.set(new Array(dealAmount).fill(0).map(()=> MorminoItem.getRandomItem()))
+}
 
 export default function(hash: Writable<string>, props: Readable<any>){
 
@@ -21,14 +25,11 @@ export default function(hash: Writable<string>, props: Readable<any>){
     })
 
     hash.subscribe(($hash: string) => {
-        document.body.style.backgroundImage = $hash.startsWith('#game') ? 'url(./img/background.png)' : null
-    })
-
-    /*
-    isFullfilled.subscribe($yes => {if($yes) stage.set(GameStages.FULFILLED)})
-
-    stage.subscribe($stage => {
-        if(gameOver($stage)) stopTicker()
+        const isGame = $hash.startsWith('#game')
+        const footer = document.querySelector('footer')
+        document.body.style.backgroundImage = isGame ? 'url(./img/background.png)' : null
+        if(isGame) footer.classList.add('text-light')
+        else footer.classList.remove('text-light')
     })
 
     elapsed.subscribe($elapsed => {
@@ -39,8 +40,16 @@ export default function(hash: Writable<string>, props: Readable<any>){
         }
     })
 
+    isFullfilled.subscribe($yes => {if($yes) stage.set(GameStages.FULFILLED)})
+
     stage.subscribe($stage => {
+        if($stage === GameStages.LOADING){
+            moves.set(new Array(get(movesAmount)).fill(MoveStatuses.FORTHCOMING))
+            flow.set([MorminoItem.getRandomItem()])
+            randomDeal()
+        }
         if(gameOver($stage)) {
+            stopTicker()
             const [won, all] = get(scores)
             const date = new Date().getTime()
             const achievement = {date, elapsed: get(elapsed), duration: get(duration), scores: won, moves: all, reason: get(stage)}
@@ -48,5 +57,4 @@ export default function(hash: Writable<string>, props: Readable<any>){
             if(Array.isArray(currentAchievements)) achievements.set([achievement, ...currentAchievements])
         }
     })
-    */
 }

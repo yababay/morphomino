@@ -1,6 +1,6 @@
 <script type="ts">
     import { derived } from 'svelte/store'
-    import { moves, role } from './flow'
+    import { moves, role } from '../../store'
     import { GamerRoles, MoveStatuses } from '../../types'
     import ProgressForth from './ProgressForth.svelte'
     import ProgressDown from './ProgressDown.svelte';
@@ -17,7 +17,7 @@
 </script>
 
 <div class="progress-holder">
-    {#each $reversed as move}
+    {#each $moves as move}
         <div class="mormino-score" style:color={getMoveColor(move)}>
             {#if $role === GamerRoles.HOST && move === MoveStatuses.HOST_IS_WON }
                 <ProgressUp />
