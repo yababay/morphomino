@@ -15,7 +15,7 @@
     if(!level && typeof $levelStore === 'string') level = $levelStore
     else levelStore.set(level)
 
-    onMount(async () => {
+    async function loadGame() {
         stage.set(GameStages.LOADING)
         await loadLevel()
         if(!$ignoreInstruction){
@@ -26,24 +26,28 @@
         await delayedAction(dealTimeout)
         stage.set(GameStages.FLOW) 
         startTicker()   
-    })
+    }
 
 </script>
 
-<div class="game-holder text-light">
-    {#if [GameStages.LOADING, GameStages.UNDEFINED].includes($stage) }
-        <p></p>
-    {:else if $stage === GameStages.INSTRUCTION}
-        <Instruction />
-    {:else if $stage === GameStages.DEAL}
-        <Deal />
-    {:else if $stage === GameStages.FLOW}
-        <Deal />
-        <Flow />
-    {:else}
-        <Finish />
-    {/if}
-</div>
+{#await loadGame() then }
+
+    <div class="game-holder text-light">
+        {#if [GameStages.LOADING, GameStages.UNDEFINED].includes($stage) }
+            <p></p>
+        {:else if $stage === GameStages.INSTRUCTION}
+            <Instruction />
+        {:else if $stage === GameStages.DEAL}
+            <Deal />
+        {:else if $stage === GameStages.FLOW}
+            <Deal />
+            <Flow />
+        {:else}
+            <Finish />
+        {/if}
+    </div>
+    
+{/await}
 <!-- 
 <script lang="ts">
     import { get } from 'svelte/store'

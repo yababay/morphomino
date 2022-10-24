@@ -43,7 +43,7 @@ export default function(hash: Writable<string>, props: Readable<any>){
     isFullfilled.subscribe($yes => {if($yes) stage.set(GameStages.FULFILLED)})
 
     stage.subscribe($stage => {
-        if($stage === GameStages.LOADING){
+        if($stage === GameStages.DEAL){
             moves.set(new Array(get(movesAmount)).fill(MoveStatuses.FORTHCOMING))
             flow.set([MorminoItem.getRandomItem()])
             randomDeal()

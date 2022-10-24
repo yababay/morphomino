@@ -6,6 +6,6 @@
 
 <Achievements />
 
-{#if MorminoItem.isLoaded()}
+<!-- {#if MorminoItem.isLoaded()}
     <PartsOfSpeech />
-{/if}
+{/if} -->
