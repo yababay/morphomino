@@ -1,10 +1,11 @@
 <script lang="ts">
     import PartsOfSpeech from './PartsOfSpeech.svelte'
     import Achievements from './Achievements.svelte'
-    import loadLevel from '../loader'
+    import { MorminoItem } from '../../types'
 </script>
 
-{#await loadLevel() then}
-    <Achievements />
+<Achievements />
+
+{#if MorminoItem.isLoaded()}
     <PartsOfSpeech />
-{/await}
+{/if}

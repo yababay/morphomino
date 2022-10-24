@@ -55,6 +55,10 @@ export default class MorminoItem {
         dictionary = dict
     }
 
+    static isLoaded(): boolean{
+        return !!dictionary
+    }
+
     static getRandomItem(): MorminoItem {
         const word = dictionary[getRandomIndex(dictionary)]
         const pos = PartOfSpeech.getRandomPos()
