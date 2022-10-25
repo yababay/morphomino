@@ -11,6 +11,7 @@ export const stage    = writable(GameStages.UNDEFINED)
 export const flow     = writable([])
 export const deal     = writable([])
 export const moves    = writable([])
+export const dictionary = writable([])
 
 export const elapsedWithUnits = derived(elapsed, $elapsed => getGameTime($elapsed, true))
 

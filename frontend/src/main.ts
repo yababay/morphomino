@@ -9,4 +9,6 @@ subscribeAll(hash)
 setupGameSection(props)
 setupComponents()
 
+hash.subscribe(()=> setTimeout(()=> window.scrollTo(0, 0), 1000))
+
 export default null

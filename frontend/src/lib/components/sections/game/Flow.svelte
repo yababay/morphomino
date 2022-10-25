@@ -1,7 +1,7 @@
 <script>
     import MorminoCard from '../../MorminoCard.svelte'
     import Progress from './Progress.svelte'
-    import { dealRandom } from '../../loader'
+    import { dealRandom } from '.'
     import { flow } from '../../../store'
     import { backgroundColor } from '../settings'
 

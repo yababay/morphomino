@@ -17,7 +17,7 @@ export function startTicker(){
     tickers.push(ticker)
 }
 
-function stopTicker(){
+export function stopTicker(){
     tickers.forEach(clearInterval)
     tickers = []
 }

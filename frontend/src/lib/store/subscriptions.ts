@@ -2,7 +2,8 @@ import { get, derived, type Readable, type Writable } from "svelte/store"
 import { setup as setupTicker } from '../components/sections/game/ticker'
 import { GameStages, gameOver } from '../types'
 import { elapsed, stage, isFullfilled, scores } from './derivatives'
-import { duration, achievements } from '.'
+import { duration, achievements, level } from '.'
+import loadLevel from '../components/loader'
 
 const stopTicker = setupTicker(elapsed)
 let isGame: Readable<boolean>
@@ -12,6 +13,8 @@ export function getIsGame(){
 }
 
 export default function(hash: Writable<string>){
+
+    level.subscribe(async $level => await loadLevel($level))
 
     isGame = derived(hash, $hash => $hash.startsWith('#game'))
 

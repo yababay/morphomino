@@ -1,22 +1,37 @@
 import { get, type Readable } from 'svelte/store'
 import { setSvelteComponent, delayedAction } from '../../../util'
-import { role, flow, moves, alert, stage, instructionTimeout, dealTimeout, ignoreInstruction } from '../../../store'
+import { 
+    role, flow, moves, alert, stage, instructionTimeout, 
+    dealTimeout, ignoreInstruction,
+    movesAmount, dealAmount, deal 
+} from '../../../store'
 import { MoveStatuses, MorminoItem, GameStages  } from '../../../types'
-import { startTicker } from './ticker'
-import loadLevel from '../../loader'
+import { startTicker, stopTicker } from './ticker'
 import Game from './index.svelte'
+
+export { stopTicker }
 
 export async function startGame(){
     stage.set(GameStages.LOADING)
-    await loadLevel()
     if(!get(ignoreInstruction)){
         stage.set(GameStages.INSTRUCTION)
         await delayedAction(instructionTimeout)
     }
+    resetMoves()
     stage.set(GameStages.DEAL)
     await delayedAction(dealTimeout)
     stage.set(GameStages.FLOW) 
     startTicker()   
+}
+
+export function dealRandom(){
+    deal.set(new Array(dealAmount).fill(0).map(()=> MorminoItem.getRandomItem()))
+}
+
+export function resetMoves(){
+    dealRandom()
+    moves.set(new Array(get(movesAmount)).fill(MoveStatuses.FORTHCOMING))
+    flow.set([MorminoItem.getRandomItem()])
 }
 
 export function makeMove(item: MorminoItem, $role = get(role)): boolean {
@@ -44,7 +59,10 @@ const gameSection = document.getElementById('game')
 export default function (propsStore: Readable<any>){
     propsStore.subscribe(arg => {
         const { target, props } = arg
-        if(target.getAttribute('id') !== 'game') return
+        if(target.getAttribute('id') !== 'game'){ 
+            stage.set(GameStages.BROKEN)
+            return
+        }
         gameSection.innerHTML = ''
         setSvelteComponent(Game, target, props)
     })

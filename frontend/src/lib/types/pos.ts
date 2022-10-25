@@ -157,7 +157,7 @@ export default class PartOfSpeech {
         statistics = stats
     }
 
-    static getStatistics(pos: PartsOfSpeech): number{
-        return statistics.filter($=> $ === pos).length
+    static getStatistics(pos: PartsOfSpeech, input = statistics): number{
+        return input.filter($=> $ === pos).length
     }
 }

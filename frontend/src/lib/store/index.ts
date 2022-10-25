@@ -50,7 +50,8 @@ const {
     isFullfilled,
     progress,
     levelClass,
-    levelNumber
+    levelNumber,
+    dictionary
 } = derivatives
 
 export { 
@@ -100,4 +101,5 @@ export {
     progress,
     levelClass,
     levelNumber,
+    dictionary
 }
