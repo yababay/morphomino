@@ -21,11 +21,12 @@
         <thead>
             <tr>
                 <th>Дата</th>
+                <th>Уровень</th>
+                <th>Длительность</th>
                 <th>Затрачено</th>
-                <th>Всего времени</th>
-                <th>Верных ответов</th>
-                <th>Всего карточек</th>
-                <th>Разультат игры</th>
+                <th>Карточек</th>
+                <th>Верных</th>
+                <th>Итог</th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
@@ -33,10 +34,11 @@
             {#each $achievements as row }
                 <tr>
                     <td>{formatDate(row.date)}</td>
-                    <td>{getGameTime(row.elapsed, true)}</td>
+                    <td>{`${row.level.replace('_', '/')}`}</td>
                     <td>{getGameTime(row.duration, true)}</td>
-                    <td>{row.scores}</td>
+                    <td>{getGameTime(row.elapsed, true)}</td>
                     <td>{row.moves}</td>
+                    <td>{row.scores}</td>
                     <td>{getStageDescription(row.reason)}</td>
                     <td><RemoveAchievement date={row.date}/></td>
                 </tr>        

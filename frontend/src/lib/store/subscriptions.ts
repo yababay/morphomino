@@ -36,11 +36,11 @@ export default function(hash: Writable<string>){
     isFullfilled.subscribe($yes => {if($yes) stage.set(GameStages.FULFILLED)})
 
     stage.subscribe($stage => {
-        if(gameOver($stage) && $stage !== GameStages.UNDEFINED) {
+        if(gameOver($stage) && $stage !== GameStages.UNDEFINED && $stage !== GameStages.BROKEN) {
             stopTicker()
             const [won, all] = get(scores)
             const date = new Date().getTime()
-            const achievement = {date, elapsed: get(elapsed), duration: get(duration), scores: won, moves: all, reason: get(stage)}
+            const achievement = {date, level: get(level), elapsed: get(elapsed), duration: get(duration), scores: won, moves: all, reason: get(stage)}
             const currentAchievements = get(achievements)
             if(Array.isArray(currentAchievements)) achievements.set([achievement, ...currentAchievements])
         }

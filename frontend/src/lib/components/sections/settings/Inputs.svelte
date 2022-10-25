@@ -8,7 +8,7 @@
     
     import Levels from './Levels.svelte'
     
-    const durationInMinutes = derived(duration, $duration => typeof $duration === 'number' && Math.floor($duration / 60))
+    const durationInMinutes = derived(duration, $duration => Math.floor($duration / 60))
 </script>
 
 <div class="card settings-holder">
@@ -35,6 +35,7 @@
                 class="form-range" 
                 min={moveAmountMin} max={moveAmountMax} step={moveAmountStep} 
                 on:change={e => movesAmount.set(e.target instanceof HTMLInputElement && e.target.value)}
+                value={$movesAmount}
             >
         </div>
         <div class="form-check form-switch mt-3">
