@@ -26,8 +26,10 @@ export default function(hash: Writable<string>){
     })
 
     elapsed.subscribe($elapsed => {
-        const $duration = get(duration)
-        if(typeof $duration === 'number' && $elapsed > $duration){
+        let $duration = get(duration)
+        if(typeof $duration !== 'number') return
+        $duration = Math.floor($duration / 60) * 60
+        if($elapsed > $duration){
             elapsed.set($duration)
             stage.set(GameStages.TIMEOUT)
         }

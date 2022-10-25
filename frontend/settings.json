@@ -1,5 +1,5 @@
 {
-    "version": "1.0.5",
+    "version": "1.0.6",
     "versionKey": "mormino.version",
     "dealAmount": 8,
     "instructionTimeout": 3000, 
@@ -9,7 +9,7 @@
     "moveAmountStep": 10,
     "durationMin": 60,
     "durationMax": 600,
-    "durationStep": 10,
+    "durationStep": 60,
     "vignetteVariantKey": "mormino.vignette-variant",
     "backgroundColorKey": "mormino.background-color",
     "backgroundColorDefault": "#000000",
