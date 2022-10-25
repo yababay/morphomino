@@ -1,6 +1,6 @@
 import './assets/index.css'
 import setupComponents from './lib/components'
-import setupRouter from '@yababay67/svelte-hash-router-ts'
+import setupRouter from './lib/router'
 import setupGameSection from './lib/components/sections/game'
 import subscribeAll from './lib/store/subscriptions'
 
